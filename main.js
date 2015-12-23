@@ -23,7 +23,7 @@ comingSoonEl.style.width = '100%';
 
 
 var resizePages = function(ignoreChecks) {
-  if (ignoreChecks || mobileAndTabletCheck()) {
+  if (ignoreChecks || !mobileAndTabletCheck()) {
     var pageOneEl = document.getElementsByClassName('cuiffo-page')[0];
     pageOneEl.style.height = windowHeight + 'px';
   }
