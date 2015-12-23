@@ -15,11 +15,7 @@ comingSoonEl.style.width = '100%';
 
 windowHeight = window.innerHeight;
 windowWidth = window.innerWidth;
-var handleResize = function(e) {
-  // Don't do anything if the width hasn't changed.
-  if (e && windowWidth === window.innerWidth) {
-    return;
-  }
+var handleResize = function() {
   windowHeight = window.innerHeight;
   windowWidth = window.innerWidth;
   
