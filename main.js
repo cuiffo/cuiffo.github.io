@@ -1,4 +1,3 @@
-
 var getScrollPosition = function() {
   return document.documentElement.scrollTop ||
       document.body.scrollTop;
