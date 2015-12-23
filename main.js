@@ -87,3 +87,4 @@ window.setInterval(tickAnimation, 25);
 
 window.onresize = handleResize;
 window.onscroll = handleScroll;
+document.ontouchmove = handleScroll;
