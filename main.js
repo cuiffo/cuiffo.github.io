@@ -22,14 +22,16 @@ var origComingSoon = comingSoonEl.clientWidth;
 comingSoonEl.style.width = '100%';
 
 
-var resizePages = function() {
-  var pageOneEl = document.getElementsByClassName('cuiffo-page')[0];
-  pageOneEl.style.height = windowHeight + 'px';
+var resizePages = function(ignoreChecks) {
+  if (ignoreChecks || mobileAndTabletCheck()) {
+    var pageOneEl = document.getElementsByClassName('cuiffo-page')[0];
+    pageOneEl.style.height = windowHeight + 'px';
+  }
 
   var pageTwoEl = document.getElementsByClassName('cuiffo-page')[1];
   pageTwoEl.style.height = windowHeight + 'px';
 };
-resizePages();
+resizePages(true);
 
 var handleResize = function() {
   windowHeight = window.innerHeight;
@@ -58,9 +60,7 @@ var handleResize = function() {
       windowHeight / 2 - comingSoonHeight / 2 + 'px';
       
   // Only resize sizes of pages if not on mobile.
-  if (!mobileAndTabletCheck()) {
-    resizePages();
-  }
+  resizePages(false);
 };
 handleResize();
 
