@@ -47,6 +47,32 @@
       .cuiffo-page-two {
         background-color: #535354;
       }
+      
+      .cuiffo-page-selector {
+        position: fixed;
+        right: 0;
+        top: 0;
+      }
+      
+      .cuiffo-page-dot {
+        cursor: pointer;
+        -webkit-transition: transform 200ms ease-out;
+        -moz-transition: transform 200ms ease-out;
+        -o-transition: transform 200ms ease-out;
+        transition: transform 200ms ease-out;
+        background-color: white;
+        height: 10px;
+        width: 10px;
+        margin: 5px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        -khtml-border-radius: 10px;
+      }
+      
+      .cuiffo-page-dot-active {
+        transform: scale(1.4);
+      }
     </style>
   </head>
   <body>
@@ -59,6 +85,10 @@
         <div class="cuiffo-page-title">
           More info coming soon
         </div>
+    </div>
+    <div class="cuiffo-page-selector">
+      <div class="cuiffo-page-dot cuiffo-page-dot-active"></div>
+      <div class="cuiffo-page-dot"></div>
     </div>
     <script src="main.js"></script>
   </body>
