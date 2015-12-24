@@ -38,7 +38,7 @@ var handleResize = function() {
   windowWidth = window.innerWidth;
   
   // Set size of the first page text.
-  var maxTextWidth = 600;
+  var maxTextWidth = 550;
   var minTextWidth = 100;
   var textWidth = Math.min(maxTextWidth, 
       Math.max(windowWidth - 20, minTextWidth));
@@ -47,7 +47,7 @@ var handleResize = function() {
   splashHeight = splashTextEl.clientHeight;
   
   // Set size of the second page text.
-  var maxTextWidth = 800;
+  var maxTextWidth = 550;
   var minTextWidth = 100;
   var textWidth = Math.min(maxTextWidth, 
       Math.max(windowWidth - 20, minTextWidth));
@@ -64,22 +64,21 @@ var handleResize = function() {
 };
 handleResize();
 
-var bottomToSet = 0;
+var percentThroughPage = 0;
 var isUpdated = false;
 var handleScroll = function() {
   var position = getScrollPosition();
+  percentThroughPage = position / windowHeight;
   
-  var percentThroughPage = position / windowHeight;
-  var range = splashHeight + 20;
-  
-  bottomToSet = -(percentThroughPage * range) + 20 + 'px';
   isUpdated = true;
 };
 handleScroll();
 
 var tickAnimation = function() {
   if (isUpdated) {
-    splashTextEl.style.bottom = bottomToSet;
+    var range = splashHeight + 30;
+    splashTextEl.style.bottom = -(percentThroughPage * range) + 30 + 'px';
+    splashTextEl.style.opacity = Math.max(1 - percentThroughPage, 0);
     isUpdated = false;
   }
 };
