@@ -78,8 +78,8 @@ var handleResize = function() {
       windowHeight / 2 - comingSoonHeight / 2 + 'px';
       
   // Center the page selector vertically.
-  var pagerHeight = pager.clientHeight;
-  pager.style.top = windowHeight / 2 - pagerHeight / 2 + 'px';
+ // var pagerHeight = pager.clientHeight;
+ // pager.style.top = windowHeight / 2 - pagerHeight / 2 + 'px';
       
   // Only resize sizes of pages if not on mobile.
   resizePages(false);
@@ -152,7 +152,7 @@ var startTextAnimation = function() {
 
 
 var easeScrollCurTime = 0;
-var easeScrollTotalTime = 200;
+var easeScrollTotalTime = 500;
 var easeScrollPositionStart = 0;
 var easeScrollPositionEnd = 0;
 var lastStartScroll = 0;
