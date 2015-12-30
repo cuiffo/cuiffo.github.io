@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Glegoo:700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      .cuiffo-page {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cuiffo-page-one {
+        background: url('https://cdn.pbrd.co/images/fJvrr7j.jpg') no-repeat 50% 50% fixed;
+        background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        -webkit-background-size: cover;
+      }
+      
+      .cuiffo-page-title {
+        font-family: 'Righteous', sans-serif;
+        position: absolute;
+        text-align: center;
+        color: white;
+      }
+      
+      .cuiffo-page-one .cuiffo-page-title {
+        bottom: 30px;
+/*        -webkit-transition: transform 50ms ease-out;
+        -moz-transition: transform 50ms ease-out;
+        -o-transition: transform 50ms ease-out;
+        transition: transform 50ms ease-out; */
+      }
+      
+      .cuiffo-page-two {
+        background-color: #535354;
+      }
+      
+      .cuiffo-page-selector {
+        left: 50%;
+        transform: translateX(-50%);
+        position: fixed;
+        top: 0;
+      }
+      
+      .cuiffo-page-dot {
+        display: inline-block;
+        cursor: pointer;
+        -webkit-transition: transform 200ms ease-out;
+        -moz-transition: transform 200ms ease-out;
+        -o-transition: transform 200ms ease-out;
+        transition: transform 200ms ease-out;
+        background-color: white;
+        height: 10px;
+        width: 10px;
+        margin: 5px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        -khtml-border-radius: 10px;
+      }
+      
+      .cuiffo-page-dot-active {
+        transform: scale(1.4);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cuiffo-page cuiffo-page-one">
+        <div class="cuiffo-page-title">
+          October 16, 2016
+        </div>
+    </div>
+    <div class="cuiffo-page cuiffo-page-two">
+        <div class="cuiffo-page-title">
+          More info coming soon
+        </div>
+    </div>
+    <div class="cuiffo-page-selector">
+      <div class="cuiffo-page-dot cuiffo-page-dot-active"></div>
+      <div class="cuiffo-page-dot"></div>
+    </div>
+    <script src="compiled/main.js"></script>
+  </body>
+</html>
