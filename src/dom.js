@@ -26,4 +26,4 @@ cuiffo.dom.addEventListener = function(element, type, callback, opt_isCapturing)
 	} else {
     element.attachEvent(ieType, callback);
 	}
-}
+};
