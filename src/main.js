@@ -1,4 +1,4 @@
-cuiffo = cuiffo || {};
+var cuiffo = cuiffo || {};
 
 
 
@@ -140,7 +140,7 @@ var createPageDots = function() {
   for (var i = 0; i < pageDots.length; i++) {
     var dotEl = pageDots[i];
     var page = pages[i];
-    dotEl.onclick = scrollToElement(page);
+    cuiffo.dom.addEventListener(dotEl, 'click', scrollToElement(page));
   }
 };
 createPageDots();
@@ -194,7 +194,6 @@ window.setInterval(tickAnimation, 20);
 
 // Handle resizing and scrolling, but also handle touchmove to make scrolling
 // more smooth on mobile.
-window.onresize = handleResize;
-window.onscroll = handleScroll;
-document.ontouchmove = handleScroll;
-
+cuiffo.dom.addEventListener(window, 'resize', handleResize);
+cuiffo.dom.addEventListener(window, 'scroll', handleScroll);
+cuiffo.dom.addEventListener(window, 'touchmove', handleScroll);
