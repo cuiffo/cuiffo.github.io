@@ -26,7 +26,6 @@ var updateActivePage = function() {
   var activePage = Math.min(Math.round(percentThroughPage), 1);
   dots[activePage].classList.add('cuiffo-page-dot-active');
   for (var i = 0; i <= 1; i++) {
-  console.log(activePage + ' ' + i);
     if (activePage !== i) {
       dots[i].classList.remove('cuiffo-page-dot-active');
     }

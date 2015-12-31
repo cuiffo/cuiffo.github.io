@@ -8,4 +8,4 @@ js:
 	java -jar compiler.jar --js ${modules} --js_output_file public/main.min.js
 	cat ${modules} > public/main.js
 clean:
-	rm public/main.min.js public/main.js
+	rm main.min.js main.js
