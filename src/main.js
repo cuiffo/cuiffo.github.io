@@ -99,8 +99,8 @@ var setCssTransform = function(element, value) {
   element.style.transform = value;
 };
 
-var easeCurTime = 0;
-var easeTotalTime = 150;
+var TEXT_ANIM_DURATION = 150;
+var textAnimEndTime = 0;
 var easeStartPosition = 0;
 var easeEndPosition = 0;
 var lastStartPosition = 0;
@@ -108,15 +108,15 @@ var lastStartPosition = 0;
 
 var startTextAnimation = function() {
   easeStartPosition = lastStartPosition;
-  easeCurTime = 0;
+  textAnimEndTime = new Date().getTime() + TEXT_ANIM_DURATION;
   var range = splashHeight + 30;
   easeEndPosition = percentThroughPage * range;
   isAnimatingText = true;
 };
 
 
-var easeScrollCurTime = 0;
-var easeScrollTotalTime = 500;
+var SCROLL_ANIM_DURATION = 500;
+var easeScrollEndTime = 0;
 var easeScrollPositionStart = 0;
 var easeScrollPositionEnd = 0;
 var lastStartScroll = 0;
@@ -127,7 +127,7 @@ var scrollToElement = function(element) {
     var scrollTo = element.offsetTop;
     easeScrollPositionEnd = scrollTo;
     isAnimatingScroll = true;
-    easeScrollCurTime = 0;
+    easeScrollEndTime = new Date().getTime() + SCROLL_ANIM_DURATION;
     var top = cuiffo.dom.getScrollPosition();
     easeScrollPositionStart = top;
     lastStartScroll = top;
@@ -146,6 +146,7 @@ var createPageDots = function() {
 createPageDots();
 
 var tickAnimation = function() {
+  var currentTime = new Date().getTime();
   if (isUpdated) {
     startTextAnimation();
     splashTextEl.style.opacity = Math.max(1 - percentThroughPage, 0);
@@ -153,17 +154,16 @@ var tickAnimation = function() {
   }
   
   if (isAnimatingText) {
-
-    easeCurTime += 20;
-    if (easeCurTime > easeTotalTime) {
+    if (currentTime > textAnimEndTime) {
       lastStartPosition = easeEndPosition;
       isAnimatingText = false;
     } else {
+      var startTime = textAnimEndTime - TEXT_ANIM_DURATION;
       var calc = cuiffo.math.easeOutQuad(
-          easeCurTime,
+          currentTime - startTime,
           easeStartPosition,
           easeEndPosition - easeStartPosition,
-          easeTotalTime);
+          TEXT_ANIM_DURATION);
       lastStartPosition = calc;
     }
     var opacity = 1 - (lastStartPosition / (splashHeight + 30));
@@ -172,19 +172,19 @@ var tickAnimation = function() {
   }
   
   if (isAnimatingScroll) {
-    easeScrollCurTime += 20;
-    if (easeScrollCurTime > easeScrollTotalTime) {
+    if (currentTime > easeScrollEndTime) {
       lastStartScroll = easeScrollPositionEnd;
       isAnimatingScroll = false;
       percentThroughPage = cuiffo.dom.getScrollPosition() / cuiffo.dom.getWindowHeight();
       startTextAnimation();
       updateActivePage();
     } else {
+      var startTime = easeScrollEndTime - SCROLL_ANIM_DURATION;
       var calc = cuiffo.math.easeInOutQuad(
-          easeScrollCurTime,
+          currentTime - startTime,
           easeScrollPositionStart,
           easeScrollPositionEnd - easeScrollPositionStart,
-          easeScrollTotalTime);
+          SCROLL_ANIM_DURATION);
       lastStartScroll = calc;
     }
     window.scrollTo(0, lastStartScroll);
@@ -217,18 +217,21 @@ var handleTouchMove = function(e) {
   var yDiff = yDown - yUp;
 
   if (Math.abs(xDiff) < Math.abs(yDiff)) {
-    var nextPage;
-    if (yDiff > 0) {
+    if (yDiff > 10) {
       var nextPage = Math.min(activePage + 1, pages.length - 1);
-    } else {
+      scrollToElement(pages[nextPage])();
+      updateActivePage();
+      xDown = null;
+      yDown = null; 
+    } else if (yDiff < -10) {
       var nextPage = Math.max(activePage - 1, 0);
+      scrollToElement(pages[nextPage])();
+      updateActivePage();
+      xDown = null;
+      yDown = null; 
     }
-    scrollToElement(pages[nextPage])();
-    updateActivePage();
   }
-  /* reset values */
-  xDown = null;
-  yDown = null;               
+
   return false;
 };
 
