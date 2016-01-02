@@ -4,6 +4,10 @@ modules = ${src}requestAnimationFrame.js\
 					${src}foreachpolyfill.js\
 					${src}math.js\
 					${src}dom.js\
+					${src}animator.js\
+					${src}titleAnimation.js\
+					${src}pageAnimation.js\
+					${src}pages.js\
 					${src}main.js
 
 js:

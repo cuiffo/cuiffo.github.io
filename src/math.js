@@ -15,3 +15,9 @@ cuiffo.math.easeInOutQuad = function (t, b, c, d) {
 	t--;
 	return -c/2 * (t*(t-2) - 1) + b;
 };
+
+
+cuiffo.math.Rect = function(height, width) {
+  this.height = height;
+  this.width = width;
+};

@@ -56,3 +56,15 @@ if (!Array.prototype.forEach) {
     // 8. return undefined
   };
 }
+
+
+// Also some more polyfill on Array.from
+if (!Array.from) {
+  Array.from = function(arraylike) {
+    var arr = [];
+    for (var i = 0; i < arraylike.length; i++) {
+      arr.push(arraylike[i]);
+    }
+    return arr;
+  }
+}

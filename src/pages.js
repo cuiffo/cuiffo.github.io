@@ -1,50 +1,66 @@
 var cuiffo = cuiffo || {};
 
 
+(function() {
 
-cuiffo.Pages = function(elements) {
-	this.elements = elements;
-	this.numPages = elements.lenth;
+cuiffo.Pages = function() {
+  this.elements = Array.from(document.getElementsByClassName('cuiffo-page'));
+	this.numPages = this.elements.length;
 	this.currentPage = 0;
 	this.xDown = null;
 	this.yDown = null;
 	this.activePage = -1;
 
-	cuiffo.dom.addEventListener(window, 'resize', this.handleResize);
-	cuiffo.dom.addEventListener(window, 'scroll', this.handleScroll);
-	cuiffo.dom.addEventListener(document, 'touchstart', this.handleTouchStart, false);        
-	cuiffo.dom.addEventListener(document, 'touchmove', this.handleTouchMove, false);
+  var handleTouchStart = this.handleTouchStart.bind(this);
+  var handleTouchMove = this.handleTouchMove.bind(this);
+	cuiffo.dom.addEventListener(document, 'touchstart', handleTouchStart, false);        
+	cuiffo.dom.addEventListener(document, 'touchmove', handleTouchMove, false);
 
 	this.createPageDots();
 };
 
 
-cuiffo.Page.prototype.resizePages = function() {
+cuiffo.Pages.getInstance = function() {
+  cuiffo.Pages.__instance__ =
+      cuiffo.Pages.__instance__ || new cuiffo.Pages();
+  return cuiffo.Pages.__instance__;
+};
+
+
+cuiffo.Pages.prototype.resizePages = function() {
 	this.elements.forEach(function(pageEl) {
 		pageEl.style.height = cuiffo.dom.getWindowHeight() + 'px';
 	});
 };
 
 
-cuiffo.Page.prototype.createPageDots = function() {
+cuiffo.Pages.prototype.createPageDots = function() {
 	var pageDotsContainer = document.getElementsByClassName('cuiffo-page-selector')[0];
   for (var i = 0; i < this.numPages; i++) {
   	var dotEl = document.createElement('div');
   	dotEl.className += ' cuiffo-page-dot';
-  	pagesDotsContainer.appendChild(dotEl);
-    cuiffo.dom.addEventListener(dotEl, 'click', this.scrollToPage(i));
+  	pageDotsContainer.appendChild(dotEl);
+    var pageEl = this.elements[i];
+    cuiffo.dom.addEventListener(dotEl, 'click', this.handleDotClick(pageEl));
   }
 };
 
 
-cuiffo.Page.prototype.handleTouchStart = function(e) {
-    this.xDown = e.touches[0].clientX;
-    this.yDown = e.touches[0].clientY;
-    e.preventDefault();
+cuiffo.Pages.prototype.handleDotClick = function(element) {
+  return function() {
+    cuiffo.PageAnimation.getInstance().scrollToElement(element);
+  }
 };
 
 
-cuiffo.Page.prototype.handleTouchMove = function(e) {
+cuiffo.Pages.prototype.handleTouchStart = function(e) {
+  this.xDown = e.touches[0].clientX;
+  this.yDown = e.touches[0].clientY;
+  e.preventDefault();
+};
+
+
+cuiffo.Pages.prototype.handleTouchMove = function(e) {
   e.preventDefault();
   if (!this.xDown || !this.yDown) {
     return false;
@@ -58,14 +74,16 @@ cuiffo.Page.prototype.handleTouchMove = function(e) {
   if (Math.abs(xDiff) < Math.abs(yDiff)) {
     if (yDiff > 10) {
       var nextPage = Math.min(this.activePage + 1, pages.length - 1);
-      this.scrollToPage(nextPage);
-      updateActivePage();
+      cuiffo.PageAnimation.getInstance().scrollToPage(
+          this.elements[nextPage]);
+      this.updateActivePage();
       this.xDown = null;
       this.yDown = null; 
     } else if (yDiff < -10) {
       var nextPage = Math.max(this.activePage - 1, 0);
-      this.scrollToPage(nextPage);
-      updateActivePage();
+      cuiffo.PageAnimation.getInstance().scrollToElement(
+          this.elements[nextPage]);
+      this.updateActivePage();
       this.xDown = null;
       this.yDown = null; 
     }
@@ -75,9 +93,10 @@ cuiffo.Page.prototype.handleTouchMove = function(e) {
 };
 
 
-
-var updateActivePage = function() {
+cuiffo.Pages.prototype.updateActivePage = function() {
 	var dotElements = document.getElementsByClassName('cuiffo-page-dot');
+  var positionInPage = cuiffo.dom.getScrollPosition();
+  var percentThroughPage = positionInPage / cuiffo.dom.getWindowHeight();
   this.activePage = Math.min(Math.round(percentThroughPage), 1);
   dotElements[this.activePage].classList.add('cuiffo-page-dot-active');
   for (var i = 0; i <= 1; i++) {
@@ -87,7 +106,4 @@ var updateActivePage = function() {
   }
 };
 
-
-cuiffo.Page.prototype.scrollToPage = function(pageIndex) {
-	cuiffo.dom.scrollToElement(this.elements[pageIndex]);
-};
+})();
