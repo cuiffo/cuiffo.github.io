@@ -235,8 +235,10 @@ var tickAnimation = function() {
       isAnimatingText = false;
     } else {
       var startTime = textAnimEndTime - TEXT_ANIM_DURATION;
+      // The text should always be moving, boost the current time if it's low.
+      var timeDiff = Math.max(currentTime - startTime, 20);
       var calc = cuiffo.math.easeOutQuad(
-          currentTime - startTime,
+          timeDiff,
           easeStartPosition,
           easeEndPosition - easeStartPosition,
           TEXT_ANIM_DURATION);
