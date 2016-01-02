@@ -1,6 +1,7 @@
 src = src/
 
-modules = ${src}math.js\
+modules = ${src}requestAnimationFrame.js\
+					${src}math.js\
 					${src}dom.js\
 					${src}main.js
 

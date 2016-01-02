@@ -189,8 +189,10 @@ var tickAnimation = function() {
     }
     window.scrollTo(0, lastStartScroll);
   }
+
+  window.requestAnimationFrame(tickAnimation);
 };
-window.setInterval(tickAnimation, 20);
+window.requestAnimationFrame(tickAnimation);
 
 
 var xDown = null;
