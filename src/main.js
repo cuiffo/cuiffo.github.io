@@ -99,7 +99,7 @@ var setCssTransform = function(element, value) {
   element.style.transform = value;
 };
 
-var TEXT_ANIM_DURATION = 150;
+var TEXT_ANIM_DURATION = 200;
 var textAnimEndTime = 0;
 var easeStartPosition = 0;
 var easeEndPosition = 0;
@@ -146,6 +146,7 @@ var createPageDots = function() {
 createPageDots();
 
 var tickAnimation = function() {
+  // Note: Cannot use the passed in argument for currentTime 
   var currentTime = new Date().getTime();
   if (isUpdated) {
     startTextAnimation();
