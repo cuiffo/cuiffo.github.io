@@ -58,6 +58,7 @@ comingSoonEl.style.width = '100%';
 
 
 var pages = document.getElementsByClassName('cuiffo-page');
+var activePage = -1;
 var resizePages = function() {
   var pageOneEl = pages[0];
   pageOneEl.style.height = cuiffo.dom.getWindowHeight() + 'px';
@@ -68,7 +69,7 @@ var resizePages = function() {
 resizePages();
 
 var updateActivePage = function() {
-  var activePage = Math.min(Math.round(percentThroughPage), 1);
+  activePage = Math.min(Math.round(percentThroughPage), 1);
   dots[activePage].classList.add('cuiffo-page-dot-active');
   for (var i = 0; i <= 1; i++) {
     if (activePage !== i) {
@@ -236,8 +237,48 @@ var tickAnimation = function() {
 };
 window.setInterval(tickAnimation, 20);
 
+
+var xDown = null;
+var yDown = null;
+
+var handleTouchStart = function(e) {
+    xDown = e.touches[0].clientX;
+    yDown = e.touches[0].clientY;
+    e.preventDefault();
+};
+
+var handleTouchMove = function(e) {
+  e.preventDefault();
+  if (!xDown || !yDown) {
+    return false;
+  }
+
+  var xUp = e.touches[0].clientX;
+  var yUp = e.touches[0].clientY;
+
+  var xDiff = xDown - xUp;
+  var yDiff = yDown - yUp;
+
+  if (Math.abs(xDiff) < Math.abs(yDiff)) {
+    var nextPage;
+    if (yDiff > 0) {
+      var nextPage = Math.min(activePage + 1, pages.length - 1);
+    } else {
+      var nextPage = Math.max(activePage - 1, 0);
+    }
+    scrollToElement(pages[nextPage])();
+    updateActivePage();
+  }
+  /* reset values */
+  xDown = null;
+  yDown = null;               
+  return false;
+};
+
+
 // Handle resizing and scrolling, but also handle touchmove to make scrolling
 // more smooth on mobile.
 cuiffo.dom.addEventListener(window, 'resize', handleResize);
 cuiffo.dom.addEventListener(window, 'scroll', handleScroll);
-cuiffo.dom.addEventListener(window, 'touchmove', handleScroll);
+cuiffo.dom.addEventListener(document, 'touchstart', handleTouchStart, false);        
+cuiffo.dom.addEventListener(document, 'touchmove', handleTouchMove, false);
