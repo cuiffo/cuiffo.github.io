@@ -19,6 +19,15 @@ cuiffo.dom.getWindowWidth = function() {
 };
 
 
+cuiffo.dom.setCssTransform = function(element, value) {
+  element.style.webkitTransform = value;
+  element.style.MozTransform = value;
+  element.style.msTransform = value;
+  element.style.OTransform = value;
+  element.style.transform = value;
+};
+
+
 cuiffo.dom.addEventListener = function(element, type, callback, opt_isCapturing) {
 	var ieType = 'on' + type;
 	if (element.addEventListener) {

@@ -245,3 +245,10 @@ cuiffo.dom.addEventListener(window, 'resize', handleResize);
 cuiffo.dom.addEventListener(window, 'scroll', handleScroll);
 cuiffo.dom.addEventListener(document, 'touchstart', handleTouchStart, false);        
 cuiffo.dom.addEventListener(document, 'touchmove', handleTouchMove, false);
+
+
+var init = function() {
+  var pageElements = document.getElementsByClassName('cuiffo-page');
+  var pages = new cuiffo.Pages(pageElements);
+};
+init();
