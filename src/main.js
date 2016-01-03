@@ -7,9 +7,8 @@ var origComingSoonSize;
 var positionInPage;
 
 var handleResize = function() {
-  var pageTitles = document.getElementsByClassName('cuiffo-page-title');
-  var splashTextEl = pageTitles[0];
-  var comingSoonEl = pageTitles[1];
+  var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
+  var comingSoonEl = document.getElementsByClassName('cuiffo-page-cented-text')[0];
   
   // Set size of the first page text.
   var maxTextWidth = 550;
@@ -52,10 +51,12 @@ var handleScroll = function(e) {
 
 
 var init = function() {
+  var splashContainer = document.getElementsByClassName('cuiffo-page-title-container')[0];
   var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
-  var comingSoonEl = document.getElementsByClassName('cuiffo-page-title')[1];
+  var comingSoonEl = document.getElementsByClassName('cuiffo-page-cented-text')[0];
   origSplashSize = cuiffo.dom.getSize(splashTextEl);
   origComingSoonSize = cuiffo.dom.getSize(comingSoonEl);
+  splashContainer.style.width = '100%';
   splashTextEl.style.width = '100%';
   comingSoonEl.style.width = '100%';
 

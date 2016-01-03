@@ -350,7 +350,7 @@ cuiffo.TitleAnimation.prototype.handleScroll = function() {
   animator.cancelAnimation(this.HASH);
   this.easeStartPosition = this.lastStartPosition;
   this.textAnimEndTime = new Date().getTime() + this.TEXT_ANIM_DURATION;
-  var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
+  var splashTextEl = document.getElementsByClassName('cuiffo-page-title-container')[0];
   var range = splashTextEl.clientHeight + 30;
   var positionInPage = cuiffo.dom.getScrollPosition();
   this.easeEndPosition = (positionInPage / cuiffo.dom.getWindowHeight()) * range;
@@ -375,7 +375,7 @@ cuiffo.TitleAnimation.prototype.textAnimationFn = function(currentTime) {
         this.TEXT_ANIM_DURATION);
     this.lastStartPosition = calc;
   }
-  var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
+  var splashTextEl = document.getElementsByClassName('cuiffo-page-title-container')[0];
   var opacity = 1 - (this.lastStartPosition / (splashTextEl.clientHeight + 30));
   splashTextEl.style.opacity = Math.max(opacity, 0);
   cuiffo.dom.setCssTransform(splashTextEl, 'translateY(' + this.lastStartPosition + 'px)');
@@ -564,9 +564,8 @@ var origComingSoonSize;
 var positionInPage;
 
 var handleResize = function() {
-  var pageTitles = document.getElementsByClassName('cuiffo-page-title');
-  var splashTextEl = pageTitles[0];
-  var comingSoonEl = pageTitles[1];
+  var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
+  var comingSoonEl = document.getElementsByClassName('cuiffo-page-cented-text')[0];
   
   // Set size of the first page text.
   var maxTextWidth = 550;
@@ -609,10 +608,12 @@ var handleScroll = function(e) {
 
 
 var init = function() {
+  var splashContainer = document.getElementsByClassName('cuiffo-page-title-container')[0];
   var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
-  var comingSoonEl = document.getElementsByClassName('cuiffo-page-title')[1];
+  var comingSoonEl = document.getElementsByClassName('cuiffo-page-cented-text')[0];
   origSplashSize = cuiffo.dom.getSize(splashTextEl);
   origComingSoonSize = cuiffo.dom.getSize(comingSoonEl);
+  splashContainer.style.width = '100%';
   splashTextEl.style.width = '100%';
   comingSoonEl.style.width = '100%';
 

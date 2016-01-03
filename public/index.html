@@ -2,10 +2,8 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Glegoo:700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <style>
       body, html {
         margin: 0;
@@ -29,19 +27,35 @@
         -webkit-background-size: cover;
       }
       
-      .cuiffo-page-title {
+      .cuiffo-page-title-container {
+        font-family: 'Righteous', sans-serif;
+        position: absolute;
+        text-align: center;
+        color: white;
+      }
+
+      .cuiffo-page-cented-text {
         font-family: 'Righteous', sans-serif;
         position: absolute;
         text-align: center;
         color: white;
       }
       
-      .cuiffo-page-one .cuiffo-page-title {
-        bottom: 30px;
-/*        -webkit-transition: transform 50ms ease-out;
-        -moz-transition: transform 50ms ease-out;
-        -o-transition: transform 50ms ease-out;
-        transition: transform 50ms ease-out; */
+      .cuiffo-page-one .cuiffo-page-title-container {
+        bottom: 10px;
+      }
+
+      .cuiffo-bounce {
+        -webkit-animation: bounce 2s infinite;
+      }
+
+      @-webkit-keyframes bounce {
+        0% {
+          transform: scale(1.2);
+        }
+        50% {
+          transorm: scale(1.0);
+        }
       }
       
       .cuiffo-page-two {
@@ -79,12 +93,15 @@
   </head>
   <body>
     <div class="cuiffo-page cuiffo-page-one">
+      <div class="cuiffo-page-title-container">
         <div class="cuiffo-page-title">
           October 16, 2016
         </div>
+        <i class="fa fa-caret-down fa-3x cuiffo-bounce"></i>
+      </div>
     </div>
     <div class="cuiffo-page cuiffo-page-two">
-        <div class="cuiffo-page-title">
+        <div class="cuiffo-page-cented-text">
           More info coming soon
         </div>
     </div>

@@ -26,7 +26,7 @@ cuiffo.TitleAnimation.prototype.handleScroll = function() {
   animator.cancelAnimation(this.HASH);
   this.easeStartPosition = this.lastStartPosition;
   this.textAnimEndTime = new Date().getTime() + this.TEXT_ANIM_DURATION;
-  var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
+  var splashTextEl = document.getElementsByClassName('cuiffo-page-title-container')[0];
   var range = splashTextEl.clientHeight + 30;
   var positionInPage = cuiffo.dom.getScrollPosition();
   this.easeEndPosition = (positionInPage / cuiffo.dom.getWindowHeight()) * range;
@@ -51,7 +51,7 @@ cuiffo.TitleAnimation.prototype.textAnimationFn = function(currentTime) {
         this.TEXT_ANIM_DURATION);
     this.lastStartPosition = calc;
   }
-  var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
+  var splashTextEl = document.getElementsByClassName('cuiffo-page-title-container')[0];
   var opacity = 1 - (this.lastStartPosition / (splashTextEl.clientHeight + 30));
   splashTextEl.style.opacity = Math.max(opacity, 0);
   cuiffo.dom.setCssTransform(splashTextEl, 'translateY(' + this.lastStartPosition + 'px)');
