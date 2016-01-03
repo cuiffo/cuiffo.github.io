@@ -521,8 +521,8 @@ cuiffo.Pages.prototype.handleTouchMove = function(e) {
 
   if (Math.abs(xDiff) < Math.abs(yDiff)) {
     if (yDiff > 10) {
-      var nextPage = Math.min(this.activePage + 1, pages.length - 1);
-      cuiffo.PageAnimation.getInstance().scrollToPage(
+      var nextPage = Math.min(this.activePage + 1, this.numPages - 1);
+      cuiffo.PageAnimation.getInstance().scrollToElement(
           this.elements[nextPage]);
       this.updateActivePage();
       this.xDown = null;
