@@ -1,6 +1,7 @@
 cuiffo = cuiffo || {};
 
 
+
 (function() {
 
 cuiffo.TitleAnimation = function() {
@@ -56,6 +57,5 @@ cuiffo.TitleAnimation.prototype.textAnimationFn = function(currentTime) {
   cuiffo.dom.setCssTransform(splashTextEl, 'translateY(' + this.lastStartPosition + 'px)');
   return isComplete;
 };
-
 
 })();

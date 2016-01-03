@@ -29,7 +29,7 @@ cuiffo.Animator.prototype.startAnimation = function(callback, hash) {
 
 cuiffo.Animator.prototype.cancelAnimation = function(hash) {
   delete this.callbacks[hash];
-}
+};
 
 
 cuiffo.Animator.prototype.tick = function() {

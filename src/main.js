@@ -4,7 +4,6 @@ var cuiffo = cuiffo || {};
 
 var origSplashSize;
 var origComingSoonSize;
-
 var positionInPage;
 
 var handleResize = function() {
