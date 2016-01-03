@@ -302,7 +302,7 @@ cuiffo.Animator.prototype.startAnimation = function(callback, hash) {
 
 cuiffo.Animator.prototype.cancelAnimation = function(hash) {
   delete this.callbacks[hash];
-}
+};
 
 
 cuiffo.Animator.prototype.tick = function() {
@@ -323,6 +323,7 @@ cuiffo.Animator.prototype.tick = function() {
 
 })();
 cuiffo = cuiffo || {};
+
 
 
 (function() {
@@ -380,7 +381,6 @@ cuiffo.TitleAnimation.prototype.textAnimationFn = function(currentTime) {
   cuiffo.dom.setCssTransform(splashTextEl, 'translateY(' + this.lastStartPosition + 'px)');
   return isComplete;
 };
-
 
 })();
 cuiffo = cuiffo || {};
@@ -561,7 +561,6 @@ var cuiffo = cuiffo || {};
 
 var origSplashSize;
 var origComingSoonSize;
-
 var positionInPage;
 
 var handleResize = function() {
