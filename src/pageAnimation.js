@@ -5,12 +5,14 @@ cuiffo = cuiffo || {};
 
 
 cuiffo.PageAnimation = function() {
+  this.HASH = 'pageAnimationHash';
   this.SCROLL_ANIM_DURATION = 500;
   this.easeScrollEndTime = 0;
   this.easeScrollPositionStart = 0;
   this.easeScrollPositionEnd = 0;
   this.lastStartScroll = 0;
   this.isAnimating = false;
+  this.animatorHash =  -1;
 };
 
 
@@ -22,15 +24,16 @@ cuiffo.PageAnimation.getInstance = function() {
 
 
 cuiffo.PageAnimation.prototype.scrollToElement = function(element) {
+  var animator = cuiffo.Animator.getInstance();
+  animator.cancelAnimation(this.HASH);
   var scrollTo = element.offsetTop;
   this.easeScrollPositionEnd = scrollTo;
   this.easeScrollEndTime = new Date().getTime() + this.SCROLL_ANIM_DURATION;
   var top = cuiffo.dom.getScrollPosition();
   this.easeScrollPositionStart = top;
   this.lastStartScroll = top;
-  var animator = cuiffo.Animator.getInstance();
   var boundFn = this.pageAnimationFn.bind(this);
-  animator.startAnimation(boundFn);
+  animator.startAnimation(boundFn, this.HASH);
   this.isAnimating = true;
 };
 

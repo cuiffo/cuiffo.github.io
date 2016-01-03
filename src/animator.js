@@ -5,7 +5,7 @@ var cuiffo = cuiffo || {};
 (function() {
 
 cuiffo.Animator = function() {
-	this.callbacks = [];
+  this.callbacks = {};
   this.isTicking = false;
 };
 
@@ -17,8 +17,8 @@ cuiffo.Animator.getInstance = function() {
 };
 
 
-cuiffo.Animator.prototype.startAnimation = function(callback) {
-  this.callbacks.push(callback);
+cuiffo.Animator.prototype.startAnimation = function(callback, hash) {
+  this.callbacks[hash] = callback;
 
   if (!this.isTicking) {
     this.isTicking = true;
@@ -27,23 +27,21 @@ cuiffo.Animator.prototype.startAnimation = function(callback) {
 };
 
 
+cuiffo.Animator.prototype.cancelAnimation = function(hash) {
+  delete this.callbacks[hash];
+}
+
+
 cuiffo.Animator.prototype.tick = function() {
   var currentTime = new Date().getTime();
-  var isTicking = true;
-  var indicesToRemove = [];
-  var indicesRemoved = 0;
-  for (var i = 0; i < this.callbacks.length; i++) {
-    var callback = this.callbacks[i];
+  for (var hash in this.callbacks) {
+    var callback = this.callbacks[hash];
     var isComplete = callback(currentTime);
     if (isComplete) {
-      isTicking = false;
-      indicesToRemove.push(i);
+      this.cancelAnimation(hash);
     }
   }
-  for (var i = 0; i < indicesToRemove.length; i++) {
-    this.callbacks.splice(indicesToRemove[i] - i, 1);
-  }
-  if (isTicking) {
+  if (Object.keys(this.callbacks).length) {
     window.requestAnimationFrame(this.tick.bind(this));
   } else {
     this.isTicking = false;

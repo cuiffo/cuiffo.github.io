@@ -1,7 +1,8 @@
 src = src/
 
 modules = ${src}requestAnimationFrame.js\
-					${src}foreachpolyfill.js\
+					${src}arraypolyfill.js\
+					${src}objectpolyfill.js\
 					${src}math.js\
 					${src}dom.js\
 					${src}animator.js\

@@ -88,17 +88,125 @@ if (!Array.prototype.forEach) {
 }
 
 
-// Also some more polyfill on Array.from
+// Production steps of ECMA-262, Edition 6, 22.1.2.1
+// Reference: https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.from
 if (!Array.from) {
-  Array.from = function(arraylike) {
-    var arr = [];
-    for (var i = 0; i < arraylike.length; i++) {
-      arr.push(arraylike[i]);
-    }
-    return arr;
-  }
+  Array.from = (function () {
+    var toStr = Object.prototype.toString;
+    var isCallable = function (fn) {
+      return typeof fn === 'function' || toStr.call(fn) === '[object Function]';
+    };
+    var toInteger = function (value) {
+      var number = Number(value);
+      if (isNaN(number)) { return 0; }
+      if (number === 0 || !isFinite(number)) { return number; }
+      return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
+    };
+    var maxSafeInteger = Math.pow(2, 53) - 1;
+    var toLength = function (value) {
+      var len = toInteger(value);
+      return Math.min(Math.max(len, 0), maxSafeInteger);
+    };
+
+    // The length property of the from method is 1.
+    return function from(arrayLike/*, mapFn, thisArg */) {
+      // 1. Let C be the this value.
+      var C = this;
+
+      // 2. Let items be ToObject(arrayLike).
+      var items = Object(arrayLike);
+
+      // 3. ReturnIfAbrupt(items).
+      if (arrayLike == null) {
+        throw new TypeError("Array.from requires an array-like object - not null or undefined");
+      }
+
+      // 4. If mapfn is undefined, then let mapping be false.
+      var mapFn = arguments.length > 1 ? arguments[1] : void undefined;
+      var T;
+      if (typeof mapFn !== 'undefined') {
+        // 5. else      
+        // 5. a If IsCallable(mapfn) is false, throw a TypeError exception.
+        if (!isCallable(mapFn)) {
+          throw new TypeError('Array.from: when provided, the second argument must be a function');
+        }
+
+        // 5. b. If thisArg was supplied, let T be thisArg; else let T be undefined.
+        if (arguments.length > 2) {
+          T = arguments[2];
+        }
+      }
+
+      // 10. Let lenValue be Get(items, "length").
+      // 11. Let len be ToLength(lenValue).
+      var len = toLength(items.length);
+
+      // 13. If IsConstructor(C) is true, then
+      // 13. a. Let A be the result of calling the [[Construct]] internal method of C with an argument list containing the single item len.
+      // 14. a. Else, Let A be ArrayCreate(len).
+      var A = isCallable(C) ? Object(new C(len)) : new Array(len);
+
+      // 16. Let k be 0.
+      var k = 0;
+      // 17. Repeat, while k < len… (also steps a - h)
+      var kValue;
+      while (k < len) {
+        kValue = items[k];
+        if (mapFn) {
+          A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
+        } else {
+          A[k] = kValue;
+        }
+        k += 1;
+      }
+      // 18. Let putStatus be Put(A, "length", len, true).
+      A.length = len;
+      // 20. Return A.
+      return A;
+    };
+  }());
 }
-var cuiffo = cuiffo || {};
+// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+if (!Object.keys) {
+  Object.keys = (function() {
+    'use strict';
+    var hasOwnProperty = Object.prototype.hasOwnProperty,
+        hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
+        dontEnums = [
+          'toString',
+          'toLocaleString',
+          'valueOf',
+          'hasOwnProperty',
+          'isPrototypeOf',
+          'propertyIsEnumerable',
+          'constructor'
+        ],
+        dontEnumsLength = dontEnums.length;
+
+    return function(obj) {
+      if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
+        throw new TypeError('Object.keys called on non-object');
+      }
+
+      var result = [], prop, i;
+
+      for (prop in obj) {
+        if (hasOwnProperty.call(obj, prop)) {
+          result.push(prop);
+        }
+      }
+
+      if (hasDontEnumBug) {
+        for (i = 0; i < dontEnumsLength; i++) {
+          if (hasOwnProperty.call(obj, dontEnums[i])) {
+            result.push(dontEnums[i]);
+          }
+        }
+      }
+      return result;
+    };
+  }());
+}var cuiffo = cuiffo || {};
 cuiffo.math = cuiffo.math || {};
 
 
@@ -170,7 +278,7 @@ var cuiffo = cuiffo || {};
 (function() {
 
 cuiffo.Animator = function() {
-	this.callbacks = [];
+  this.callbacks = {};
   this.isTicking = false;
 };
 
@@ -182,8 +290,8 @@ cuiffo.Animator.getInstance = function() {
 };
 
 
-cuiffo.Animator.prototype.startAnimation = function(callback) {
-  this.callbacks.push(callback);
+cuiffo.Animator.prototype.startAnimation = function(callback, hash) {
+  this.callbacks[hash] = callback;
 
   if (!this.isTicking) {
     this.isTicking = true;
@@ -192,23 +300,21 @@ cuiffo.Animator.prototype.startAnimation = function(callback) {
 };
 
 
+cuiffo.Animator.prototype.cancelAnimation = function(hash) {
+  delete this.callbacks[hash];
+}
+
+
 cuiffo.Animator.prototype.tick = function() {
   var currentTime = new Date().getTime();
-  var isTicking = true;
-  var indicesToRemove = [];
-  var indicesRemoved = 0;
-  for (var i = 0; i < this.callbacks.length; i++) {
-    var callback = this.callbacks[i];
+  for (var hash in this.callbacks) {
+    var callback = this.callbacks[hash];
     var isComplete = callback(currentTime);
     if (isComplete) {
-      isTicking = false;
-      indicesToRemove.push(i);
+      this.cancelAnimation(hash);
     }
   }
-  for (var i = 0; i < indicesToRemove.length; i++) {
-    this.callbacks.splice(indicesToRemove[i] - i, 1);
-  }
-  if (isTicking) {
+  if (Object.keys(this.callbacks).length) {
     window.requestAnimationFrame(this.tick.bind(this));
   } else {
     this.isTicking = false;
@@ -222,6 +328,7 @@ cuiffo = cuiffo || {};
 (function() {
 
 cuiffo.TitleAnimation = function() {
+  this.HASH = 'titleAnimationHash';
   this.TEXT_ANIM_DURATION = 200;
   this.textAnimEndTime = 0;
   this.easeStartPosition = 0;
@@ -238,15 +345,16 @@ cuiffo.TitleAnimation.getInstance = function() {
 
 
 cuiffo.TitleAnimation.prototype.handleScroll = function() {
+  var animator = cuiffo.Animator.getInstance();
+  animator.cancelAnimation(this.HASH);
   this.easeStartPosition = this.lastStartPosition;
   this.textAnimEndTime = new Date().getTime() + this.TEXT_ANIM_DURATION;
   var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
   var range = splashTextEl.clientHeight + 30;
   var positionInPage = cuiffo.dom.getScrollPosition();
   this.easeEndPosition = (positionInPage / cuiffo.dom.getWindowHeight()) * range;
-  var animator = cuiffo.Animator.getInstance();
   var boundFn = this.textAnimationFn.bind(this);
-  animator.startAnimation(boundFn);
+  animator.startAnimation(boundFn, this.HASH);
 };
 
 
@@ -282,12 +390,14 @@ cuiffo = cuiffo || {};
 
 
 cuiffo.PageAnimation = function() {
+  this.HASH = 'pageAnimationHash';
   this.SCROLL_ANIM_DURATION = 500;
   this.easeScrollEndTime = 0;
   this.easeScrollPositionStart = 0;
   this.easeScrollPositionEnd = 0;
   this.lastStartScroll = 0;
   this.isAnimating = false;
+  this.animatorHash =  -1;
 };
 
 
@@ -299,15 +409,16 @@ cuiffo.PageAnimation.getInstance = function() {
 
 
 cuiffo.PageAnimation.prototype.scrollToElement = function(element) {
+  var animator = cuiffo.Animator.getInstance();
+  animator.cancelAnimation(this.HASH);
   var scrollTo = element.offsetTop;
   this.easeScrollPositionEnd = scrollTo;
   this.easeScrollEndTime = new Date().getTime() + this.SCROLL_ANIM_DURATION;
   var top = cuiffo.dom.getScrollPosition();
   this.easeScrollPositionStart = top;
   this.lastStartScroll = top;
-  var animator = cuiffo.Animator.getInstance();
   var boundFn = this.pageAnimationFn.bind(this);
-  animator.startAnimation(boundFn);
+  animator.startAnimation(boundFn, this.HASH);
   this.isAnimating = true;
 };
 

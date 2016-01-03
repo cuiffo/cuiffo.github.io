@@ -4,6 +4,7 @@ cuiffo = cuiffo || {};
 (function() {
 
 cuiffo.TitleAnimation = function() {
+  this.HASH = 'titleAnimationHash';
   this.TEXT_ANIM_DURATION = 200;
   this.textAnimEndTime = 0;
   this.easeStartPosition = 0;
@@ -20,15 +21,16 @@ cuiffo.TitleAnimation.getInstance = function() {
 
 
 cuiffo.TitleAnimation.prototype.handleScroll = function() {
+  var animator = cuiffo.Animator.getInstance();
+  animator.cancelAnimation(this.HASH);
   this.easeStartPosition = this.lastStartPosition;
   this.textAnimEndTime = new Date().getTime() + this.TEXT_ANIM_DURATION;
   var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
   var range = splashTextEl.clientHeight + 30;
   var positionInPage = cuiffo.dom.getScrollPosition();
   this.easeEndPosition = (positionInPage / cuiffo.dom.getWindowHeight()) * range;
-  var animator = cuiffo.Animator.getInstance();
   var boundFn = this.textAnimationFn.bind(this);
-  animator.startAnimation(boundFn);
+  animator.startAnimation(boundFn, this.HASH);
 };
 
 
