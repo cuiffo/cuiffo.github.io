@@ -97,9 +97,9 @@ cuiffo.Pages.prototype.updateActivePage = function() {
 	var dotElements = document.getElementsByClassName('cuiffo-page-dot');
   var positionInPage = cuiffo.dom.getScrollPosition();
   var percentThroughPage = positionInPage / cuiffo.dom.getWindowHeight();
-  this.activePage = Math.min(Math.round(percentThroughPage), 1);
+  this.activePage = Math.min(Math.round(percentThroughPage), this.numPages - 1);
   dotElements[this.activePage].classList.add('cuiffo-page-dot-active');
-  for (var i = 0; i <= 1; i++) {
+  for (var i = 0; i < this.numPages; i++) {
     if (this.activePage !== i) {
       dotElements[i].classList.remove('cuiffo-page-dot-active');
     }
