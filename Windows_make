@@ -1,0 +1,1 @@
+Get-content src/requestAnimationFrame.js,src/arraypolyfill.js,src/objectpolyfill.js,src/math.js,src/dom.js,src/animator.js,src/titleAnimation.js,src/pageAnimation.js,src/pages.js,src/main.js | Set-content public/main.js
