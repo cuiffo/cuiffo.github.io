@@ -20,7 +20,8 @@ cuiffo.dom.getWindowWidth = function() {
 
 
 cuiffo.dom.getSize = function(element) {
-  return new cuiffo.math.Rect(element.clientHeight, element.clientWidth);
+  return element && element.getBoundingClientRect();
+  //return new cuiffo.math.Rect(element.clientHeight, element.clientWidth);
 }
 
 cuiffo.dom.setCssTransform = function(element, value) {

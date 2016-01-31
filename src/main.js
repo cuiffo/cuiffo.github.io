@@ -4,11 +4,15 @@ var cuiffo = cuiffo || {};
 
 var origSplashSize;
 var origComingSoonSize;
+var origCheckLaterSize;
 var positionInPage;
 
 var handleResize = function() {
   var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
-  var comingSoonEl = document.getElementsByClassName('cuiffo-page-cented-text')[0];
+  var secondPageTextEl = document.getElementsByClassName('cuiffo-page-cented-text')[0];
+  var comingSoonEl = document.getElementsByClassName('cuiffo-more-coming-soon')[0];
+  var checkLaterEl = document.getElementsByClassName('cuiffo-check-back-later')[0];
+
   
   // Set size of the first page text.
   var maxTextWidth = 550;
@@ -25,12 +29,15 @@ var handleResize = function() {
   var textWidth = Math.min(maxTextWidth, 
       Math.max(cuiffo.dom.getWindowWidth() - 20, minTextWidth));
   var ratio = textWidth / origComingSoonSize.width;
-  comingSoonEl.style.fontSize = (ratio * 100) + '%';
+  comingSoonEl.style.fontSize = (ratio * 90) + '%';
+  var ratio = textWidth / origCheckLaterSize.width;
+  checkLaterEl.style.fontSize = (ratio * 90) + '%';
+
   
   // Center the second page text vertically.
-  var comingSoonHeight = comingSoonEl.clientHeight;
-  comingSoonEl.style.top =
-      cuiffo.dom.getWindowHeight() / 2 - comingSoonHeight / 2 + 'px';
+  var textHeight = secondPageTextEl.clientHeight;
+  secondPageTextEl.style.top =
+      cuiffo.dom.getWindowHeight() / 2 - textHeight / 2 + 'px';
       
   cuiffo.Pages.getInstance().resizePages();
 };
@@ -53,12 +60,15 @@ var handleScroll = function(e) {
 var init = function() {
   var splashContainer = document.getElementsByClassName('cuiffo-page-title-container')[0];
   var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
-  var comingSoonEl = document.getElementsByClassName('cuiffo-page-cented-text')[0];
+  var comingSoonEl = document.getElementsByClassName('cuiffo-more-coming-soon')[0];
+  var checkLaterEl = document.getElementsByClassName('cuiffo-check-back-later')[0];
+  var secondPageTextEl = document.getElementsByClassName('cuiffo-page-cented-text')[0];
   origSplashSize = cuiffo.dom.getSize(splashTextEl);
   origComingSoonSize = cuiffo.dom.getSize(comingSoonEl);
+  origCheckLaterSize = cuiffo.dom.getSize(checkLaterEl);
   splashContainer.style.width = '100%';
   splashTextEl.style.width = '100%';
-  comingSoonEl.style.width = '100%';
+  secondPageTextEl.style.width = '100%';
 
   var pages = cuiffo.Pages.getInstance();
 
@@ -68,4 +78,4 @@ var init = function() {
   handleResize();
   handleScroll();
 };
-init();
+ready(init);

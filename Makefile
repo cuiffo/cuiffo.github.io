@@ -1,6 +1,7 @@
 src = src/
 
 modules = ${src}requestAnimationFrame.js\
+					${src}readyPolyfill.js\
 					${src}arraypolyfill.js\
 					${src}objectpolyfill.js\
 					${src}math.js\
