@@ -10,7 +10,7 @@ cuiffo.Pages = function() {
 	this.xDown = null;
 	this.yDown = null;
 	this.activePage = -1;
-  this.headingToPage = -1;
+  this.headingToPage = null;
 
   var handleTouchStart = this.handleTouchStart.bind(this);
   var handleTouchMove = this.handleTouchMove.bind(this);

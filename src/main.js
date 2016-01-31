@@ -39,7 +39,12 @@ var handleResize = function() {
   secondPageTextEl.style.top =
       cuiffo.dom.getWindowHeight() / 2 - textHeight / 2 + 'px';
       
-  cuiffo.Pages.getInstance().resizePages();
+  var pagesInst = cuiffo.Pages.getInstance();
+  pagesInst.resizePages();
+
+  if (pagesInst.headingToPage) {
+    pagesInst.scrollToPage(headingToPage);
+  }
 };
 
 
