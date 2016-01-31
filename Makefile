@@ -14,6 +14,6 @@ modules = ${src}requestAnimationFrame.js\
 
 js:
 	java -jar compiler.jar --js ${modules} --js_output_file public/main.min.js
-	cat ${modules} > public/main.js
+	cat ${modules} > public/testingmain.js
 clean:
-	rm public/main.min.js public/main.js
+	rm public/main.min.js public/testingmain.js

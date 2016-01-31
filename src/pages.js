@@ -10,6 +10,7 @@ cuiffo.Pages = function() {
 	this.xDown = null;
 	this.yDown = null;
 	this.activePage = -1;
+  this.headingToPage = -1;
 
   var handleTouchStart = this.handleTouchStart.bind(this);
   var handleTouchMove = this.handleTouchMove.bind(this);
@@ -74,23 +75,24 @@ cuiffo.Pages.prototype.handleTouchMove = function(e) {
   if (Math.abs(xDiff) < Math.abs(yDiff)) {
     if (yDiff > 10) {
       var nextPage = Math.min(this.activePage + 1, this.numPages - 1);
-      cuiffo.PageAnimation.getInstance().scrollToElement(
-          this.elements[nextPage]);
-      this.updateActivePage();
-      this.xDown = null;
-      this.yDown = null; 
+      this.scrollToPage(nextPage);
     } else if (yDiff < -10) {
       var nextPage = Math.max(this.activePage - 1, 0);
-      cuiffo.PageAnimation.getInstance().scrollToElement(
-          this.elements[nextPage]);
-      this.updateActivePage();
-      this.xDown = null;
-      this.yDown = null; 
+      this.scrollToPage(nextPage);
     }
   }
 
   return false;
 };
+
+
+cuiffo.Pages.prototype.scrollToPage = function(page) {
+  cuiffo.PageAnimation.getInstance().scrollToElement(this.elements[page]);
+  this.updateActivePage();
+  this.xDown = null;
+  this.yDown = null;
+  this.headingToPage = page;
+}
 
 
 cuiffo.Pages.prototype.updateActivePage = function() {
