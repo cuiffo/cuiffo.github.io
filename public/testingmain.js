@@ -28,7 +28,10 @@
         window.cancelAnimationFrame = function(id) {
             clearTimeout(id);
         };
-}());var ready = (function(){    
+}());/*! @source http://purl.eligrey.com/github/classList.js/blob/master/classList.js */
+if("document" in self){if(!("classList" in document.createElement("_"))){(function(j){"use strict";if(!("Element" in j)){return}var a="classList",f="prototype",m=j.Element[f],b=Object,k=String[f].trim||function(){return this.replace(/^\s+|\s+$/g,"")},c=Array[f].indexOf||function(q){var p=0,o=this.length;for(;p<o;p++){if(p in this&&this[p]===q){return p}}return -1},n=function(o,p){this.name=o;this.code=DOMException[o];this.message=p},g=function(p,o){if(o===""){throw new n("SYNTAX_ERR","An invalid or illegal string was specified")}if(/\s/.test(o)){throw new n("INVALID_CHARACTER_ERR","String contains an invalid character")}return c.call(p,o)},d=function(s){var r=k.call(s.getAttribute("class")||""),q=r?r.split(/\s+/):[],p=0,o=q.length;for(;p<o;p++){this.push(q[p])}this._updateClassName=function(){s.setAttribute("class",this.toString())}},e=d[f]=[],i=function(){return new d(this)};n[f]=Error[f];e.item=function(o){return this[o]||null};e.contains=function(o){o+="";return g(this,o)!==-1};e.add=function(){var s=arguments,r=0,p=s.length,q,o=false;do{q=s[r]+"";if(g(this,q)===-1){this.push(q);o=true}}while(++r<p);if(o){this._updateClassName()}};e.remove=function(){var t=arguments,s=0,p=t.length,r,o=false,q;do{r=t[s]+"";q=g(this,r);while(q!==-1){this.splice(q,1);o=true;q=g(this,r)}}while(++s<p);if(o){this._updateClassName()}};e.toggle=function(p,q){p+="";var o=this.contains(p),r=o?q!==true&&"remove":q!==false&&"add";if(r){this[r](p)}if(q===true||q===false){return q}else{return !o}};e.toString=function(){return this.join(" ")};if(b.defineProperty){var l={get:i,enumerable:true,configurable:true};try{b.defineProperty(m,a,l)}catch(h){if(h.number===-2146823252){l.enumerable=false;b.defineProperty(m,a,l)}}}else{if(b[f].__defineGetter__){m.__defineGetter__(a,i)}}}(self))}else{(function(){var b=document.createElement("_");b.classList.add("c1","c2");if(!b.classList.contains("c2")){var c=function(e){var d=DOMTokenList.prototype[e];DOMTokenList.prototype[e]=function(h){var g,f=arguments.length;for(g=0;g<f;g++){h=arguments[g];d.call(this,h)}}};c("add");c("remove")}b.classList.toggle("c3",false);if(b.classList.contains("c3")){var a=DOMTokenList.prototype.toggle;DOMTokenList.prototype.toggle=function(d,e){if(1 in arguments&&!this.contains(d)===!e){return e}else{return a.call(this,d)}}}b=null}())}};
+
+var ready = (function(){    
 
     var readyList,
         DOMContentLoaded,
@@ -549,6 +552,54 @@ cuiffo.Animator.prototype.tick = function() {
 };
 
 })();
+var cuiffo = cuiffo || {};
+
+
+
+cuiffo.Buttons = function() {
+  this.buttons = [];
+};
+
+
+cuiffo.Buttons.getInstance = function() {
+  cuiffo.Buttons.__instance__ =
+      cuiffo.Buttons.__instance__ || new cuiffo.Buttons();
+  return cuiffo.Buttons.__instance__;
+};
+
+
+cuiffo.Buttons.prototype.addButton = function(element, callback) {
+  var handleTouchStart = this.handleTouchStart.bind(this, element);
+  var handleTouchMove = this.handleTouchMove.bind(this, element);
+  var handleTouchEnd = this.handleTouchEnd.bind(this, element, callback);
+  var handleClick = this.handleClick.bind(this, callback);
+	cuiffo.dom.addEventListener(element, 'touchstart', handleTouchStart, false);        
+	cuiffo.dom.addEventListener(element, 'touchmove', handleTouchMove, false);
+	cuiffo.dom.addEventListener(element, 'touchend', handleTouchEnd, false);
+	cuiffo.dom.addEventListener(element, 'click', handleClick, false);
+};
+
+
+cuiffo.Buttons.prototype.handleTouchStart = function(element) {
+  this.touched = element;
+};
+
+
+cuiffo.Buttons.prototype.handleTouchMove = function(element) {
+  this.touched = null;
+};
+
+
+cuiffo.Buttons.prototype.handleTouchEnd = function(element, callback) {
+  if (this.touched == element) {
+    callback();
+  }
+};
+
+
+cuiffo.Buttons.prototype.handleClick = function(callback) {
+  callback();
+};
 cuiffo = cuiffo || {};
 
 
@@ -788,10 +839,28 @@ var cuiffo = cuiffo || {};
 
 
 
+//var mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?center=40.530909,-74.534008&visible=40.5333006,-74.5249027&key=AIzaSyDqrE8Ak3eMHlu--MtvD7m27-7iVvT8JgE';
 var origSplashSize;
 var origComingSoonSize;
 var origCheckLaterSize;
 var positionInPage;
+
+
+var placeInfoTiles = function() {
+  var windowWidth = cuiffo.dom.getWindowWidth();
+  var windowHeight = cuiffo.dom.getWindowHeight();
+
+  var mapEl = document.getElementsByClassName('cuiffo-map-container')[0];
+  var sidebarEl = document.getElementsByClassName('cuiffo-map-sidebar')[0];
+  if (windowHeight > windowWidth) {
+    mapEl.classList.add('cuiffo-map-container-tall');
+    sidebarEl.classList.add('cuiffo-map-sidebar-tall');
+  } else {
+    mapEl.classList.remove('cuiffo-map-container-tall');
+    sidebarEl.classList.remove('cuiffo-map-sidebar-tall');
+  }
+};
+
 
 var handleResize = function() {
   var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
@@ -819,8 +888,7 @@ var handleResize = function() {
   var ratio = textWidth / origCheckLaterSize.width;
   checkLaterEl.style.fontSize = (ratio * 90) + '%';
 
-  
-  // Center the second page text vertically.
+  // Center the coming soon page text vertically.
   var textHeight = secondPageTextEl.clientHeight;
   secondPageTextEl.style.top =
       cuiffo.dom.getWindowHeight() / 2 - textHeight / 2 + 'px';
@@ -831,6 +899,14 @@ var handleResize = function() {
   if (pagesInst.headingToPage) {
     pagesInst.scrollToPage(headingToPage);
   }
+
+  placeInfoTiles();
+
+  // Regenerate map URL and set it.
+  //var mapEl = document.getElementsByClassName('cuiffo-map-container')[0];
+  //var mapSize = cuiffo.dom.getSize(mapEl);
+  //var fullMapUrl = mapUrl + '&size=' + mapSize.width + 'x' + mapSize.height;
+  //mapEl.style.backgroundImage = 'url(' + fullMapUrl + ')';
 };
 
 
@@ -845,6 +921,23 @@ var handleScroll = function(e) {
 
   cuiffo.TitleAnimation.getInstance().handleScroll();
   cuiffo.Pages.getInstance().updateActivePage();
+};
+
+
+var initButtons = function() {
+  var buttonsHelper = cuiffo.Buttons.getInstance();
+
+  var openVenuePage = function() {
+    window.open('http://palacesomersetpark.com/', '_blank');
+  };
+  var venueButton = document.getElementsByClassName('cuiffo-map-venue-info')[0];
+  buttonsHelper.addButton(venueButton, openVenuePage);
+
+  var openHotelPage = function() {
+    window.open('http://www.sonesta.com/somerset', '_blank');
+  };
+  var hotelButton = document.getElementsByClassName('cuiffo-map-hotel-info')[0];
+  buttonsHelper.addButton(hotelButton, openHotelPage);
 };
 
 
@@ -868,5 +961,7 @@ var init = function() {
 
   handleResize();
   handleScroll();
+
+  initButtons();
 };
 ready(init);

@@ -2,10 +2,28 @@ var cuiffo = cuiffo || {};
 
 
 
+//var mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?center=40.530909,-74.534008&visible=40.5333006,-74.5249027&key=AIzaSyDqrE8Ak3eMHlu--MtvD7m27-7iVvT8JgE';
 var origSplashSize;
 var origComingSoonSize;
 var origCheckLaterSize;
 var positionInPage;
+
+
+var placeInfoTiles = function() {
+  var windowWidth = cuiffo.dom.getWindowWidth();
+  var windowHeight = cuiffo.dom.getWindowHeight();
+
+  var mapEl = document.getElementsByClassName('cuiffo-map-container')[0];
+  var sidebarEl = document.getElementsByClassName('cuiffo-map-sidebar')[0];
+  if (windowHeight > windowWidth) {
+    mapEl.classList.add('cuiffo-map-container-tall');
+    sidebarEl.classList.add('cuiffo-map-sidebar-tall');
+  } else {
+    mapEl.classList.remove('cuiffo-map-container-tall');
+    sidebarEl.classList.remove('cuiffo-map-sidebar-tall');
+  }
+};
+
 
 var handleResize = function() {
   var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
@@ -33,8 +51,7 @@ var handleResize = function() {
   var ratio = textWidth / origCheckLaterSize.width;
   checkLaterEl.style.fontSize = (ratio * 90) + '%';
 
-  
-  // Center the second page text vertically.
+  // Center the coming soon page text vertically.
   var textHeight = secondPageTextEl.clientHeight;
   secondPageTextEl.style.top =
       cuiffo.dom.getWindowHeight() / 2 - textHeight / 2 + 'px';
@@ -45,6 +62,14 @@ var handleResize = function() {
   if (pagesInst.headingToPage) {
     pagesInst.scrollToPage(headingToPage);
   }
+
+  placeInfoTiles();
+
+  // Regenerate map URL and set it.
+  //var mapEl = document.getElementsByClassName('cuiffo-map-container')[0];
+  //var mapSize = cuiffo.dom.getSize(mapEl);
+  //var fullMapUrl = mapUrl + '&size=' + mapSize.width + 'x' + mapSize.height;
+  //mapEl.style.backgroundImage = 'url(' + fullMapUrl + ')';
 };
 
 
@@ -59,6 +84,29 @@ var handleScroll = function(e) {
 
   cuiffo.TitleAnimation.getInstance().handleScroll();
   cuiffo.Pages.getInstance().updateActivePage();
+};
+
+
+var initButtons = function() {
+  var buttonsHelper = cuiffo.Buttons.getInstance();
+
+  var openVenuePage = function() {
+    window.open('http://palacesomersetpark.com/', '_blank');
+  };
+  var venueButton = document.getElementsByClassName('cuiffo-map-venue-info')[0];
+  buttonsHelper.addButton(venueButton, openVenuePage);
+
+  var openHotelPage = function() {
+    window.open('http://www.sonesta.com/somerset', '_blank');
+  };
+  var hotelButton = document.getElementsByClassName('cuiffo-map-hotel-info')[0];
+  buttonsHelper.addButton(hotelButton, openHotelPage);
+
+  var openMapPage = function() {
+    window.open('http://www.sonesta.com/somerset', '_blank');
+  };
+  var mapButton = document.getElementsByClassName('cuiffo-map-container')[0];
+  buttonsHelper.addButton(hotelButton, openMapPage);
 };
 
 
@@ -82,5 +130,7 @@ var init = function() {
 
   handleResize();
   handleScroll();
+
+  initButtons();
 };
 ready(init);
