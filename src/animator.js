@@ -20,11 +20,9 @@ export default class extends Singleton {
     }
   }
 
-
   cancelAnimation(hash) {
     delete this.callbacks[hash];
   }
-
 
   tick() {
     var currentTime = new Date().getTime();
