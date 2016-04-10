@@ -1,8 +1,9 @@
-var cuiffo = cuiffo || {};
+import * as Buttons from 'buttons';
+import * as Dom from 'dom';
+import * as PageAnimation from 'pageAnimation';
+import * as Pages from 'pages';
+import * as TitleAnimation from 'titleAnimation';
 
-
-
-//var mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?center=40.530909,-74.534008&visible=40.5333006,-74.5249027&key=AIzaSyDqrE8Ak3eMHlu--MtvD7m27-7iVvT8JgE';
 var origSplashSize;
 var origComingSoonSize;
 var origCheckLaterSize;
@@ -10,8 +11,8 @@ var positionInPage;
 
 
 var placeInfoTiles = function() {
-  var windowWidth = cuiffo.dom.getWindowWidth();
-  var windowHeight = cuiffo.dom.getWindowHeight();
+  var windowWidth = Dom.getWindowWidth();
+  var windowHeight = Dom.getWindowHeight();
 
   var mapEl = document.getElementsByClassName('cuiffo-map-container')[0];
   var sidebarEl = document.getElementsByClassName('cuiffo-map-sidebar')[0];
@@ -36,7 +37,7 @@ var handleResize = function() {
   var maxTextWidth = 550;
   var minTextWidth = 100;
   var textWidth = Math.min(maxTextWidth, 
-      Math.max(cuiffo.dom.getWindowWidth() - 20, minTextWidth));
+      Math.max(Dom.getWindowWidth() - 20, minTextWidth));
   var ratio = textWidth / origSplashSize.width;
   splashTextEl.style.fontSize = (ratio * 100) + '%';
   splashHeight = splashTextEl.clientHeight;
@@ -45,7 +46,7 @@ var handleResize = function() {
   var maxTextWidth = 550;
   var minTextWidth = 100;
   var textWidth = Math.min(maxTextWidth, 
-      Math.max(cuiffo.dom.getWindowWidth() - 20, minTextWidth));
+      Math.max(Dom.getWindowWidth() - 20, minTextWidth));
   var ratio = textWidth / origComingSoonSize.width;
   comingSoonEl.style.fontSize = (ratio * 90) + '%';
   var ratio = textWidth / origCheckLaterSize.width;
@@ -54,9 +55,9 @@ var handleResize = function() {
   // Center the coming soon page text vertically.
   var textHeight = secondPageTextEl.clientHeight;
   secondPageTextEl.style.top =
-      cuiffo.dom.getWindowHeight() / 2 - textHeight / 2 + 'px';
+      Dom.getWindowHeight() / 2 - textHeight / 2 + 'px';
       
-  var pagesInst = cuiffo.Pages.getInstance();
+  var pagesInst = new Pages();
   pagesInst.resizePages();
 
   if (pagesInst.headingToPage) {
@@ -64,31 +65,24 @@ var handleResize = function() {
   }
 
   placeInfoTiles();
-
-  // Regenerate map URL and set it.
-  //var mapEl = document.getElementsByClassName('cuiffo-map-container')[0];
-  //var mapSize = cuiffo.dom.getSize(mapEl);
-  //var fullMapUrl = mapUrl + '&size=' + mapSize.width + 'x' + mapSize.height;
-  //mapEl.style.backgroundImage = 'url(' + fullMapUrl + ')';
 };
 
 
-// TODO(cuiffo): Place the numScrollsWithoutUpdate hack again?
 var handleScroll = function(e) {
 
-  if (cuiffo.PageAnimation.getInstance().isAnimating) {
+  if (new PageAnimation().isAnimating) {
     e.preventDefault();
     return false;
   }
-  positionInPage = cuiffo.dom.getScrollPosition();
+  positionInPage = Dom.getScrollPosition();
 
-  cuiffo.TitleAnimation.getInstance().handleScroll();
-  cuiffo.Pages.getInstance().updateActivePage();
+  new TitleAnimation().handleScroll();
+  new Pages().updateActivePage();
 };
 
 
 var initButtons = function() {
-  var buttonsHelper = cuiffo.Buttons.getInstance();
+  var buttonsHelper = new Buttons();
 
   var openVenuePage = function() {
     window.open('http://palacesomersetpark.com/', '_blank');
@@ -109,24 +103,23 @@ var initButtons = function() {
   buttonsHelper.addButton(hotelButton, openMapPage);
 };
 
-
 var init = function() {
   var splashContainer = document.getElementsByClassName('cuiffo-page-title-container')[0];
   var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
   var comingSoonEl = document.getElementsByClassName('cuiffo-more-coming-soon')[0];
   var checkLaterEl = document.getElementsByClassName('cuiffo-check-back-later')[0];
   var secondPageTextEl = document.getElementsByClassName('cuiffo-page-cented-text')[0];
-  origSplashSize = cuiffo.dom.getSize(splashTextEl);
-  origComingSoonSize = cuiffo.dom.getSize(comingSoonEl);
-  origCheckLaterSize = cuiffo.dom.getSize(checkLaterEl);
+  origSplashSize = Dom.getSize(splashTextEl);
+  origComingSoonSize = Dom.getSize(comingSoonEl);
+  origCheckLaterSize = Dom.getSize(checkLaterEl);
   splashContainer.style.width = '100%';
   splashTextEl.style.width = '100%';
   secondPageTextEl.style.width = '100%';
 
-  var pages = cuiffo.Pages.getInstance();
+  var pages = new Pages();
 
-  cuiffo.dom.addEventListener(window, 'resize', handleResize);
-  cuiffo.dom.addEventListener(window, 'scroll', handleScroll);
+  Dom.addEventListener(window, 'resize', handleResize);
+  Dom.addEventListener(window, 'scroll', handleScroll);
 
   handleResize();
   handleScroll();

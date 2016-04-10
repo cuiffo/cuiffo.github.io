@@ -1,43 +1,36 @@
-var cuiffo = cuiffo || {};
-cuiffo.dom = cuiffo.dom || {};
+export default class {
 
+  static getScrollPosition() {
+    return document.documentElement.scrollTop ||
+        document.body.scrollTop;
+  }
 
+  static getWindowHeight() {
+    return window.innerHeight;
+  }
 
-cuiffo.dom.getScrollPosition = function() {
-  return document.documentElement.scrollTop ||
-      document.body.scrollTop;
-};
+  static getWindowWidth() {
+    return window.innerWidth;
+  }
 
+  static getSize(element) {
+    return element && element.getBoundingClientRect();
+  }
 
-cuiffo.dom.getWindowHeight = function() {
-  return window.innerHeight;
-};
+  static setCssTransform(element, value) {
+    element.style.webkitTransform = value;
+    element.style.MozTransform = value;
+    element.style.msTransform = value;
+    element.style.OTransform = value;
+    element.style.transform = value;
+  }
 
-
-cuiffo.dom.getWindowWidth = function() {
-  return window.innerWidth;
-};
-
-
-cuiffo.dom.getSize = function(element) {
-  return element && element.getBoundingClientRect();
-  //return new cuiffo.math.Rect(element.clientHeight, element.clientWidth);
+  static addEventListener(element, type, callback, opt_isCapturing) {
+    var ieType = 'on' + type;
+    if (element.addEventListener) {
+      element.addEventListener(type, callback, opt_isCapturing);
+    } else {
+      element.attachEvent(ieType, callback);
+    }
+  }
 }
-
-cuiffo.dom.setCssTransform = function(element, value) {
-  element.style.webkitTransform = value;
-  element.style.MozTransform = value;
-  element.style.msTransform = value;
-  element.style.OTransform = value;
-  element.style.transform = value;
-};
-
-
-cuiffo.dom.addEventListener = function(element, type, callback, opt_isCapturing) {
-	var ieType = 'on' + type;
-	if (element.addEventListener) {
-	  element.addEventListener(type, callback, opt_isCapturing);
-	} else {
-    element.attachEvent(ieType, callback);
-	}
-};
