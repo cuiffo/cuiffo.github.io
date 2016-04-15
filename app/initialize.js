@@ -30,9 +30,9 @@ var handleScroll = function(e) {
   var positionInPage = Dom.getScrollPosition();
   var headerEl = document.getElementsByClassName('header')[0];
   var hasScrolledCss = headerEl.classList.contains('header-scrolled');
-  if (positionInPage > 40 && !hasScrolledCss) {
+  if (positionInPage > Dom.getWindowHeight() && !hasScrolledCss) {
     headerEl.classList.add('header-scrolled');
-  } else if (positionInPage < 40 && hasScrolledCss) {
+  } else if (positionInPage < Dom.getWindowHeight() && hasScrolledCss) {
     headerEl.classList.remove('header-scrolled');
   }
 };
