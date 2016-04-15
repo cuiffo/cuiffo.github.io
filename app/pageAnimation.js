@@ -1,15 +1,10 @@
 var Animator = require('animator');
 var Dom = require('dom');
-var Singleton = require('singleton');
 var Maths = require('maths');
 
-class PageAnimation extends Singleton {
+class PageAnimation {
 
   constructor() {
-    super();
-    if (this.getInstance()) {
-      return this.getInstance();
-    }
     this.HASH = 'pageAnimationHash';
     this.SCROLL_ANIM_DURATION = 500;
     this.easeScrollEndTime = 0;
@@ -39,7 +34,6 @@ class PageAnimation extends Singleton {
     if (currentTime > this.easeScrollEndTime) {
       this.lastStartScroll = this.easeScrollPositionEnd;
       new TitleAnimation().handleScroll();
-      new Pages().updateActivePage();
       isComplete = true;
       this.isAnimating = false;
     } else {
@@ -56,4 +50,7 @@ class PageAnimation extends Singleton {
   }
 }
 
-module.exports = PageAnimation;
+var __instance__ = new PageAnimation();
+module.exports = {
+  getInstance: () => __instance__
+};

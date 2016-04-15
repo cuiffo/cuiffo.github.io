@@ -1,14 +1,9 @@
 var Dom = require('dom');
 var PageAnimation = require('pageAnimation');
-var Singleton = require('singleton');
 
-class Pages extends Singleton {
+class Pages {
 
   constructor() {
-    super();
-    if (this.getInstance()) {
-      return this.getInstance();
-    }
     this.elements = Array.from(document.getElementsByClassName('cuiffo-page'));
     this.numPages = this.elements.length;
     this.currentPage = 0;
@@ -100,4 +95,7 @@ class Pages extends Singleton {
   }
 }
 
-module.exports = Pages;
+var __instance__ = new Pages();
+module.exports = {
+  getInstance: () => __instance__
+};

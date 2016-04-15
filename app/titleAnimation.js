@@ -1,15 +1,10 @@
 var Animator = require('animator');
 var Dom = require('dom');
 var Maths = require('maths');
-var Singleton = require('singleton');
 
-class TitleAnimation extends Singleton {
+class TitleAnimation {
 
   constructor() {
-    super();
-    if (this.getInstance()) {
-      return this.getInstance();
-    }
     this.HASH = 'titleAnimationHash';
     this.TEXT_ANIM_DURATION = 200;
     this.textAnimEndTime = 0;
@@ -19,11 +14,11 @@ class TitleAnimation extends Singleton {
   }
 
   handleScroll() {
-    var animator = new Animator();
+    var animator = Animator.getInstance();
     animator.cancelAnimation(this.HASH);
     this.easeStartPosition = this.lastStartPosition;
     this.textAnimEndTime = new Date().getTime() + this.TEXT_ANIM_DURATION;
-    var splashTextEl = document.getElementsByClassName('cuiffo-page-title-container')[0];
+    var splashTextEl = document.getElementsByClassName('page-title-container')[0];
     var range = splashTextEl.clientHeight + 30;
     var positionInPage = Dom.getScrollPosition();
     this.easeEndPosition = (positionInPage / Dom.getWindowHeight()) * range;
@@ -47,7 +42,7 @@ class TitleAnimation extends Singleton {
           this.TEXT_ANIM_DURATION);
       this.lastStartPosition = calc;
     }
-    var splashTextEl = document.getElementsByClassName('cuiffo-page-title-container')[0];
+    var splashTextEl = document.getElementsByClassName('page-title-container')[0];
     var opacity = 1 - (this.lastStartPosition / (splashTextEl.clientHeight + 30));
     splashTextEl.style.opacity = Math.max(opacity, 0);
     Dom.setCssTransform(splashTextEl, 'translateY(' + this.lastStartPosition + 'px)');
@@ -55,4 +50,7 @@ class TitleAnimation extends Singleton {
   }
 }
 
-module.exports = TitleAnimation;
+var __instance__ = new TitleAnimation();
+module.exports = {
+  getInstance: () => __instance__
+};

@@ -1,13 +1,8 @@
 var Dom = require('dom');
-var Singleton = require('singleton');
 
-class Buttons extends Singleton {
+class Buttons {
 
   constructor() {
-    super();
-    if (this.getInstance()) {
-      return this.getInstance();
-    }
     this.buttons = [];
   }
   
@@ -41,4 +36,7 @@ class Buttons extends Singleton {
   }
 }
 
-module.exports = Buttons;
+var __instance__ = new Buttons();
+module.exports = {
+  getInstance: () => __instance__
+};

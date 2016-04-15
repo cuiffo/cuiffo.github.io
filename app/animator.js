@@ -1,12 +1,6 @@
-var Singleton = require('singleton');
-
-class Animator extends Singleton {
+class Animator {
 
   constructor() {
-    super();
-    if (this.getInstance()) {
-      return this.getInstance();
-    }
     this.callbacks = {};
     this.isTicking = false;
   }
@@ -41,4 +35,7 @@ class Animator extends Singleton {
   }
 }
 
-module.exports = Animator;
+var __instance__ = new Animator();
+module.exports = {
+  getInstance: () => __instance__
+};

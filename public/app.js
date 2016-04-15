@@ -113,38 +113,22 @@
   globals.require = require;
 })();
 require.register("animator.js", function(exports, require, module) {
-'use strict';
+"use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Singleton = require('singleton');
-
-var Animator = function (_Singleton) {
-  _inherits(Animator, _Singleton);
-
+var Animator = function () {
   function Animator() {
     _classCallCheck(this, Animator);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Animator).call(this));
-
-    if (_this.getInstance()) {
-      var _ret;
-
-      return _ret = _this.getInstance(), _possibleConstructorReturn(_this, _ret);
-    }
-    _this.callbacks = {};
-    _this.isTicking = false;
-    return _this;
+    this.callbacks = {};
+    this.isTicking = false;
   }
 
   _createClass(Animator, [{
-    key: 'startAnimation',
+    key: "startAnimation",
     value: function startAnimation(callback, hash) {
       this.callbacks[hash] = callback;
 
@@ -154,12 +138,12 @@ var Animator = function (_Singleton) {
       }
     }
   }, {
-    key: 'cancelAnimation',
+    key: "cancelAnimation",
     value: function cancelAnimation(hash) {
       delete this.callbacks[hash];
     }
   }, {
-    key: 'tick',
+    key: "tick",
     value: function tick() {
       var currentTime = new Date().getTime();
       for (var hash in this.callbacks) {
@@ -178,9 +162,14 @@ var Animator = function (_Singleton) {
   }]);
 
   return Animator;
-}(Singleton);
+}();
 
-module.exports = Animator;
+var __instance__ = new Animator();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
 });
 
 require.register("arraypolyfill.js", function(exports, require, module) {
@@ -336,28 +325,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var Dom = require('dom');
-var Singleton = require('singleton');
 
-var Buttons = function (_Singleton) {
-  _inherits(Buttons, _Singleton);
-
+var Buttons = function () {
   function Buttons() {
     _classCallCheck(this, Buttons);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Buttons).call(this));
-
-    if (_this.getInstance()) {
-      var _ret;
-
-      return _ret = _this.getInstance(), _possibleConstructorReturn(_this, _ret);
-    }
-    _this.buttons = [];
-    return _this;
+    this.buttons = [];
   }
 
   _createClass(Buttons, [{
@@ -397,9 +371,14 @@ var Buttons = function (_Singleton) {
   }]);
 
   return Buttons;
-}(Singleton);
+}();
 
-module.exports = Buttons;
+var __instance__ = new Buttons();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
 });
 
 require.register("classlistPolyfill.js", function(exports, require, module) {
@@ -591,37 +570,19 @@ module.exports = Dom;
 require.register("initialize.js", function(exports, require, module) {
 'use strict';
 
-var Buttons = require('buttons');
 var Dom = require('dom');
-var PageAnimation = require('pageAnimation');
-var Pages = require('pages');
 var TitleAnimation = require('titleAnimation');
 
 var origSplashSize;
-var origComingSoonSize;
-var origCheckLaterSize;
 var positionInPage;
 
 var placeInfoTiles = function placeInfoTiles() {
   var windowWidth = Dom.getWindowWidth();
   var windowHeight = Dom.getWindowHeight();
-
-  var mapEl = document.getElementsByClassName('cuiffo-map-container')[0];
-  var sidebarEl = document.getElementsByClassName('cuiffo-map-sidebar')[0];
-  if (windowHeight > windowWidth) {
-    mapEl.classList.add('cuiffo-map-container-tall');
-    sidebarEl.classList.add('cuiffo-map-sidebar-tall');
-  } else {
-    mapEl.classList.remove('cuiffo-map-container-tall');
-    sidebarEl.classList.remove('cuiffo-map-sidebar-tall');
-  }
 };
 
 var handleResize = function handleResize() {
-  var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
-  var secondPageTextEl = document.getElementsByClassName('cuiffo-page-cented-text')[0];
-  var comingSoonEl = document.getElementsByClassName('cuiffo-more-coming-soon')[0];
-  var checkLaterEl = document.getElementsByClassName('cuiffo-check-back-later')[0];
+  var splashTextEl = document.getElementsByClassName('page-title')[0];
 
   // Set size of the first page text.
   var maxTextWidth = 550;
@@ -629,88 +590,26 @@ var handleResize = function handleResize() {
   var textWidth = Math.min(maxTextWidth, Math.max(Dom.getWindowWidth() - 20, minTextWidth));
   var ratio = textWidth / origSplashSize.width;
   splashTextEl.style.fontSize = ratio * 100 + '%';
-  //splashHeight = splashTextEl.clientHeight;
-
-  // Set size of the second page text.
-  var maxTextWidth = 550;
-  var minTextWidth = 100;
-  var textWidth = Math.min(maxTextWidth, Math.max(Dom.getWindowWidth() - 20, minTextWidth));
-  var ratio = textWidth / origComingSoonSize.width;
-  comingSoonEl.style.fontSize = ratio * 90 + '%';
-  var ratio = textWidth / origCheckLaterSize.width;
-  checkLaterEl.style.fontSize = ratio * 90 + '%';
-
-  // Center the coming soon page text vertically.
-  var textHeight = secondPageTextEl.clientHeight;
-  secondPageTextEl.style.top = Dom.getWindowHeight() / 2 - textHeight / 2 + 'px';
-
-  var pagesInst = new Pages();
-  pagesInst.resizePages();
-
-  if (pagesInst.headingToPage) {
-    pagesInst.scrollToPage(headingToPage);
-  }
-
-  placeInfoTiles();
 };
 
 var handleScroll = function handleScroll(e) {
-
-  if (new PageAnimation().isAnimating) {
-    e.preventDefault();
-    return false;
-  }
-  positionInPage = Dom.getScrollPosition();
-
-  new TitleAnimation().handleScroll();
-  new Pages().updateActivePage();
-};
-
-var initButtons = function initButtons() {
-  var buttonsHelper = new Buttons();
-
-  var openVenuePage = function openVenuePage() {
-    window.open('http://palacesomersetpark.com/', '_blank');
-  };
-  var venueButton = document.getElementsByClassName('cuiffo-map-venue-info')[0];
-  buttonsHelper.addButton(venueButton, openVenuePage);
-
-  var openHotelPage = function openHotelPage() {
-    window.open('http://www.sonesta.com/somerset', '_blank');
-  };
-  var hotelButton = document.getElementsByClassName('cuiffo-map-hotel-info')[0];
-  buttonsHelper.addButton(hotelButton, openHotelPage);
-
-  var openMapPage = function openMapPage() {
-    window.open('http://www.sonesta.com/somerset', '_blank');
-  };
-  var mapButton = document.getElementsByClassName('cuiffo-map-container')[0];
-  buttonsHelper.addButton(hotelButton, openMapPage);
+  TitleAnimation.getInstance().handleScroll();
 };
 
 var init = function init() {
-  var splashContainer = document.getElementsByClassName('cuiffo-page-title-container')[0];
-  var splashTextEl = document.getElementsByClassName('cuiffo-page-title')[0];
-  var comingSoonEl = document.getElementsByClassName('cuiffo-more-coming-soon')[0];
-  var checkLaterEl = document.getElementsByClassName('cuiffo-check-back-later')[0];
-  var secondPageTextEl = document.getElementsByClassName('cuiffo-page-cented-text')[0];
+  var splashContainer = document.getElementsByClassName('page-title-container')[0];
+  var splashTextEl = document.getElementsByClassName('page-title')[0];
   origSplashSize = Dom.getSize(splashTextEl);
-  origComingSoonSize = Dom.getSize(comingSoonEl);
-  origCheckLaterSize = Dom.getSize(checkLaterEl);
   splashContainer.style.width = '100%';
   splashTextEl.style.width = '100%';
-  secondPageTextEl.style.width = '100%';
-
-  var pages = new Pages();
 
   Dom.addEventListener(window, 'resize', handleResize);
   Dom.addEventListener(window, 'scroll', handleScroll);
 
   handleResize();
   handleScroll();
-
-  initButtons();
 };
+
 document.addEventListener('DOMContentLoaded', function () {
   init();
 });
@@ -806,37 +705,22 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var Animator = require('animator');
 var Dom = require('dom');
-var Singleton = require('singleton');
 var Maths = require('maths');
 
-var PageAnimation = function (_Singleton) {
-  _inherits(PageAnimation, _Singleton);
-
+var PageAnimation = function () {
   function PageAnimation() {
     _classCallCheck(this, PageAnimation);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PageAnimation).call(this));
-
-    if (_this.getInstance()) {
-      var _ret;
-
-      return _ret = _this.getInstance(), _possibleConstructorReturn(_this, _ret);
-    }
-    _this.HASH = 'pageAnimationHash';
-    _this.SCROLL_ANIM_DURATION = 500;
-    _this.easeScrollEndTime = 0;
-    _this.easeScrollPositionStart = 0;
-    _this.easeScrollPositionEnd = 0;
-    _this.lastStartScroll = 0;
-    _this.isAnimating = false;
-    _this.animatorHash = -1;
-    return _this;
+    this.HASH = 'pageAnimationHash';
+    this.SCROLL_ANIM_DURATION = 500;
+    this.easeScrollEndTime = 0;
+    this.easeScrollPositionStart = 0;
+    this.easeScrollPositionEnd = 0;
+    this.lastStartScroll = 0;
+    this.isAnimating = false;
+    this.animatorHash = -1;
   }
 
   _createClass(PageAnimation, [{
@@ -861,7 +745,6 @@ var PageAnimation = function (_Singleton) {
       if (currentTime > this.easeScrollEndTime) {
         this.lastStartScroll = this.easeScrollPositionEnd;
         new TitleAnimation().handleScroll();
-        new Pages().updateActivePage();
         isComplete = true;
         this.isAnimating = false;
       } else {
@@ -875,143 +758,14 @@ var PageAnimation = function (_Singleton) {
   }]);
 
   return PageAnimation;
-}(Singleton);
+}();
 
-module.exports = PageAnimation;
-});
-
-require.register("pages.js", function(exports, require, module) {
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Dom = require('dom');
-var PageAnimation = require('pageAnimation');
-var Singleton = require('singleton');
-
-var Pages = function (_Singleton) {
-  _inherits(Pages, _Singleton);
-
-  function Pages() {
-    _classCallCheck(this, Pages);
-
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Pages).call(this));
-
-    if (_this.getInstance()) {
-      var _ret;
-
-      return _ret = _this.getInstance(), _possibleConstructorReturn(_this, _ret);
-    }
-    _this.elements = Array.from(document.getElementsByClassName('cuiffo-page'));
-    _this.numPages = _this.elements.length;
-    _this.currentPage = 0;
-    _this.xDown = null;
-    _this.yDown = null;
-    _this.activePage = -1;
-    _this.headingToPage = null;
-
-    var handleTouchStart = _this.handleTouchStart.bind(_this);
-    var handleTouchMove = _this.handleTouchMove.bind(_this);
-    Dom.addEventListener(document, 'touchstart', handleTouchStart, false);
-    Dom.addEventListener(document, 'touchmove', handleTouchMove, false);
-
-    _this.createPageDots();
-    return _this;
+var __instance__ = new PageAnimation();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
   }
-
-  _createClass(Pages, [{
-    key: 'resizePages',
-    value: function resizePages() {
-      this.elements.forEach(function (pageEl) {
-        pageEl.style.height = Dom.getWindowHeight() + 'px';
-      });
-    }
-  }, {
-    key: 'createPageDots',
-    value: function createPageDots() {
-      var pageDotsContainer = document.getElementsByClassName('cuiffo-page-selector')[0];
-      for (var i = 0; i < this.numPages; i++) {
-        var dotEl = document.createElement('div');
-        dotEl.className += ' cuiffo-page-dot';
-        pageDotsContainer.appendChild(dotEl);
-        var pageEl = this.elements[i];
-        Dom.addEventListener(dotEl, 'click', this.handleDotClick(pageEl));
-      }
-    }
-  }, {
-    key: 'handleDotClick',
-    value: function handleDotClick(element) {
-      return function () {
-        new PageAnimation().scrollToElement(element);
-      };
-    }
-  }, {
-    key: 'handleTouchStart',
-    value: function handleTouchStart(e) {
-      this.xDown = e.touches[0].clientX;
-      this.yDown = e.touches[0].clientY;
-      e.preventDefault();
-    }
-  }, {
-    key: 'handleTouchMove',
-    value: function handleTouchMove(e) {
-      e.preventDefault();
-      if (!this.xDown || !this.yDown) {
-        return false;
-      }
-
-      var xUp = e.touches[0].clientX;
-      var yUp = e.touches[0].clientY;
-      var xDiff = this.xDown - xUp;
-      var yDiff = this.yDown - yUp;
-
-      if (Math.abs(xDiff) < Math.abs(yDiff)) {
-        if (yDiff > 10) {
-          var nextPage = Math.min(this.activePage + 1, this.numPages - 1);
-          this.scrollToPage(nextPage);
-        } else if (yDiff < -10) {
-          var nextPage = Math.max(this.activePage - 1, 0);
-          this.scrollToPage(nextPage);
-        }
-      }
-
-      return false;
-    }
-  }, {
-    key: 'scrollToPage',
-    value: function scrollToPage(page) {
-      new PageAnimation().scrollToElement(this.elements[page]);
-      this.updateActivePage();
-      this.xDown = null;
-      this.yDown = null;
-      this.headingToPage = page;
-    }
-  }, {
-    key: 'updateActivePage',
-    value: function updateActivePage() {
-      var dotElements = document.getElementsByClassName('cuiffo-page-dot');
-      var positionInPage = Dom.getScrollPosition();
-      var percentThroughPage = positionInPage / Dom.getWindowHeight();
-      this.activePage = Math.min(Math.round(percentThroughPage), this.numPages - 1);
-      dotElements[this.activePage].classList.add('cuiffo-page-dot-active');
-      for (var i = 0; i < this.numPages; i++) {
-        if (this.activePage !== i) {
-          dotElements[i].classList.remove('cuiffo-page-dot-active');
-        }
-      }
-    }
-  }]);
-
-  return Pages;
-}(Singleton);
-
-module.exports = Pages;
+};
 });
 
 require.register("readyPolyfill.js", function(exports, require, module) {
@@ -1279,38 +1033,6 @@ require.register("requestAnimationFrame.js", function(exports, require, module) 
 })();
 });
 
-require.register("singleton.js", function(exports, require, module) {
-"use strict";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var instances = {};
-
-var Singleton = function () {
-  function Singleton() {
-    _classCallCheck(this, Singleton);
-  }
-
-  _createClass(Singleton, [{
-    key: "getInstance",
-    value: function getInstance() {
-      var className = this.constructor.name;
-      if (instances[className]) {
-        return instances[className];
-      } else {
-        instances[className] = this;
-      }
-    }
-  }]);
-
-  return Singleton;
-}();
-
-module.exports = Singleton;
-});
-
 require.register("titleAnimation.js", function(exports, require, module) {
 'use strict';
 
@@ -1318,45 +1040,30 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var Animator = require('animator');
 var Dom = require('dom');
 var Maths = require('maths');
-var Singleton = require('singleton');
 
-var TitleAnimation = function (_Singleton) {
-  _inherits(TitleAnimation, _Singleton);
-
+var TitleAnimation = function () {
   function TitleAnimation() {
     _classCallCheck(this, TitleAnimation);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TitleAnimation).call(this));
-
-    if (_this.getInstance()) {
-      var _ret;
-
-      return _ret = _this.getInstance(), _possibleConstructorReturn(_this, _ret);
-    }
-    _this.HASH = 'titleAnimationHash';
-    _this.TEXT_ANIM_DURATION = 200;
-    _this.textAnimEndTime = 0;
-    _this.easeStartPosition = 0;
-    _this.easeEndPosition = 0;
-    _this.lastStartPosition = 0;
-    return _this;
+    this.HASH = 'titleAnimationHash';
+    this.TEXT_ANIM_DURATION = 200;
+    this.textAnimEndTime = 0;
+    this.easeStartPosition = 0;
+    this.easeEndPosition = 0;
+    this.lastStartPosition = 0;
   }
 
   _createClass(TitleAnimation, [{
     key: 'handleScroll',
     value: function handleScroll() {
-      var animator = new Animator();
+      var animator = Animator.getInstance();
       animator.cancelAnimation(this.HASH);
       this.easeStartPosition = this.lastStartPosition;
       this.textAnimEndTime = new Date().getTime() + this.TEXT_ANIM_DURATION;
-      var splashTextEl = document.getElementsByClassName('cuiffo-page-title-container')[0];
+      var splashTextEl = document.getElementsByClassName('page-title-container')[0];
       var range = splashTextEl.clientHeight + 30;
       var positionInPage = Dom.getScrollPosition();
       this.easeEndPosition = positionInPage / Dom.getWindowHeight() * range;
@@ -1377,7 +1084,7 @@ var TitleAnimation = function (_Singleton) {
         var calc = Maths.easeOutQuad(timeDiff, this.easeStartPosition, this.easeEndPosition - this.easeStartPosition, this.TEXT_ANIM_DURATION);
         this.lastStartPosition = calc;
       }
-      var splashTextEl = document.getElementsByClassName('cuiffo-page-title-container')[0];
+      var splashTextEl = document.getElementsByClassName('page-title-container')[0];
       var opacity = 1 - this.lastStartPosition / (splashTextEl.clientHeight + 30);
       splashTextEl.style.opacity = Math.max(opacity, 0);
       Dom.setCssTransform(splashTextEl, 'translateY(' + this.lastStartPosition + 'px)');
@@ -1386,9 +1093,14 @@ var TitleAnimation = function (_Singleton) {
   }]);
 
   return TitleAnimation;
-}(Singleton);
+}();
 
-module.exports = TitleAnimation;
+var __instance__ = new TitleAnimation();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
 });
 
 
