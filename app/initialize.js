@@ -26,6 +26,15 @@ var handleResize = function() {
 
 var handleScroll = function(e) {
   TitleAnimation.getInstance().handleScroll();
+
+  var positionInPage = Dom.getScrollPosition();
+  var headerEl = document.getElementsByClassName('header')[0];
+  var hasScrolledCss = headerEl.classList.contains('header-scrolled');
+  if (positionInPage > 40 && !hasScrolledCss) {
+    headerEl.classList.add('header-scrolled');
+  } else if (positionInPage < 40 && hasScrolledCss) {
+    headerEl.classList.remove('header-scrolled');
+  }
 };
 
 
