@@ -34,7 +34,13 @@ class Dom {
     }
   }
 
-  static fitTextToScreen(text, fontName, opt_maxWidth) {
+  static fitTextToScreen(text, fontName, maxWidth) {
+    var screenWidth = this.getWindowWidth();
+    var desiredTextWidth = screenWidth > maxWidth ? maxWidth : screenWidth;
+    return this.getFontHeightForWidth(text, fontName, desiredTextWidth);
+  }
+
+  static getFontHeightForWidth(text, fontName, desiredWidth) {
     var canvas = document.body.getElementsByClassName('text-fitter')[0];
     var context = canvas.getContext('2d');
     context.font = '16px ' + fontName;
@@ -42,11 +48,7 @@ class Dom {
     var height = 16;
     var idealRatio = height/width;
     
-    var finalWidth = this.getWindowWidth();
-    if (opt_maxWidth && opt_maxWidth < finalWidth) {
-      finalWidth = opt_maxWidth;
-    }
-    return (idealRatio * finalWidth) + 'px';
+    return (idealRatio * desiredWidth) + 'px';
   }
 }
 

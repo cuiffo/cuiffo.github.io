@@ -561,7 +561,14 @@ var Dom = function () {
     }
   }, {
     key: 'fitTextToScreen',
-    value: function fitTextToScreen(text, fontName, opt_maxWidth) {
+    value: function fitTextToScreen(text, fontName, maxWidth) {
+      var screenWidth = this.getWindowWidth();
+      var desiredTextWidth = screenWidth > maxWidth ? maxWidth : screenWidth;
+      return this.getFontHeightForWidth(text, fontName, desiredTextWidth);
+    }
+  }, {
+    key: 'getFontHeightForWidth',
+    value: function getFontHeightForWidth(text, fontName, desiredWidth) {
       var canvas = document.body.getElementsByClassName('text-fitter')[0];
       var context = canvas.getContext('2d');
       context.font = '16px ' + fontName;
@@ -569,11 +576,7 @@ var Dom = function () {
       var height = 16;
       var idealRatio = height / width;
 
-      var finalWidth = this.getWindowWidth();
-      if (opt_maxWidth && opt_maxWidth < finalWidth) {
-        finalWidth = opt_maxWidth;
-      }
-      return idealRatio * finalWidth + 'px';
+      return idealRatio * desiredWidth + 'px';
     }
   }]);
 
@@ -595,7 +598,7 @@ var handleResize = function handleResize() {
   var splashTextEl = document.getElementsByClassName('page-title')[0];
 
   // Set size of the first page text.
-  splashTextEl.style.fontSize = Dom.fitTextToScreen(splashTextEl.textContent, 'Damion', 550);
+  splashTextEl.style.fontSize = Dom.fitTextToScreen(splashTextEl.textContent, 'Damion', 700);
 };
 
 var handleScroll = function handleScroll(e) {

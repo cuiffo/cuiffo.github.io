@@ -9,7 +9,7 @@ var handleResize = function() {
   
   // Set size of the first page text.
   splashTextEl.style.fontSize = Dom.fitTextToScreen(
-      splashTextEl.textContent, 'Damion', 550);
+      splashTextEl.textContent, 'Damion', 700);
 };
 
 
