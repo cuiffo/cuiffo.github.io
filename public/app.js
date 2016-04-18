@@ -598,7 +598,7 @@ var handleResize = function handleResize() {
   var splashTextEl = document.getElementsByClassName('page-title')[0];
 
   // Set size of the first page text.
-  splashTextEl.style.fontSize = Dom.fitTextToScreen(splashTextEl.textContent, 'Damion', 700);
+  splashTextEl.style.fontSize = Dom.fitTextToScreen(splashTextEl.innerText, 'Damion', 700);
 };
 
 var handleScroll = function handleScroll(e) {
