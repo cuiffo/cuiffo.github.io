@@ -35,6 +35,7 @@
         position: absolute;
         text-align: center;
         color: white;
+        width: 100%;
       }
 
       .page-cented-text {
@@ -42,6 +43,7 @@
         position: absolute;
         text-align: center;
         color: white;
+        width: 100%
       }
       
       .page-one .page-title-container {
@@ -59,7 +61,7 @@
 
       .bounce {
         animation-name: bounce-animation;
-        animation-duration: 2s;
+        animation-duration: 1s;
         animation-direction: alternate;
         animation-timing-function: ease-in-out;
         animation-iteration-count: infinite;
@@ -97,10 +99,14 @@
         line-height: 40px;
       }
 
-      .everything-else {
+      .info-section {
         width: 100%;
         height: 1000px;
         background-color: #f1f1f1;
+      }
+
+      .text-fitter {
+        display: none;
       }
 
     </style>
@@ -116,14 +122,67 @@
     <div class="page page-one">
       <div class="page-title-container">
         <div class="page-title">
-          Eric & Cecilia
+          Eric &amp; Cecilia
         </div>
         <i class="fa fa-angle-down fa-3x bounce"></i>
       </div>
     </div>
-    <div class="everything-else">
-      
+    <div class="info-section">
+      <div class="section-title">
+        <div class="section-title-left-arrow"></div>
+        <div class="section-title-text">The wedding</div>
+        <div class="section-title-right-arrow"></div>
+      </div>
+      <div class="section-subtitle">October 16th, 2016</div>
+      <div class="countdown">
+        <div class="countdown-card">
+          <div class="days-count">0</div>
+          <div class="countdown-card-label">Days</div>
+        </div>
+        <div class="countdown-card">
+          <div class="hours-count">0</div>
+          <div class="countdown-card-label">Hours</div>
+        </div>
+        <div class="countdown-card">
+          <div class="minutes-count">0</div>
+          <div class="countdown-card-label">Minutes</div>
+        </div>
+        <div class="countdown-card">
+          <div class="seconds-count">0</div>
+          <div class="countdown-card-label">Seconds</div>
+        </div>
+      </div>
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="info-card-picture venue-card-picture"></div>
+          <div class="info-card-content venue-card-content">
+            <div class="info-card-title venue-card-title">
+              The Palace at Somerset Park
+            </div>
+            <div class="info-card-description venue-card-description">
+              The wedding will take place in the West House of The Palace at Somerset Park. The ceremony starts at 5 and the reception at 6.
+            </div>
+            <div class="info-card-link venue-card-link">
+              VISIT WEBSITE
+            </div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-picture hotel-card-picture"></div>
+          <div class="info-card-content hotel-card-content">
+            <div class="info-card-title hotel-card-title">
+              Somerset ES Suites Somerset
+            </div>
+            <div class="info-card-description hotel-card-description">
+              For guests who wish to have accomodations, we have a special group rate of $129 per night at Sonesta including round trip car service.
+            </div>
+            <div class="info-card-link hotel-card-link">VISIT WEBSITE</div>
+          </div>
+        </div>
+      </div>
+      <div class="map"></div>
     </div>
+    <canvas class="text-fitter" height="800" width="800"></canvas>
     <!--
     <div class="cuiffo-page cuiffo-page-map">
       <div class="cuiffo-map-container cuiffo-map-text-center">

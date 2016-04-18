@@ -559,6 +559,22 @@ var Dom = function () {
         element.attachEvent(ieType, callback);
       }
     }
+  }, {
+    key: 'fitTextToScreen',
+    value: function fitTextToScreen(text, fontName, opt_maxWidth) {
+      var canvas = document.body.getElementsByClassName('text-fitter')[0];
+      var context = canvas.getContext('2d');
+      context.font = '16px ' + fontName;
+      var width = context.measureText(text).width;
+      var height = 16;
+      var idealRatio = height / width;
+
+      var finalWidth = this.getWindowWidth();
+      if (opt_maxWidth && opt_maxWidth < finalWidth) {
+        finalWidth = opt_maxWidth;
+      }
+      return idealRatio * finalWidth + 'px';
+    }
   }]);
 
   return Dom;
@@ -573,23 +589,13 @@ require.register("initialize.js", function(exports, require, module) {
 var Dom = require('dom');
 var TitleAnimation = require('titleAnimation');
 
-var origSplashSize;
 var positionInPage;
-
-var placeInfoTiles = function placeInfoTiles() {
-  var windowWidth = Dom.getWindowWidth();
-  var windowHeight = Dom.getWindowHeight();
-};
 
 var handleResize = function handleResize() {
   var splashTextEl = document.getElementsByClassName('page-title')[0];
 
   // Set size of the first page text.
-  var maxTextWidth = 550;
-  var minTextWidth = 100;
-  var textWidth = Math.min(maxTextWidth, Math.max(Dom.getWindowWidth() - 20, minTextWidth));
-  var ratio = textWidth / origSplashSize.width;
-  splashTextEl.style.fontSize = ratio * 100 + '%';
+  splashTextEl.style.fontSize = Dom.fitTextToScreen(splashTextEl.textContent, 'Damion', 550);
 };
 
 var handleScroll = function handleScroll(e) {
@@ -606,12 +612,6 @@ var handleScroll = function handleScroll(e) {
 };
 
 var init = function init() {
-  var splashContainer = document.getElementsByClassName('page-title-container')[0];
-  var splashTextEl = document.getElementsByClassName('page-title')[0];
-  origSplashSize = Dom.getSize(splashTextEl);
-  splashContainer.style.width = '100%';
-  splashTextEl.style.width = '100%';
-
   Dom.addEventListener(window, 'resize', handleResize);
   Dom.addEventListener(window, 'scroll', handleScroll);
 
@@ -770,6 +770,130 @@ var PageAnimation = function () {
 }();
 
 var __instance__ = new PageAnimation();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
+});
+
+require.register("pages.js", function(exports, require, module) {
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Dom = require('dom');
+var PageAnimation = require('pageAnimation');
+
+var Pages = function () {
+  function Pages() {
+    _classCallCheck(this, Pages);
+
+    this.elements = Array.from(document.getElementsByClassName('cuiffo-page'));
+    this.numPages = this.elements.length;
+    this.currentPage = 0;
+    this.xDown = null;
+    this.yDown = null;
+    this.activePage = -1;
+    this.headingToPage = null;
+
+    var handleTouchStart = this.handleTouchStart.bind(this);
+    var handleTouchMove = this.handleTouchMove.bind(this);
+    Dom.addEventListener(document, 'touchstart', handleTouchStart, false);
+    Dom.addEventListener(document, 'touchmove', handleTouchMove, false);
+
+    this.createPageDots();
+  }
+
+  _createClass(Pages, [{
+    key: 'resizePages',
+    value: function resizePages() {
+      this.elements.forEach(function (pageEl) {
+        pageEl.style.height = Dom.getWindowHeight() + 'px';
+      });
+    }
+  }, {
+    key: 'createPageDots',
+    value: function createPageDots() {
+      var pageDotsContainer = document.getElementsByClassName('cuiffo-page-selector')[0];
+      for (var i = 0; i < this.numPages; i++) {
+        var dotEl = document.createElement('div');
+        dotEl.className += ' cuiffo-page-dot';
+        pageDotsContainer.appendChild(dotEl);
+        var pageEl = this.elements[i];
+        Dom.addEventListener(dotEl, 'click', this.handleDotClick(pageEl));
+      }
+    }
+  }, {
+    key: 'handleDotClick',
+    value: function handleDotClick(element) {
+      return function () {
+        new PageAnimation().scrollToElement(element);
+      };
+    }
+  }, {
+    key: 'handleTouchStart',
+    value: function handleTouchStart(e) {
+      this.xDown = e.touches[0].clientX;
+      this.yDown = e.touches[0].clientY;
+      e.preventDefault();
+    }
+  }, {
+    key: 'handleTouchMove',
+    value: function handleTouchMove(e) {
+      e.preventDefault();
+      if (!this.xDown || !this.yDown) {
+        return false;
+      }
+
+      var xUp = e.touches[0].clientX;
+      var yUp = e.touches[0].clientY;
+      var xDiff = this.xDown - xUp;
+      var yDiff = this.yDown - yUp;
+
+      if (Math.abs(xDiff) < Math.abs(yDiff)) {
+        if (yDiff > 10) {
+          var nextPage = Math.min(this.activePage + 1, this.numPages - 1);
+          this.scrollToPage(nextPage);
+        } else if (yDiff < -10) {
+          var nextPage = Math.max(this.activePage - 1, 0);
+          this.scrollToPage(nextPage);
+        }
+      }
+
+      return false;
+    }
+  }, {
+    key: 'scrollToPage',
+    value: function scrollToPage(page) {
+      new PageAnimation().scrollToElement(this.elements[page]);
+      this.updateActivePage();
+      this.xDown = null;
+      this.yDown = null;
+      this.headingToPage = page;
+    }
+  }, {
+    key: 'updateActivePage',
+    value: function updateActivePage() {
+      var dotElements = document.getElementsByClassName('cuiffo-page-dot');
+      var positionInPage = Dom.getScrollPosition();
+      var percentThroughPage = positionInPage / Dom.getWindowHeight();
+      this.activePage = Math.min(Math.round(percentThroughPage), this.numPages - 1);
+      dotElements[this.activePage].classList.add('cuiffo-page-dot-active');
+      for (var i = 0; i < this.numPages; i++) {
+        if (this.activePage !== i) {
+          dotElements[i].classList.remove('cuiffo-page-dot-active');
+        }
+      }
+    }
+  }]);
+
+  return Pages;
+}();
+
+var __instance__ = new Pages();
 module.exports = {
   getInstance: function getInstance() {
     return __instance__;
