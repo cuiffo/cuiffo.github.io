@@ -110,6 +110,56 @@
         display: none;
       }
 
+      .section-title {
+        padding-top: 30px;
+        font-family: 'Damion', cursive;
+        text-align: center;
+        color: #6c859a;
+        width: 100%;
+      }
+
+      .section-subtitle {
+        font-family: 'Roboto', sans-serif;
+        color: #5d5d5d;
+        text-align: center;
+        width: 100%;
+        font-weight: 300;
+      }
+
+      .countdown {
+        margin-top: 50px;
+        text-align: center;
+      }
+
+      .countdown-card {
+        display: inline-block;
+        margin: 0 10px;
+        -moz-box-shadow: 3px 3px 6px #ccc;
+        -webkit-box-shadow: 3px 3px 6px #ccc;
+        box-shadow: 3px 3px 6px #ccc;
+      }
+
+      .countdown-card-label {
+        font-family: 'Roboto', sans-serif;
+        height: 30px;
+        width: 80px;
+        background-color: #6c859a;
+        color: white;
+        line-height: 30px;
+        font-weight: 300;
+        white-space: nowrap;
+      }
+
+      .countdown-count {
+        font-family: 'Roboto', sans-serif;
+        font-size: 30px;
+        height: 80px;
+        width: 80px;
+        background-color: white;
+        line-height: 80px;
+        white-space: nowrap;
+      }
+
     </style>
   </head>
   <body>
@@ -137,19 +187,19 @@
       <div class="section-subtitle">October 16th, 2016</div>
       <div class="countdown">
         <div class="countdown-card">
-          <div class="days-count">0</div>
+          <div class="countdown-count days-count">0</div>
           <div class="countdown-card-label">Days</div>
         </div>
         <div class="countdown-card">
-          <div class="hours-count">0</div>
+          <div class="countdown-count hours-count">0</div>
           <div class="countdown-card-label">Hours</div>
         </div>
         <div class="countdown-card">
-          <div class="minutes-count">0</div>
+          <div class="countdown-count minutes-count">0</div>
           <div class="countdown-card-label">Minutes</div>
         </div>
         <div class="countdown-card">
-          <div class="seconds-count">0</div>
+          <div class="countdown-count seconds-count">0</div>
           <div class="countdown-card-label">Seconds</div>
         </div>
       </div>

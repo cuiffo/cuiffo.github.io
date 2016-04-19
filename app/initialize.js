@@ -1,3 +1,4 @@
+var Countdown = require('countdown');
 var Dom = require('dom');
 var TitleAnimation = require('titleAnimation');
 
@@ -6,11 +7,17 @@ var positionInPage;
 
 var handleResize = function() {
   var splashTextEl = document.getElementsByClassName('page-title')[0];
-  
   // Set size of the first page text.
-  // TODO: something about the text flowing into newline.
   splashTextEl.style.fontSize = Dom.fitTextToScreen(
       splashTextEl.innerText, 'Damion', 600, 20);
+
+  var titleElements = document.getElementsByClassName('section-title-text');
+  for (let i = 0; i < titleElements.length; i++) {
+    let titleEl = titleElements[i];
+    titleEl.style.fontSize = Dom.fitTextToScreen(
+        titleEl.innerText, 'Damion', 550, 70);
+
+  }
 };
 
 
@@ -34,9 +41,9 @@ var init = function() {
 
   handleResize();
   handleScroll();
+
+  Countdown.getInstance().start();
 };
 
 
-document.addEventListener('DOMContentLoaded', () => {
-  init();
-});
+document.addEventListener('DOMContentLoaded', () => {init();});

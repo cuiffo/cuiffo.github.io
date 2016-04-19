@@ -530,6 +530,88 @@ if ("document" in self) {
 };
 });
 
+require.register("countdown.js", function(exports, require, module) {
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Countdown = function () {
+  function Countdown() {
+    _classCallCheck(this, Countdown);
+  }
+
+  _createClass(Countdown, [{
+    key: 'start',
+    value: function start() {
+      if (this.started) {
+        console.log('started already');
+        return;
+      }
+      this.started = true;
+      var endDate = new Date(2016, 9, 16, 17);
+
+      var secondsEl = document.getElementsByClassName('seconds-count')[0];
+      var minutesEl = document.getElementsByClassName('minutes-count')[0];
+      var hoursEl = document.getElementsByClassName('hours-count')[0];
+      var daysEl = document.getElementsByClassName('days-count')[0];
+
+      var currentSeconds = parseInt(secondsEl.innerText);
+      var currentMinutes = parseInt(minutesEl.innerText);
+      var currentHours = parseInt(hoursEl.innerText);
+      var currentDays = parseInt(daysEl.innerText);
+
+      var MILLISECONDS_IN_SECOND = 1000;
+      var MILLISECONDS_IN_MINUTE = MILLISECONDS_IN_SECOND * 60;
+      var MILLISECONDS_IN_HOUR = MILLISECONDS_IN_MINUTE * 60;
+      var MILLISECONDS_IN_DAY = MILLISECONDS_IN_HOUR * 24;
+      window.setInterval(function () {
+        var now = new Date();
+        if (endDate.getTime() > now.getTime()) {
+          var difference = endDate.getTime() - now.getTime();
+          var days = Math.floor(difference / MILLISECONDS_IN_DAY);
+          difference -= days * MILLISECONDS_IN_DAY;
+          var hours = Math.floor(difference / MILLISECONDS_IN_HOUR);
+          difference -= hours * MILLISECONDS_IN_HOUR;
+          var minutes = Math.floor(difference / MILLISECONDS_IN_MINUTE);
+          difference -= minutes * MILLISECONDS_IN_MINUTE;
+          var seconds = Math.floor(difference / MILLISECONDS_IN_SECOND);
+
+          if (currentDays !== days) {
+            currentDays = days;
+            daysEl.innerText = days;
+          }
+          if (currentHours !== hours) {
+            currentHours = hours;
+            hoursEl.innerText = hours;
+          }
+          if (currentMinutes !== minutes) {
+            currentMinutes = minutes;
+            minutesEl.innerText = minutes;
+          }
+          if (currentSeconds !== seconds) {
+            currentSeconds = seconds;
+            secondsEl.innerText = seconds;
+          }
+        }
+
+        // TODO: Handle case when difference is negative. set everything to 0.
+      }, 250);
+    }
+  }]);
+
+  return Countdown;
+}();
+
+var __instance__ = new Countdown();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
+});
+
 require.register("dom.js", function(exports, require, module) {
 'use strict';
 
@@ -612,6 +694,7 @@ module.exports = Dom;
 require.register("initialize.js", function(exports, require, module) {
 'use strict';
 
+var Countdown = require('countdown');
 var Dom = require('dom');
 var TitleAnimation = require('titleAnimation');
 
@@ -619,10 +702,14 @@ var positionInPage;
 
 var handleResize = function handleResize() {
   var splashTextEl = document.getElementsByClassName('page-title')[0];
-
   // Set size of the first page text.
-  // TODO: something about the text flowing into newline.
   splashTextEl.style.fontSize = Dom.fitTextToScreen(splashTextEl.innerText, 'Damion', 600, 20);
+
+  var titleElements = document.getElementsByClassName('section-title-text');
+  for (var i = 0; i < titleElements.length; i++) {
+    var titleEl = titleElements[i];
+    titleEl.style.fontSize = Dom.fitTextToScreen(titleEl.innerText, 'Damion', 550, 70);
+  }
 };
 
 var handleScroll = function handleScroll(e) {
@@ -644,6 +731,8 @@ var init = function init() {
 
   handleResize();
   handleScroll();
+
+  Countdown.getInstance().start();
 };
 
 document.addEventListener('DOMContentLoaded', function () {
