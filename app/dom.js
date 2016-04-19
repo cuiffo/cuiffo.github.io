@@ -34,9 +34,10 @@ class Dom {
     }
   }
 
-  static fitTextToScreen(text, fontName, maxWidth) {
+  static fitTextToScreen(text, fontName, maxWidth, padding) {
     var screenWidth = this.getWindowWidth();
     var desiredTextWidth = screenWidth > maxWidth ? maxWidth : screenWidth;
+    desiredTextWidth -= padding;
     return this.getFontHeightForWidth(text, fontName, desiredTextWidth);
   }
 

@@ -8,8 +8,9 @@ var handleResize = function() {
   var splashTextEl = document.getElementsByClassName('page-title')[0];
   
   // Set size of the first page text.
+  // TODO: something about the text flowing into newline.
   splashTextEl.style.fontSize = Dom.fitTextToScreen(
-      splashTextEl.innerText, 'Damion', 650);
+      splashTextEl.innerText, 'Damion', 600, 20);
 };
 
 

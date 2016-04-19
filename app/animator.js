@@ -20,7 +20,7 @@ class Animator {
 
   tick() {
     var currentTime = new Date().getTime();
-    for (var hash in this.callbacks) {
+    for (var hash of Object.keys(this.callbacks)) {
       var callback = this.callbacks[hash];
       var isComplete = callback(currentTime);
       if (isComplete) {

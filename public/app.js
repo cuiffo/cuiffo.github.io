@@ -146,13 +146,35 @@ var Animator = function () {
     key: "tick",
     value: function tick() {
       var currentTime = new Date().getTime();
-      for (var hash in this.callbacks) {
-        var callback = this.callbacks[hash];
-        var isComplete = callback(currentTime);
-        if (isComplete) {
-          this.cancelAnimation(hash);
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = Object.keys(this.callbacks)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var hash = _step.value;
+
+          var callback = this.callbacks[hash];
+          var isComplete = callback(currentTime);
+          if (isComplete) {
+            this.cancelAnimation(hash);
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
         }
       }
+
       if (Object.keys(this.callbacks).length) {
         window.requestAnimationFrame(this.tick.bind(this));
       } else {
@@ -561,9 +583,10 @@ var Dom = function () {
     }
   }, {
     key: 'fitTextToScreen',
-    value: function fitTextToScreen(text, fontName, maxWidth) {
+    value: function fitTextToScreen(text, fontName, maxWidth, padding) {
       var screenWidth = this.getWindowWidth();
       var desiredTextWidth = screenWidth > maxWidth ? maxWidth : screenWidth;
+      desiredTextWidth -= padding;
       return this.getFontHeightForWidth(text, fontName, desiredTextWidth);
     }
   }, {
@@ -598,7 +621,8 @@ var handleResize = function handleResize() {
   var splashTextEl = document.getElementsByClassName('page-title')[0];
 
   // Set size of the first page text.
-  splashTextEl.style.fontSize = Dom.fitTextToScreen(splashTextEl.innerText, 'Damion', 700);
+  // TODO: something about the text flowing into newline.
+  splashTextEl.style.fontSize = Dom.fitTextToScreen(splashTextEl.innerText, 'Damion', 600, 20);
 };
 
 var handleScroll = function handleScroll(e) {
