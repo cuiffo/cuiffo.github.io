@@ -691,11 +691,62 @@ var Dom = function () {
 module.exports = Dom;
 });
 
+require.register("header.js", function(exports, require, module) {
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Dom = require('dom');
+var PageAnimation = require('pageAnimation');
+
+var Header = function () {
+  function Header() {
+    _classCallCheck(this, Header);
+  }
+
+  _createClass(Header, [{
+    key: 'init',
+    value: function init() {
+      if (this.isInit) {
+        return;
+      }
+      this.isInit = true;
+      var headerButtons = document.getElementsByClassName('header-button');
+
+      var _loop = function _loop(i) {
+        var headerButton = headerButtons[i];
+        var scrollToClass = headerButton.getAttribute('scrollto');
+        var scrollToElement = document.getElementsByClassName(scrollToClass)[0];
+        Dom.addEventListener(headerButton, 'click', function () {
+          PageAnimation.getInstance().scrollToElement(scrollToElement);
+        });
+      };
+
+      for (var i = 0; i < headerButtons.length; i++) {
+        _loop(i);
+      }
+    }
+  }]);
+
+  return Header;
+}();
+
+var __instance__ = new Header();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
+});
+
 require.register("initialize.js", function(exports, require, module) {
 'use strict';
 
 var Countdown = require('countdown');
 var Dom = require('dom');
+var Header = require('header');
 var TitleAnimation = require('titleAnimation');
 
 var positionInPage;
@@ -733,6 +784,7 @@ var init = function init() {
   handleScroll();
 
   Countdown.getInstance().start();
+  Header.getInstance().init();
 };
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -833,6 +885,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Animator = require('animator');
 var Dom = require('dom');
 var Maths = require('maths');
+var TitleAnimation = require('titleAnimation');
 
 var PageAnimation = function () {
   function PageAnimation() {
@@ -851,7 +904,7 @@ var PageAnimation = function () {
   _createClass(PageAnimation, [{
     key: 'scrollToElement',
     value: function scrollToElement(element) {
-      var animator = new Animator();
+      var animator = Animator.getInstance();
       animator.cancelAnimation(this.HASH);
       var scrollTo = element.offsetTop;
       this.easeScrollPositionEnd = scrollTo;
@@ -869,7 +922,7 @@ var PageAnimation = function () {
       var isComplete = false;
       if (currentTime > this.easeScrollEndTime) {
         this.lastStartScroll = this.easeScrollPositionEnd;
-        new TitleAnimation().handleScroll();
+        TitleAnimation.getInstance().handleScroll();
         isComplete = true;
         this.isAnimating = false;
       } else {

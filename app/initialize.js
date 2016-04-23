@@ -1,5 +1,6 @@
 var Countdown = require('countdown');
 var Dom = require('dom');
+var Header = require('header');
 var TitleAnimation = require('titleAnimation');
 
 
@@ -43,6 +44,7 @@ var init = function() {
   handleScroll();
 
   Countdown.getInstance().start();
+  Header.getInstance().init();
 };
 
 

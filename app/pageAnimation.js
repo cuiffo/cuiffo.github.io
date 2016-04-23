@@ -1,6 +1,7 @@
 var Animator = require('animator');
 var Dom = require('dom');
 var Maths = require('maths');
+var TitleAnimation = require('titleAnimation');
 
 class PageAnimation {
 
@@ -16,7 +17,7 @@ class PageAnimation {
   }
 
   scrollToElement(element) {
-    var animator = new Animator();
+    var animator = Animator.getInstance();
     animator.cancelAnimation(this.HASH);
     var scrollTo = element.offsetTop;
     this.easeScrollPositionEnd = scrollTo;
@@ -33,7 +34,7 @@ class PageAnimation {
     var isComplete = false;
     if (currentTime > this.easeScrollEndTime) {
       this.lastStartScroll = this.easeScrollPositionEnd;
-      new TitleAnimation().handleScroll();
+      TitleAnimation.getInstance().handleScroll();
       isComplete = true;
       this.isAnimating = false;
     } else {
