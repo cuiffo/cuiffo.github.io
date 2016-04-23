@@ -102,7 +102,6 @@
 
       .info-section {
         width: 100%;
-        height: 1000px;
         background-color: #f1f1f1;
       }
 
@@ -245,17 +244,22 @@
       #map {
         margin-top: 30px;
         width: 100%;
-        height: 350px;
+        height: 400px;
+      }
+
+      .bridal-party {
+        width: 100%;
+        background-color: #f1f1f1;
       }
 
     </style>
   </head>
   <body>
     <div class="header">
-      <div class="header-button">Welcome</div>
-      <div class="header-button">Info</div>
-      <div class="header-button">The Bridal Party</div>
-      <div class="header-button">Our Story</div>
+      <div tabindex="0" class="header-button">Welcome</div>
+      <div tabindex="0" class="header-button">Info</div>
+      <div tabindex="0" class="header-button">The Bridal Party</div>
+      <div tabindex="0" class="header-button">Our Story</div>
       <div class="header-button">RSVP</div>
     </div>
     <div class="page page-one">
@@ -301,7 +305,7 @@
             <div class="info-card-description venue-card-description">
               The wedding will take place in the West House of The Palace at Somerset Park. The ceremony starts at 5 and the reception at 6.
             </div>
-            <div class="info-card-link venue-card-link">
+            <div tabindex="0" class="info-card-link venue-card-link">
               VISIT WEBSITE
             </div>
           </div>
@@ -315,35 +319,65 @@
             <div class="info-card-description hotel-card-description">
               For guests who wish to have accomodations, we have a special group rate of $129 per night at Sonesta including round trip car service.
             </div>
-            <div class="info-card-link hotel-card-link">VISIT WEBSITE</div>
+            <div tabindex="0" class="info-card-link hotel-card-link">
+              VISIT WEBSITE
+            </div>
           </div>
         </div>
       </div>
       <div id="map"></div>
+      <div class="bridal-party">
+        <div class="section-title">
+          <div class="section-title-left-arrow"></div>
+          <div class="section-title-text">The bridal party</div>
+          <div class="section-title-right-arrow"></div>
+        </div>
+        <div class="bridal-party-title">Groomsmen</div>
+        <div class="bridal-party-group">
+          <div class="bridal-party-member">
+            <div class="bridal-party-member-picture"></div>
+            <div class="bridal-party-member-text">
+              <div class="bridal-party-member-name">Eric Chi</div>
+              <div class="bridal-party-member-description">
+                TALK ABOUT PERSON HERE.
+              </div>
+          </div>
+          <div class="bridal-party-member">
+            <div class="bridal-party-member-picture"></div>
+            <div class="bridal-party-member-text">
+              <div class="bridal-party-member-name">Chikao Maeda</div>
+              <div class="bridal-party-member-description">
+                TALK ABOUT PERSON HERE.
+              </div>
+          </div>
+          <div class="bridal-party-member">
+            <div class="bridal-party-member-picture"></div>
+            <div class="bridal-party-member-text">
+              <div class="bridal-party-member-name">Louis Delia</div>
+              <div class="bridal-party-member-description">
+                TALK ABOUT PERSON HERE.
+              </div>
+          </div>
+          <div class="bridal-party-member">
+            <div class="bridal-party-member-picture"></div>
+            <div class="bridal-party-member-text">
+              <div class="bridal-party-member-name">Nabeel Ahmed</div>
+              <div class="bridal-party-member-description">
+                TALK ABOUT PERSON HERE.
+              </div>
+          </div>
+          <div class="bridal-party-member">
+            <div class="bridal-party-member-picture"></div>
+            <div class="bridal-party-member-text">
+              <div class="bridal-party-member-name">Steve Au-Yeung</div>
+              <div class="bridal-party-member-description">
+                TALK ABOUT PERSON HERE.
+              </div>
+          </div>
+        </div>
+      </div>
     </div>
     <canvas class="text-fitter" height="800" width="800"></canvas>
-    <!--
-    <div class="cuiffo-page cuiffo-page-map">
-      <div class="cuiffo-map-container cuiffo-map-text-center">
-        Click for location
-      </div>
-        <div class="cuiffo-map-sidebar">
-          <div class="cuiffo-map-sidebar-button cuiffo-map-venue-info cuiffo-map-text-center">
-            Click for venue info
-          </div>
-          <div class="cuiffo-map-sidebar-button cuiffo-map-hotel-info cuiffo-map-text-center">
-            Click for hotel info
-          </div>
-        </div>
-    </div>
-    <div class="cuiffo-page cuiffo-page-more-info">
-        <div class="cuiffo-page-cented-text">
-          <div><span class="cuiffo-more-coming-soon">More info coming soon</span></div>
-          <div><span class="cuiffo-check-back-later">Check back later when you receive your invitation!</span></div>
-        </div>
-    </div>
-    <div class="cuiffo-page-selector"></div>
-    -->
     <script src="vendor.js"></script>
     <script src="app.js"></script>
     <script>require('initialize');</script>
@@ -353,7 +387,9 @@
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 40.5309131, lng: -74.5340299},
           zoom: 15,
-          scrollwheel: false
+          scrollwheel: false,
+          mapTypeControl: false,
+          streetViewControl: false
         });
       }
     </script>
