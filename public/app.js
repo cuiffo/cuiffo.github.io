@@ -771,7 +771,7 @@ var handleScroll = function handleScroll(e) {
   var hasScrolledCss = headerEl.classList.contains('header-scrolled');
   if (positionInPage > Dom.getWindowHeight() - 40 && !hasScrolledCss) {
     headerEl.classList.add('header-scrolled');
-  } else if (positionInPage < Dom.getWindowHeight() && hasScrolledCss) {
+  } else if (positionInPage < Dom.getWindowHeight() - 40 && hasScrolledCss) {
     headerEl.classList.remove('header-scrolled');
   }
 };
