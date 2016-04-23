@@ -9,13 +9,13 @@ var handleResize = function() {
   var splashTextEl = document.getElementsByClassName('page-title')[0];
   // Set size of the first page text.
   splashTextEl.style.fontSize = Dom.fitTextToScreen(
-      splashTextEl.innerText, 'Damion', 600, 20);
+      splashTextEl.textContent.trim(), 'Damion', 600, 20);
 
   var titleElements = document.getElementsByClassName('section-title-text');
   for (let i = 0; i < titleElements.length; i++) {
     let titleEl = titleElements[i];
     titleEl.style.fontSize = Dom.fitTextToScreen(
-        titleEl.innerText, 'Damion', 550, 70);
+        titleEl.textContent.trim(), 'Damion', 550, 70);
 
   }
 };

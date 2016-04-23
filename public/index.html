@@ -160,6 +160,94 @@
         white-space: nowrap;
       }
 
+      .info-cards {
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .info-card {
+        margin: 0 15px;
+        vertical-align: top;
+        display: inline-block;
+        -moz-box-shadow: 3px 3px 6px #ccc;
+        -webkit-box-shadow: 3px 3px 6px #ccc;
+        box-shadow: 3px 3px 6px #ccc;
+        -moz-border- radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        -khtml-border-radius: 3px;
+      }
+
+      .info-card-picture {
+        height: 150px;
+        width: 300px;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        -moz-border-top-right-radius: 3px;
+        -webkit-border-top-right-radius: 3px;
+        border-top-right-radius: 3px;
+        -khtml-border-top-right-radius: 3px;
+        -moz-border-top-left-radius: 3px;
+        -webkit-border-top-left-radius: 3px;
+        border-top-left-radius: 3px;
+        -khtml-border-top-left-radius: 3px;
+      }
+
+      .venue-card-picture {
+        background-image: url("images/venue.jpg");
+      }
+
+      .hotel-card-picture {
+        background-image: url("images/hotel.jpg");
+      }
+
+      .info-card-content {
+        -moz-border-bottom-right-radius: 3px;
+        -webkit-border-bottom-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        -khtml-border-bottom-right-radius: 3px;
+        -moz-border-bottom-left-radius: 3px;
+        -webkit-border-bottom-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        -khtml-border-bottom-left-radius: 3px;
+        background-color: white;
+        width: 280px;
+        text-align: left;
+        padding: 10px;
+        font-family: 'Roboto', sans-serif;
+        position: relative;
+      }
+
+      .info-card-title {
+        font-weight: 400;
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+      
+      .info-card-description {
+        font-weight: 300;
+        font-size: 14px;
+        margin-bottom: 25px;
+      }
+
+      .info-card-link {
+        font-weight: 300;
+        color: #014469;
+        font-size: 14px;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        cursor: pointer;
+      }
+
+      #map {
+        margin-top: 30px;
+        width: 100%;
+        height: 350px;
+      }
+
     </style>
   </head>
   <body>
@@ -231,7 +319,7 @@
           </div>
         </div>
       </div>
-      <div class="map"></div>
+      <div id="map"></div>
     </div>
     <canvas class="text-fitter" height="800" width="800"></canvas>
     <!--
@@ -259,5 +347,16 @@
     <script src="vendor.js"></script>
     <script src="app.js"></script>
     <script>require('initialize');</script>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 40.5309131, lng: -74.5340299},
+          zoom: 15,
+          scrollwheel: false
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqrE8Ak3eMHlu--MtvD7m27-7iVvT8JgE&callback=initMap" async defer></script>
   </body>
 </html>

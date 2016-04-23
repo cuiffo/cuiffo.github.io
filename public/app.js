@@ -703,12 +703,12 @@ var positionInPage;
 var handleResize = function handleResize() {
   var splashTextEl = document.getElementsByClassName('page-title')[0];
   // Set size of the first page text.
-  splashTextEl.style.fontSize = Dom.fitTextToScreen(splashTextEl.innerText, 'Damion', 600, 20);
+  splashTextEl.style.fontSize = Dom.fitTextToScreen(splashTextEl.textContent.trim(), 'Damion', 600, 20);
 
   var titleElements = document.getElementsByClassName('section-title-text');
   for (var i = 0; i < titleElements.length; i++) {
     var titleEl = titleElements[i];
-    titleEl.style.fontSize = Dom.fitTextToScreen(titleEl.innerText, 'Damion', 550, 70);
+    titleEl.style.fontSize = Dom.fitTextToScreen(titleEl.textContent.trim(), 'Damion', 550, 70);
   }
 };
 
@@ -1282,7 +1282,25 @@ require.register("requestAnimationFrame.js", function(exports, require, module) 
 })();
 });
 
-require.register("titleAnimation.js", function(exports, require, module) {
+require.register("textcontentpolyfill.js", function(exports, require, module) {
+"use strict";
+
+if (Object.defineProperty && Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor(Element.prototype, "textContent") && !Object.getOwnPropertyDescriptor(Element.prototype, "textContent").get) {
+  (function () {
+    var innerText = Object.getOwnPropertyDescriptor(Element.prototype, "innerText");
+    Object.defineProperty(Element.prototype, "textContent", {
+      get: function get() {
+        return innerText.get.call(this);
+      },
+      set: function set(s) {
+        return innerText.set.call(this, s);
+      }
+    });
+  })();
+}
+});
+
+;require.register("titleAnimation.js", function(exports, require, module) {
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1352,5 +1370,15 @@ module.exports = {
 };
 });
 
+require.register("trimpolyfill.js", function(exports, require, module) {
+'use strict';
 
+if (!String.prototype.trim) {
+  String.prototype.trim = function () {
+    return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+  };
+}
+});
+
+;
 //# sourceMappingURL=app.js.map
