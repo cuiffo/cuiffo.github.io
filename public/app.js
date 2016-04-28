@@ -741,12 +741,60 @@ module.exports = {
 };
 });
 
+require.register("infoCards.js", function(exports, require, module) {
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Dom = require('dom');
+
+var InfoCards = function () {
+  function InfoCards() {
+    _classCallCheck(this, InfoCards);
+  }
+
+  _createClass(InfoCards, [{
+    key: 'init',
+    value: function init() {
+      if (this.isInit) {
+        return;
+      }
+      this.isInit = true;
+
+      var cards = document.getElementsByClassName('info-card-content');
+      var requiredSize = 0;
+      for (var i = 0; i < cards.length; i++) {
+        var cardHeight = Dom.getSize(cards[i]).height;
+        if (cardHeight > requiredSize) {
+          requiredSize = cardHeight;
+        }
+      }
+      for (var _i = 0; _i < cards.length; _i++) {
+        cards[_i].style.height = requiredSize - 20 + 'px';
+      }
+    }
+  }]);
+
+  return InfoCards;
+}();
+
+var __instance__ = new InfoCards();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
+});
+
 require.register("initialize.js", function(exports, require, module) {
 'use strict';
 
 var Countdown = require('countdown');
 var Dom = require('dom');
 var Header = require('header');
+var InfoCards = require('infoCards');
 var TitleAnimation = require('titleAnimation');
 
 var positionInPage;
@@ -785,6 +833,7 @@ var init = function init() {
 
   Countdown.getInstance().start();
   Header.getInstance().init();
+  InfoCards.getInstance().init();
 };
 
 document.addEventListener('DOMContentLoaded', function () {

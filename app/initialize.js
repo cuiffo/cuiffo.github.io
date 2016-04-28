@@ -1,6 +1,7 @@
 var Countdown = require('countdown');
 var Dom = require('dom');
 var Header = require('header');
+var InfoCards = require('infoCards');
 var TitleAnimation = require('titleAnimation');
 
 
@@ -45,6 +46,7 @@ var init = function() {
 
   Countdown.getInstance().start();
   Header.getInstance().init();
+  InfoCards.getInstance().init();
 };
 
 
