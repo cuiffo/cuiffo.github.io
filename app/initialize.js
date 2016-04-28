@@ -37,9 +37,22 @@ var handleScroll = function(e) {
 };
 
 
+var openUrl = function(url) {
+  return () => {
+    var win = window.open(url, '_blank');
+  }
+}
+
+
 var init = function() {
   Dom.addEventListener(window, 'resize', handleResize);
   Dom.addEventListener(window, 'scroll', handleScroll);
+
+  var buttons = document.getElementsByClassName('info-card-link');
+  for (let i = 0; i < buttons.length; i++) {
+    let button = buttons[i];
+    Dom.addEventListener(button, 'click', openUrl(button.getAttribute('src')));
+  }
 
   handleResize();
   handleScroll();

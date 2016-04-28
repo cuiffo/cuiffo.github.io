@@ -824,9 +824,21 @@ var handleScroll = function handleScroll(e) {
   }
 };
 
+var openUrl = function openUrl(url) {
+  return function () {
+    var win = window.open(url, '_blank');
+  };
+};
+
 var init = function init() {
   Dom.addEventListener(window, 'resize', handleResize);
   Dom.addEventListener(window, 'scroll', handleScroll);
+
+  var buttons = document.getElementsByClassName('info-card-link');
+  for (var i = 0; i < buttons.length; i++) {
+    var button = buttons[i];
+    Dom.addEventListener(button, 'click', openUrl(button.getAttribute('src')));
+  }
 
   handleResize();
   handleScroll();
