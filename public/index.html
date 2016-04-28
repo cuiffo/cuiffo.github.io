@@ -74,7 +74,7 @@
         height: 70px;
         background-color: rgba(0,0,0,.7);
         width: 100%;
-        z-index: 1;
+        z-index: 10;
         -webkit-transition: background-color .2s, height .2s;
         transition: background-color .2s, height .2s;
         -webkit-touch-callout: none;
@@ -132,14 +132,34 @@
         font-weight: 300;
       }
 
-      .countdown {
+      .countdown-wrapper {
         margin-top: 50px;
+        position: relative;
+        height: 110px;
+      }
+
+      .countdown {
+        position: absolute;
         text-align: center;
+        width: 100%;
+      }
+
+      .countdown-line {
+        position: absolute;
+        border-bottom: 1px solid #ccc;
+        height: 55px;
+        width: 100%;
+      }
+
+      .countdown-card-wrapper {
+        padding: 0 8px;
+        margin: 0 8px;
+        background-color: #f1f1f1;
+        display: inline-block;
+        z-index: 1;
       }
 
       .countdown-card {
-        display: inline-block;
-        margin: 0 10px;
         -moz-box-shadow: 3px 3px 6px #ccc;
         -webkit-box-shadow: 3px 3px 6px #ccc;
         box-shadow: 3px 3px 6px #ccc;
@@ -375,22 +395,33 @@
         <div class="section-title-right-arrow"></div>
       </div>
       <div class="section-subtitle">October 16th, 2016</div>
-      <div class="countdown">
-        <div class="countdown-card">
-          <div class="countdown-count days-count">0</div>
-          <div class="countdown-card-label">Days</div>
-        </div>
-        <div class="countdown-card">
-          <div class="countdown-count hours-count">0</div>
-          <div class="countdown-card-label">Hours</div>
-        </div>
-        <div class="countdown-card">
-          <div class="countdown-count minutes-count">0</div>
-          <div class="countdown-card-label">Minutes</div>
-        </div>
-        <div class="countdown-card">
-          <div class="countdown-count seconds-count">0</div>
-          <div class="countdown-card-label">Seconds</div>
+      <div class="countdown-wrapper">
+        <div class="countdown-line"></div>
+        <div class="countdown">
+          <div class="countdown-card-wrapper">
+            <div class="countdown-card">
+              <div class="countdown-count days-count">0</div>
+              <div class="countdown-card-label">Days</div>
+            </div>
+          </div>
+          <div class="countdown-card-wrapper">
+            <div class="countdown-card">
+              <div class="countdown-count hours-count">0</div>
+              <div class="countdown-card-label">Hours</div>
+            </div>
+          </div>
+          <div class="countdown-card-wrapper">
+            <div class="countdown-card">
+              <div class="countdown-count minutes-count">0</div>
+              <div class="countdown-card-label">Minutes</div>
+            </div>
+          </div>
+          <div class="countdown-card-wrapper">
+            <div class="countdown-card">
+              <div class="countdown-count seconds-count">0</div>
+              <div class="countdown-card-label">Seconds</div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="info-cards">
