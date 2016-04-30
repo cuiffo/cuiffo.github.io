@@ -8,6 +8,8 @@ var TitleAnimation = require('titleAnimation');
 var positionInPage;
 
 var handleResize = function() {
+  InfoCards.getInstance().resize();
+
   var splashTextEl = document.getElementsByClassName('page-title')[0];
   // Set size of the first page text.
   splashTextEl.style.fontSize = Dom.fitTextToScreen(
@@ -54,12 +56,11 @@ var init = function() {
     Dom.addEventListener(button, 'click', openUrl(button.getAttribute('src')));
   }
 
-  handleResize();
-  handleScroll();
-
   Countdown.getInstance().start();
   Header.getInstance().init();
   InfoCards.getInstance().init();
+  handleResize();
+  handleScroll();
 };
 
 

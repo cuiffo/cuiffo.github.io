@@ -762,10 +762,15 @@ var InfoCards = function () {
         return;
       }
       this.isInit = true;
-
+      this.resize();
+    }
+  }, {
+    key: 'resize',
+    value: function resize() {
       var cards = document.getElementsByClassName('info-card-content');
       var requiredSize = 0;
       for (var i = 0; i < cards.length; i++) {
+        cards[i].style.height = 'auto';
         var cardHeight = Dom.getSize(cards[i]).height;
         if (cardHeight > requiredSize) {
           requiredSize = cardHeight;
@@ -800,6 +805,8 @@ var TitleAnimation = require('titleAnimation');
 var positionInPage;
 
 var handleResize = function handleResize() {
+  InfoCards.getInstance().resize();
+
   var splashTextEl = document.getElementsByClassName('page-title')[0];
   // Set size of the first page text.
   splashTextEl.style.fontSize = Dom.fitTextToScreen(splashTextEl.textContent.trim(), 'Damion', 600, 20);
@@ -840,12 +847,11 @@ var init = function init() {
     Dom.addEventListener(button, 'click', openUrl(button.getAttribute('src')));
   }
 
-  handleResize();
-  handleScroll();
-
   Countdown.getInstance().start();
   Header.getInstance().init();
   InfoCards.getInstance().init();
+  handleResize();
+  handleScroll();
 };
 
 document.addEventListener('DOMContentLoaded', function () {

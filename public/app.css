@@ -1,0 +1,398 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.page {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.page-one {
+  background: url('images/bg.jpg') no-repeat 50% 50% fixed;
+  background-size: cover;
+}
+
+.page-title-container {
+  position: absolute;
+  width: 100%;
+  color: white;
+  text-align: center;
+  font-family: 'Damion', cursive;
+}
+
+.page-cented-text {
+  position: absolute;
+  width: 100%;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+  font-family: 'Righteous', sans-serif;
+}
+
+.page-one .page-title-container {
+  bottom: 10px;
+}
+
+@-webkit-keyframes bounce-animation {
+  0% {
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px);
+  }
+  100% {
+    -webkit-transform: translateY(5px);
+            transform: translateY(5px);
+  }
+}
+
+@keyframes bounce-animation {
+  0% {
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px);
+  }
+  100% {
+    -webkit-transform: translateY(5px);
+            transform: translateY(5px);
+  }
+}
+
+.bounce {
+  -webkit-animation-name: bounce-animation;
+          animation-name: bounce-animation;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+}
+
+.header {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  height: 70px;
+  background-color: rgba(0,0,0,.7);
+  text-align: center;
+  -webkit-transition: background-color .2s, height .2s;
+  transition: background-color .2s, height .2s;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;   
+}
+
+.header-scrolled {
+  height: 40px;
+  background-color: rgba(0,0,0,.9);
+}
+
+.header-button {
+  display: inline-block;
+  margin: 0 20px;
+  outline: none;
+  color: white;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+  line-height: 70px;
+  cursor: pointer;
+  -webkit-transition: line-height .2s;
+  transition: line-height .2s;
+}
+
+.header-scrolled .header-button {
+  line-height: 40px;
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 600px) {
+  .header-button {
+    display: none;
+  }
+}
+
+.info-section {
+  width: 100%;
+  background-color: #f1f1f1;
+}
+
+.text-fitter {
+  display: none;
+}
+
+.section-title {
+  padding-top: 30px;
+  width: 100%;
+  color: #6c859a;
+  text-align: center;
+  font-family: 'Damion', cursive;
+}
+
+.section-subtitle {
+  width: 100%;
+  color: #5d5d5d;
+  text-align: center;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
+
+.countdown-wrapper {
+  position: relative;
+  margin-top: 50px;
+  height: 110px;
+}
+
+.countdown {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+
+.countdown-line {
+  position: absolute;
+  width: 100%;
+  height: 55px;
+  border-bottom: 1px solid #ccc;
+}
+
+.countdown-card-wrapper {
+  z-index: 1;
+  display: inline-block;
+  margin: 0 8px;
+  padding: 0 8px;
+  background-color: #f1f1f1;
+}
+
+.countdown-card {
+  box-shadow: 3px 3px 6px #ccc;
+}
+
+.countdown-card-label {
+  width: 80px;
+  height: 30px;
+  background-color: #6c859a;
+  color: white;
+  white-space: nowrap;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+  line-height: 30px;
+}
+
+.countdown-count {
+  width: 80px;
+  height: 80px;
+  background-color: white;
+  white-space: nowrap;
+  font-size: 30px;
+  font-family: 'Roboto', sans-serif;
+  line-height: 80px;
+}
+
+.info-cards {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.info-card {
+  display: inline-block;
+  margin: 0 15px;
+  border-radius: 3px;
+  box-shadow: 3px 3px 6px #ccc;
+  vertical-align: top;
+}
+
+.info-card-picture {
+  width: 300px;
+  height: 150px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background-size: cover;
+}
+
+.venue-card-picture {
+  background-image: url("images/venue.jpg");
+}
+
+.hotel-card-picture {
+  background-image: url("images/hotel.jpg");
+}
+
+.info-card-content {
+  position: relative;
+  padding-bottom: 25px;
+  width: 300px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  background-color: white;
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
+}
+
+.info-card-title {
+  padding: 10px 10px 5px 10px;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.info-card-description {
+  padding: 0 10px 0 10px;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.info-card-link {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  color: #014469;
+  font-weight: 300;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Large desktop */
+@media (min-width: 1200px) {}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  .info-card {
+    display: block;
+    margin: 20px 0;
+    width: 100%;
+    border-radius: 0;
+  }
+  .info-card-picture {
+    width: 100%;
+    height: 400px;
+    border-radius: 0;
+  }
+  .info-card-content {
+    width: 100%;
+    border-radius: 0;
+  }
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  .info-card {
+    display: block;
+    margin: 20px 0;
+    width: 100%;
+    border-radius: 0;
+  }
+  .info-card-picture {
+    width: 100%;
+    height: 300px;
+    border-radius: 0;
+  }
+  .info-card-content {
+    width: 100%;
+    border-radius: 0;
+  }
+}
+
+#map {
+  margin-top: 30px;
+  width: 100%;
+  height: 400px;
+}
+
+.bridal-party {
+  width: 100%;
+  background-color: #f1f1f1;
+}
+
+.bridal-party-title {
+  color: #5d5d5d;
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.bridal-party-group {
+  font-family: 'Roboto', sans-serif;
+}
+
+.bridal-party-member {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.bridal-party-member-picture {
+  display: inline-block;
+  margin-right: 15px;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  background-size: cover;
+  box-shadow: 3px 3px 6px #ccc;
+  vertical-align: top;
+}
+
+.eric-pic {
+  background-image: url("images/eric.jpg");
+}
+
+.chikao-pic {
+  background-image: url("images/chikao.jpg");
+}
+
+.louis-pic {
+  background-image: url("images/louis.jpg");
+}
+
+.nabeel-pic {
+  background-image: url("images/nabeel.jpg");
+}
+
+.steve-pic {
+  background-image: url("images/steve.jpg");
+}
+
+.joy-pic {
+  background-image: url("images/joy.jpg");
+}
+
+.denise-pic {
+  background-image: url("images/denise.jpg");
+}
+
+.ivy-pic {
+  background-image: url("images/ivy.jpg");
+}
+
+.janice-pic {
+  background-image: url("images/janice.jpg");
+}
+
+.tawnie-pic {
+  background-image: url("images/tawnie.jpg");
+}
+
+.bridal-party-member-text {
+  display: inline-block;
+  width: 500px;
+  vertical-align: top;
+  text-align: left;
+}
+
+.bridal-party-member-name {
+  font-size: 16px;
+}
+
+.bridal-party-member-description {
+  font-weight: 300;
+  font-size: 13px;
+}
+
+
+/*# sourceMappingURL=app.css.map*/

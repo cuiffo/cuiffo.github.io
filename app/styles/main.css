@@ -1,0 +1,378 @@
+:root {
+  --greyBgColor: #f1f1f1;
+  --cornerRadius: 3px;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.page {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-one {
+  background: url('images/bg.jpg') no-repeat 50% 50% fixed;
+  background-size: cover;
+}
+
+.page-title-container {
+  font-family: 'Damion', cursive;
+  position: absolute;
+  text-align: center;
+  color: white;
+  width: 100%;
+}
+
+.page-cented-text {
+  font-family: 'Righteous', sans-serif;
+  position: absolute;
+  text-align: center;
+  color: white;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.page-one .page-title-container {
+  bottom: 10px;
+}
+
+@keyframes bounce-animation {
+  0% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(5px);
+  }
+}
+
+.bounce {
+  animation-name: bounce-animation;
+  animation-duration: 1s;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.header {
+  text-align: center;
+  position: fixed;
+  height: 70px;
+  background-color: rgba(0,0,0,.7);
+  width: 100%;
+  z-index: 10;
+  transition: background-color .2s, height .2s;
+  user-select: none;   
+}
+
+.header-scrolled {
+  height: 40px;
+  background-color: rgba(0,0,0,.9);
+}
+
+.header-button {
+  outline: none;
+  margin: 0 20px;
+  color: white;
+  display: inline-block;
+  line-height: 70px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  cursor: pointer;
+  -webkit-transition: line-height .2s;
+  transition: line-height .2s;
+}
+
+.header-scrolled .header-button {
+  line-height: 40px;
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 600px) {
+  .header-button {
+    display: none;
+  }
+}
+
+.info-section {
+  width: 100%;
+  background-color: var(--greyBgColor);
+}
+
+.text-fitter {
+  display: none;
+}
+
+.section-title {
+  padding-top: 30px;
+  font-family: 'Damion', cursive;
+  text-align: center;
+  color: #6c859a;
+  width: 100%;
+}
+
+.section-subtitle {
+  font-family: 'Roboto', sans-serif;
+  color: #5d5d5d;
+  text-align: center;
+  width: 100%;
+  font-weight: 300;
+}
+
+.countdown-wrapper {
+  margin-top: 50px;
+  position: relative;
+  height: 110px;
+}
+
+.countdown {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.countdown-line {
+  position: absolute;
+  border-bottom: 1px solid #ccc;
+  height: 55px;
+  width: 100%;
+}
+
+.countdown-card-wrapper {
+  padding: 0 8px;
+  margin: 0 8px;
+  background-color: #f1f1f1;
+  display: inline-block;
+  z-index: 1;
+}
+
+.countdown-card {
+  box-shadow: 3px 3px 6px #ccc;
+}
+
+.countdown-card-label {
+  font-family: 'Roboto', sans-serif;
+  height: 30px;
+  width: 80px;
+  background-color: #6c859a;
+  color: white;
+  line-height: 30px;
+  font-weight: 300;
+  white-space: nowrap;
+}
+
+.countdown-count {
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  height: 80px;
+  width: 80px;
+  background-color: white;
+  line-height: 80px;
+  white-space: nowrap;
+}
+
+.info-cards {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.info-card {
+  margin: 0 15px;
+  vertical-align: top;
+  display: inline-block;
+  box-shadow: 3px 3px 6px #ccc;
+  border-radius: var(--cornerRadius);
+}
+
+.info-card-picture {
+  height: 150px;
+  width: 300px;
+  background-size: cover;
+  border-top-right-radius: var(--cornerRadius);
+  border-top-left-radius: var(--cornerRadius);
+}
+
+.venue-card-picture {
+  background-image: url("images/venue.jpg");
+}
+
+.hotel-card-picture {
+  background-image: url("images/hotel.jpg");
+}
+
+.info-card-content {
+  border-bottom-right-radius: var(--cornerRadius);
+  border-bottom-left-radius: var(--cornerRadius);
+  background-color: white;
+  width: 300px;
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  padding-bottom: 25px;
+}
+
+.info-card-title {
+  font-weight: 400;
+  font-size: 18px;
+  padding: 10px 10px 5px 10px;
+}
+
+.info-card-description {
+  font-weight: 300;
+  font-size: 14px;
+  padding: 0 10px 0 10px;
+}
+
+.info-card-link {
+  font-weight: 300;
+  color: #014469;
+  font-size: 14px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+/* Large desktop */
+@media (min-width: 1200px) {}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  .info-card {
+    margin: 20px 0;
+    border-radius: 0;
+    display: block;
+    width: 100%;
+  }
+  .info-card-picture {
+    width: 100%;
+    height: 400px;
+    border-radius: 0;
+  }
+  .info-card-content {
+    border-radius: 0;
+    width: 100%;
+  }
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  .info-card {
+    margin: 20px 0;
+    border-radius: 0;
+    display: block;
+    width: 100%;
+  }
+  .info-card-picture {
+    width: 100%;
+    height: 300px;
+    border-radius: 0;
+  }
+  .info-card-content {
+    border-radius: 0;
+    width: 100%;
+  }
+}
+
+#map {
+  margin-top: 30px;
+  width: 100%;
+  height: 400px;
+}
+
+.bridal-party {
+  width: 100%;
+  background-color: #f1f1f1;
+}
+
+.bridal-party-title {
+  text-align: center;
+  color: #5d5d5d;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+}
+
+.bridal-party-group {
+  font-family: 'Roboto', sans-serif;
+}
+
+.bridal-party-member {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.bridal-party-member-picture {
+  vertical-align: top;
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+  border-radius: 40px;
+  box-shadow: 3px 3px 6px #ccc;
+  margin-right: 15px;
+}
+
+.eric-pic {
+  background-image: url("images/eric.jpg");
+}
+
+.chikao-pic {
+  background-image: url("images/chikao.jpg");
+}
+
+.louis-pic {
+  background-image: url("images/louis.jpg");
+}
+
+.nabeel-pic {
+  background-image: url("images/nabeel.jpg");
+}
+
+.steve-pic {
+  background-image: url("images/steve.jpg");
+}
+
+.joy-pic {
+  background-image: url("images/joy.jpg");
+}
+
+.denise-pic {
+  background-image: url("images/denise.jpg");
+}
+
+.ivy-pic {
+  background-image: url("images/ivy.jpg");
+}
+
+.janice-pic {
+  background-image: url("images/janice.jpg");
+}
+
+.tawnie-pic {
+  background-image: url("images/tawnie.jpg");
+}
+
+.bridal-party-member-text {
+  text-align: left;
+  vertical-align: top;
+  display: inline-block;
+  width: 500px;
+}
+
+.bridal-party-member-name {
+  font-size: 16px;
+}
+
+.bridal-party-member-description {
+  font-weight: 300;
+  font-size: 13px;
+}
