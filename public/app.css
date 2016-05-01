@@ -394,5 +394,39 @@ body, html {
   font-size: 13px;
 }
 
+/* Large desktop */
+@media (min-width: 1200px) {}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+  .bridal-party-member-text {
+    width: 450px;
+  }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  .bridal-party-member-picture {
+    margin: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+  }
+  .bridal-party-member-text {
+    display: block;
+    padding: 30px 0;
+    width: auto;
+  }
+  .bridal-party-member-description {
+    padding: 30px;
+    width: auto;
+    font-weight: 300;
+    font-size: 13px;
+  }
+  .bridal-party-member-name {
+    text-align: center;
+  }
+}
+
 
 /*# sourceMappingURL=app.css.map*/
