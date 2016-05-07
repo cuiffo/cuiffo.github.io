@@ -50,6 +50,9 @@ var init = function() {
   Dom.addEventListener(window, 'resize', handleResize);
   Dom.addEventListener(window, 'scroll', handleScroll);
 
+  let frontPage = document.getElementsByClassName('page-one')[0];
+  frontPage.style.height = Dom.getWindowHeight() + 'px';
+
   var buttons = document.getElementsByClassName('info-card-link');
   for (let i = 0; i < buttons.length; i++) {
     let button = buttons[i];

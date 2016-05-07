@@ -848,6 +848,9 @@ var init = function init() {
   Dom.addEventListener(window, 'resize', handleResize);
   Dom.addEventListener(window, 'scroll', handleScroll);
 
+  var frontPage = document.getElementsByClassName('page-one')[0];
+  frontPage.style.height = Dom.getWindowHeight() + 'px';
+
   var buttons = document.getElementsByClassName('info-card-link');
   for (var i = 0; i < buttons.length; i++) {
     var button = buttons[i];
