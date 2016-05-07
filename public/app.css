@@ -75,21 +75,22 @@ body, html {
 
 .header {
   position: fixed;
-  z-index: 10;
+  z-index: 10;   
+  overflow: hidden;
+  max-height: 70px;
   width: 100%;
-  height: 70px;
   background-color: rgba(0,0,0,.7);
   text-align: center;
-  -webkit-transition: background-color .2s, height .2s;
-  transition: background-color .2s, height .2s;
+  -webkit-transition: background-color .2s, max-height .2s;
+  transition: background-color .2s, max-height .2s;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
-          user-select: none;   
+          user-select: none;
 }
 
 .header-scrolled {
-  height: 40px;
+  max-height: 40px;
   background-color: rgba(0,0,0,.9);
 }
 
@@ -110,10 +111,40 @@ body, html {
   line-height: 40px;
 }
 
+.hamburger {
+  display: none;
+}
+
 /* Portrait tablet to landscape and desktop */
 @media (max-width: 600px) {
+  .header-scrolled {
+    max-height: 70px;
+  }
+  .header-scrolled .header-button {
+    line-height: 70px;
+  }
+  .header-maximized {
+    max-height: 500px;
+    background-color: rgba(0,0,0,.95);
+  }
   .header-button {
-    display: none;
+    display: block;
+    font-size: 20px;
+    line-height: 70px;
+  }
+  .hamburger {
+    display: block;
+    height: 70px;
+  }
+  .hamburger-icon {
+    position: absolute;
+    right: 0;
+    padding: 20px;
+    width: 30px;
+    height: 30px;
+    color: #AAA;
+    font-size: 30px;
+    cursor: pointer;
   }
 }
 
@@ -127,11 +158,16 @@ body, html {
 }
 
 .section-title {
-  padding-top: 30px;
+  padding-top: 40px;
   width: 100%;
   color: #6c859a;
   text-align: center;
   font-family: 'Damion', cursive;
+}
+@media (max-width: 600px) {
+  .section-title {
+    padding-top: 80px;
+  }
 }
 
 .section-subtitle {
@@ -152,6 +188,7 @@ body, html {
   position: absolute;
   width: 100%;
   text-align: center;
+  white-space: nowrap;
 }
 
 .countdown-line {
@@ -192,6 +229,57 @@ body, html {
   font-size: 30px;
   font-family: 'Roboto', sans-serif;
   line-height: 80px;
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 500px) {
+  .countdown-wrapper {
+    height: 95px;
+  }
+  .countdown-line {
+    height: 47.5px;
+  }
+  .countdown-card-wrapper {
+    margin: 0 4px;
+    padding: 0 4px;
+  }
+  .countdown-card-label {
+    width: 70px;
+    height: 25px;
+    font-size: 12px;
+    line-height: 25px;
+  }
+  .countdown-count {
+    width: 70px;
+    height: 70px;
+    font-size: 25px;
+    line-height: 70px;
+  }
+}
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 400px) {
+  .countdown-wrapper {
+    height: 95px;
+  }
+  .countdown-line {
+    height: 47.5px;
+  }
+  .countdown-card-wrapper {
+    margin: 0 2px;
+    padding: 0 2px;
+  }
+  .countdown-card-label {
+    width: 60px;
+    height: 20px;
+    font-size: 11px;
+    line-height: 20px;
+  }
+  .countdown-count {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    line-height: 60px;
+  }
 }
 
 .info-cards {
@@ -398,33 +486,42 @@ body, html {
 @media (min-width: 1200px) {}
 
 /* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) {
+@media (max-width: 979px) {
   .bridal-party-member-text {
     width: 450px;
   }
 }
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 750px) {
+  .bridal-party-member-text {
+    width: 400px;
+  }
+}
 
 /* Landscape phone to portrait tablet */
-@media (max-width: 767px) {
+@media (max-width: 600px) {
   .bridal-party-member-picture {
     margin: 0;
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
   }
   .bridal-party-member-text {
     display: block;
-    padding: 30px 0;
+    padding: 10px 0;
     width: auto;
   }
   .bridal-party-member-description {
-    padding: 30px;
+    padding: 10px 30px;
     width: auto;
     font-weight: 300;
     font-size: 13px;
   }
   .bridal-party-member-name {
     text-align: center;
+  }
+  .bridal-party-title {
+    margin-top: 20px;
   }
 }
 

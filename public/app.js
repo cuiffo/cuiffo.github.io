@@ -714,12 +714,14 @@ var Header = function () {
       }
       this.isInit = true;
       var headerButtons = document.getElementsByClassName('header-button');
+      var headerElement = document.getElementsByClassName('header')[0];
 
       var _loop = function _loop(i) {
         var headerButton = headerButtons[i];
         var scrollToClass = headerButton.getAttribute('scrollto');
         var scrollToElement = document.getElementsByClassName(scrollToClass)[0];
         Dom.addEventListener(headerButton, 'click', function () {
+          headerElement.classList.remove('header-maximized');
           PageAnimation.getInstance().scrollToElement(scrollToElement);
         });
       };
@@ -727,6 +729,11 @@ var Header = function () {
       for (var i = 0; i < headerButtons.length; i++) {
         _loop(i);
       }
+
+      var hamburgerButton = document.getElementsByClassName('hamburger-icon')[0];
+      Dom.addEventListener(hamburgerButton, 'click', function () {
+        headerElement.classList.toggle('header-maximized');
+      });
     }
   }]);
 
