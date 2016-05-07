@@ -21,7 +21,7 @@ class InfoCards {
       }
     }
     for (let i = 0; i < cards.length; i++) {
-      cards[i].style.height = requiredSize-20 + 'px';
+      cards[i].style.height = requiredSize-10 + 'px';
     }
   }
 }

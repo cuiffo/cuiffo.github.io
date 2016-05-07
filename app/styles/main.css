@@ -63,6 +63,7 @@ body, html {
 .header {
   text-align: center;
   position: fixed;
+  top: -1px;
   max-height: 70px;
   background-color: rgba(0,0,0,.7);
   width: 100%;
@@ -161,6 +162,7 @@ body, html {
   text-align: center;
   width: 100%;
   font-weight: 300;
+  font-size: 1em;
 }
 
 .countdown-wrapper {
@@ -317,20 +319,20 @@ body, html {
 
 .info-card-title {
   font-weight: 400;
-  font-size: 18px;
+  font-size: 1.1em;
   padding: 10px 10px 5px 10px;
 }
 
 .info-card-description {
   font-weight: 300;
-  font-size: 14px;
+  font-size: 1em;
   padding: 0 10px 0 10px;
 }
 
 .info-card-link {
   font-weight: 300;
   color: #014469;
-  font-size: 14px;
+  font-size: 1em;
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -396,7 +398,7 @@ body, html {
   text-align: center;
   color: #5d5d5d;
   font-family: 'Roboto', sans-serif;
-  font-size: 20px;
+  font-size: 2em;
 }
 
 .bridal-party-group {
@@ -467,12 +469,12 @@ body, html {
 }
 
 .bridal-party-member-name {
-  font-size: 16px;
+  font-size: 1.2em;
 }
 
 .bridal-party-member-description {
   font-weight: 300;
-  font-size: 13px;
+  font-size: 1em;
 }
 
 /* Large desktop */

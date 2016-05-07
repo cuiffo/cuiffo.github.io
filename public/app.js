@@ -784,7 +784,7 @@ var InfoCards = function () {
         }
       }
       for (var _i = 0; _i < cards.length; _i++) {
-        cards[_i].style.height = requiredSize - 20 + 'px';
+        cards[_i].style.height = requiredSize - 10 + 'px';
       }
     }
   }]);
