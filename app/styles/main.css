@@ -392,6 +392,7 @@ body, html {
 .bridal-party {
   width: 100%;
   background-color: #f1f1f1;
+  padding-bottom: 40px;
 }
 
 .bridal-party-title {
@@ -519,5 +520,80 @@ body, html {
   }
   .bridal-party-title {
     margin-top: 20px;
+  }
+}
+
+.story-section {
+  background-color: white;
+}
+
+.story-title {
+  width: 100%;
+  background-color: #6c859a;
+}
+
+
+.story-title .section-title {
+  padding-top: 0;
+}
+.story-title .section-title-text {
+  color: black;
+  padding: 100px;
+}
+
+.story-row {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.story-text {
+  white-space: normal;
+}
+
+.story-cell {
+  display: inline-block;
+  width: 50%;
+  min-height: 400px;
+  vertical-align: middle;
+}
+
+.story-text {
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 1em;
+}
+
+.story-text-inner {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 25px;
+}
+
+.story-stairs {
+  background-image: url("images/stairs.jpg");
+}
+
+.story-lounge {
+  background-image: url("images/lounge.jpg");
+}
+
+.story-sunset {
+  background-image: url("images/sunset.jpg");
+}
+
+.story-image {
+  background-size: cover;
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 750px) {
+
+  .story-cell {
+    display: block;
+    width: 100%;
+    min-height: 400px;
+    vertical-align: middle;
   }
 }
