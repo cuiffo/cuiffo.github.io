@@ -590,7 +590,9 @@ body, html {
 }
 
 .story-image {
-  background-size: cover;
+  background-color: black;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Portrait tablet to landscape and desktop */
