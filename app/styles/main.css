@@ -609,7 +609,7 @@ body, html {
 }
 
 .rsvp-section {
-  background-image: url("images/propose.jpg");
+  background: url("images/propose.jpg") no-repeat center center fixed;
   height: 600px;
   background-size: cover;
   width: 100%;
