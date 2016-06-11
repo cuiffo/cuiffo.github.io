@@ -599,3 +599,44 @@ body, html {
     vertical-align: middle;
   }
 }
+
+.rsvp-content {
+  vertical-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.rsvp-section {
+  background-image: url("images/propose.jpg");
+  height: 600px;
+  background-size: cover;
+  width: 100%;
+  position: relative;
+}
+
+.rsvp-title {
+  font-family: 'Damion', cursive;
+  text-align: center;
+  color: white;
+  font-size: 40px;
+  width: 100%;
+}
+
+.rsvp-button-wrapper {
+  //margin-top: 50px;
+}
+
+.rsvp-button {
+  width: 100%;
+  font-size: 30px;
+  padding: 20px;
+  font-family: 'Damion', cursive;
+  text-align: center;
+  color: black;
+  background-color: white;
+  cursor: pointer;
+}
+
+

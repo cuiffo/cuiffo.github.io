@@ -856,6 +856,11 @@ var init = function init() {
     var button = buttons[i];
     Dom.addEventListener(button, 'click', openUrl(button.getAttribute('src')));
   }
+  buttons = document.getElementsByClassName('rsvp-button');
+  for (var _i = 0; _i < buttons.length; _i++) {
+    var _button = buttons[_i];
+    Dom.addEventListener(_button, 'click', openUrl(_button.getAttribute('src')));
+  }
 
   Countdown.getInstance().start();
   Header.getInstance().init();
