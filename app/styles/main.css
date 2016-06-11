@@ -612,7 +612,8 @@ body, html {
   background: url("images/propose.jpg") no-repeat center center fixed;
   height: 600px;
   background-size: cover;
-  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
   position: relative;
 }
 
