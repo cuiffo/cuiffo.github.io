@@ -10,7 +10,7 @@ var positionInPage;
 var handleResize = function() {
   InfoCards.getInstance().resize();
 
-  var splashTextEl = document.getElementsByClassName('page-title')[0];
+  var splashTextEl = document.getElementsByClassName('first-page-title')[0];
   // Set size of the first page text.
   splashTextEl.style.fontSize = Dom.fitTextToScreen(
       splashTextEl.textContent.trim(), 'Damion', 600, 20);
@@ -26,7 +26,8 @@ var handleResize = function() {
 
 
 var handleScroll = function(e) {
-  TitleAnimation.getInstance().handleScroll();
+  //TitleAnimation.getInstance().handleScroll();
+
 
   var positionInPage = Dom.getScrollPosition();
   var headerEl = document.getElementsByClassName('header')[0];
@@ -50,7 +51,7 @@ var init = function() {
   Dom.addEventListener(window, 'resize', handleResize);
   Dom.addEventListener(window, 'scroll', handleScroll);
 
-  let frontPage = document.getElementsByClassName('page-one')[0];
+  let frontPage = document.getElementsByClassName('first-page')[0];
   frontPage.style.height = Dom.getWindowHeight() + 'px';
 
   var buttons = document.getElementsByClassName('info-card-link');
@@ -72,4 +73,8 @@ var init = function() {
 };
 
 
+jQuery(document).ready(function($){
+  'use strict';
+  $.Scrollax();
+});
 document.addEventListener('DOMContentLoaded', () => {init();});

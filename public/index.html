@@ -3,6 +3,7 @@
   <head>
     <title>Eric &amp; Cecilia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
     <link href='https://fonts.googleapis.com/css?family=Damion' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -18,11 +19,10 @@
       <div tabindex="0" scrollto="story-section" class="header-button">Our Story</div>
       <div tabindex="0" scrollto="rsvp-section" class="header-button">RSVP</div>
     </div>
-    <div class="page page-one">
-      <div class="page-title-container">
-        <div class="page-title">
-          Eric &amp; Cecilia
-        </div>
+    <div class="first-page" data-scrollax-parent="true">
+      <div class="cover" data-scrollax="properties: { translateY: '30%' }"><img src="images/bg.jpg"/></div>
+      <div class="first-page-title-container" data-scrollax="properties: { 'translateY': '200%', 'opacity': 1.5 }">
+        <div class="first-page-title">Eric &amp; Cecilia</div>
         <i class="fa fa-angle-down fa-3x bounce"></i>
       </div>
     </div>
@@ -92,7 +92,10 @@
           </div>
         </div>
       </div>
-      <div id="map"></div>
+      <div class="map-container" data-scrollax-parent="true">
+        <div id="map" data-scrollax="properties: { translateY: '30%' }"></div>
+        <div src="http://lawcuiffo.app.rsvpify.com/" class="centralize map-text" data-scrollax="properties: { 'translateY': '200%' }">Get directions</div>
+      </div>
       <div class="bridal-party">
         <div class="section-title">
           <div class="section-title-left-arrow"></div>
@@ -251,6 +254,7 @@
     <canvas class="text-fitter" height="800" width="800"></canvas>
     <script src="vendor.js"></script>
     <script src="app.js"></script>
+    <script src="scrollax.js"></script>
     <script>require('initialize');</script>
     <script>
       var map;
@@ -264,6 +268,6 @@
         });
       }
     </script>
-    <!--    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqrE8Ak3eMHlu--MtvD7m27-7iVvT8JgE&callback=initMap" async defer></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqrE8Ak3eMHlu--MtvD7m27-7iVvT8JgE&callback=initMap" async defer></script> 
   </body>
 </html>
