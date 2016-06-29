@@ -14,16 +14,16 @@ class TitleAnimation {
   }
 
   handleScroll() {
-    var animator = Animator.getInstance();
-    animator.cancelAnimation(this.HASH);
-    this.easeStartPosition = this.lastStartPosition;
-    this.textAnimEndTime = new Date().getTime() + this.TEXT_ANIM_DURATION;
-    var splashTextEl = document.getElementsByClassName('page-title-container')[0];
-    var range = splashTextEl.clientHeight + 30;
-    var positionInPage = Dom.getScrollPosition();
-    this.easeEndPosition = (positionInPage / Dom.getWindowHeight()) * range;
-    var boundFn = this.textAnimationFn.bind(this);
-    animator.startAnimation(boundFn, this.HASH);
+  //  var animator = Animator.getInstance();
+  //  animator.cancelAnimation(this.HASH);
+  //  this.easeStartPosition = this.lastStartPosition;
+  //  this.textAnimEndTime = new Date().getTime() + this.TEXT_ANIM_DURATION;
+  //  var splashTextEl = document.getElementsByClassName('page-title-container')[0];
+  //  var range = splashTextEl.clientHeight + 30;
+  //  var positionInPage = Dom.getScrollPosition();
+ //   this.easeEndPosition = (positionInPage / Dom.getWindowHeight()) * range;
+//    var boundFn = this.textAnimationFn.bind(this);
+//    animator.startAnimation(boundFn, this.HASH);
   }
 
   textAnimationFn(currentTime) {

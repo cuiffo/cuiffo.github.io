@@ -851,16 +851,9 @@ var init = function init() {
   var frontPage = document.getElementsByClassName('first-page')[0];
   frontPage.style.height = Dom.getWindowHeight() + 'px';
 
-  var buttons = document.getElementsByClassName('info-card-link');
-  for (var i = 0; i < buttons.length; i++) {
-    var button = buttons[i];
-    Dom.addEventListener(button, 'click', openUrl(button.getAttribute('src')));
-  }
-  buttons = document.getElementsByClassName('rsvp-button');
-  for (var _i = 0; _i < buttons.length; _i++) {
-    var _button = buttons[_i];
-    Dom.addEventListener(_button, 'click', openUrl(_button.getAttribute('src')));
-  }
+  $("div[src]").each(function (i, element) {
+    Dom.addEventListener(element, 'click', openUrl(element.getAttribute('src')));
+  });
 
   Countdown.getInstance().start();
   Header.getInstance().init();
@@ -1466,16 +1459,16 @@ var TitleAnimation = function () {
   _createClass(TitleAnimation, [{
     key: 'handleScroll',
     value: function handleScroll() {
-      var animator = Animator.getInstance();
-      animator.cancelAnimation(this.HASH);
-      this.easeStartPosition = this.lastStartPosition;
-      this.textAnimEndTime = new Date().getTime() + this.TEXT_ANIM_DURATION;
-      var splashTextEl = document.getElementsByClassName('page-title-container')[0];
-      var range = splashTextEl.clientHeight + 30;
-      var positionInPage = Dom.getScrollPosition();
-      this.easeEndPosition = positionInPage / Dom.getWindowHeight() * range;
-      var boundFn = this.textAnimationFn.bind(this);
-      animator.startAnimation(boundFn, this.HASH);
+      //  var animator = Animator.getInstance();
+      //  animator.cancelAnimation(this.HASH);
+      //  this.easeStartPosition = this.lastStartPosition;
+      //  this.textAnimEndTime = new Date().getTime() + this.TEXT_ANIM_DURATION;
+      //  var splashTextEl = document.getElementsByClassName('page-title-container')[0];
+      //  var range = splashTextEl.clientHeight + 30;
+      //  var positionInPage = Dom.getScrollPosition();
+      //   this.easeEndPosition = (positionInPage / Dom.getWindowHeight()) * range;
+      //    var boundFn = this.textAnimationFn.bind(this);
+      //    animator.startAnimation(boundFn, this.HASH);
     }
   }, {
     key: 'textAnimationFn',

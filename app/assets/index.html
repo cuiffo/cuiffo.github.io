@@ -13,7 +13,7 @@
   <body>
     <div class="header">
       <div class="hamburger"><i class="fa fa-bars hamburger-icon" aria-hidden="true"></i></div>
-      <div tabindex="0" scrollto="page-one" class="header-button">Welcome</div>
+      <div tabindex="0" scrollto="first-page" class="header-button">Welcome</div>
       <div tabindex="0" scrollto="info-section" class="header-button">Info</div>
       <div tabindex="0" scrollto="bridal-party" class="header-button">The Bridal Party</div>
       <div tabindex="0" scrollto="story-section" class="header-button">Our Story</div>
@@ -95,6 +95,7 @@
       <div class="map-container" data-scrollax-parent="true">
         <div id="map" data-scrollax="properties: { translateY: '30%' }"></div>
         <div src="http://lawcuiffo.app.rsvpify.com/" class="centralize map-text" data-scrollax="properties: { 'translateY': '200%' }">Get directions</div>
+        <div src="https://www.google.com/maps/place/The+Palace+At+Somerset+Park/@40.5309172,-74.5362239,17z/data=!4m20!1m14!4m13!1m5!1m1!1s0x0:0xa4987fb9c5ae2a2c!2m2!1d-74.5340299!2d40.5309131!1m6!1m2!1s0x89c3c0ee797afc3d:0xa4987fb9c5ae2a2c!2sThe+Palace+At+Somerset+Park,+333+Davidson+Ave,+Franklin+Township,+NJ+08873!2m2!1d-74.5340299!2d40.5309131!3m4!1s0x89c3c0ee797afc3d:0xa4987fb9c5ae2a2c!8m2!3d40.5309131!4d-74.5340299" class="map-overlay"></div>
       </div>
       <div class="bridal-party">
         <div class="section-title">
@@ -259,12 +260,19 @@
     <script>
       var map;
       function initMap() {
+        var latlng = {lat: 40.5309131, lng: -74.5340299};
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 40.5309131, lng: -74.5340299},
+          center: latlng,
           zoom: 15,
+          zoomControl: false,
           scrollwheel: false,
           mapTypeControl: false,
           streetViewControl: false
+        });
+        var marker = new google.maps.Marker({
+          position: latlng,
+          map: map,
+          title: 'Hello World!'
         });
       }
     </script>

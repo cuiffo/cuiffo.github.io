@@ -54,16 +54,12 @@ var init = function() {
   let frontPage = document.getElementsByClassName('first-page')[0];
   frontPage.style.height = Dom.getWindowHeight() + 'px';
 
-  var buttons = document.getElementsByClassName('info-card-link');
-  for (let i = 0; i < buttons.length; i++) {
-    let button = buttons[i];
-    Dom.addEventListener(button, 'click', openUrl(button.getAttribute('src')));
-  }
-  buttons = document.getElementsByClassName('rsvp-button');
-  for (let i = 0; i < buttons.length; i++) {
-    let button = buttons[i];
-    Dom.addEventListener(button, 'click', openUrl(button.getAttribute('src')));
-  }
+  $("div[src]").each(function(i, element) {
+    Dom.addEventListener(
+        element,
+        'click',
+        openUrl(element.getAttribute('src')));
+  });
 
   Countdown.getInstance().start();
   Header.getInstance().init();

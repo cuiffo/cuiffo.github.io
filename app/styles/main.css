@@ -457,6 +457,14 @@ body, html {
   height: 700px;
 }
 
+.map-overlay {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  top: 0;
+  position: absolute;
+}
+
 .bridal-party {
   width: 100%;
   background-color: #f1f1f1;
