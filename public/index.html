@@ -4,6 +4,7 @@
     <title>Eric &amp; Cecilia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/scrollreveal.js/3.1.4/scrollreveal.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Damion' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -16,7 +17,9 @@
       <div tabindex="0" scrollto="first-page" class="header-button">Welcome</div>
       <div tabindex="0" scrollto="info-section" class="header-button">Info</div>
       <div tabindex="0" scrollto="bridal-party" class="header-button">The Bridal Party</div>
+      <!--
       <div tabindex="0" scrollto="story-section" class="header-button">Our Story</div>
+      -->
       <div tabindex="0" scrollto="rsvp-section" class="header-button">RSVP</div>
     </div>
     <div class="first-page" data-scrollax-parent="true">
@@ -204,6 +207,9 @@
         </div>
       </div>
     </div>
+
+
+    <!--
     <div class="story-section">
       <div class="story-title">
       <div class="section-title">
@@ -245,6 +251,17 @@
         </div><div class="story-cell story-sunset story-image story-right"></div>
       </div>
     </div>
+    -->
+
+
+    <div class="rsvp-section" data-scrollax-parent="true">
+      <div class="cover" data-scrollax="properties: { translateY: '30%' }"><img src="images/flower.jpg"/></div>
+      <div class="rsvp-title-container" data-scrollax="properties: { 'translateY': '200%', 'opacity': 1.5 }">
+        Click to RSVP
+      </div>
+    </div>
+
+<!--
     <div class="rsvp-section">
       <div class="rsvp-content">
         <div class="rsvp-button-wrapper">
@@ -252,6 +269,9 @@
         </div>
       </div>
     </div>
+-->
+
+
     <canvas class="text-fitter" height="800" width="800"></canvas>
     <script src="vendor.js"></script>
     <script src="app.js"></script>
