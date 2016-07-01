@@ -51,9 +51,6 @@ var init = function() {
   Dom.addEventListener(window, 'resize', handleResize);
   Dom.addEventListener(window, 'scroll', handleScroll);
 
-  window.sr = ScrollReveal();
-  sr.reveal('.bridal-party-member', {duration: 400});
-
   let frontPage = document.getElementsByClassName('first-page')[0];
   frontPage.style.height = Dom.getWindowHeight() + 'px';
 
@@ -69,6 +66,10 @@ var init = function() {
   InfoCards.getInstance().init();
   handleResize();
   handleScroll();
+
+  window.sr = ScrollReveal();
+  sr.reveal('.bridal-party-member', {duration: 400});
+  sr.reveal('.info-card', {duration: 400});
 };
 
 
