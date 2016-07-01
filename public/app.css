@@ -723,6 +723,7 @@ body, html {
 }
 
 .rsvp-button-button {
+  display: inline;
   padding: 10px;
   border: 2px solid #002031;
   border-radius: 5px;
@@ -730,6 +731,10 @@ body, html {
   font-size: 30px;
   font-family: 'Roboto', cursive;
   cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .rsvp-button-button:hover {
