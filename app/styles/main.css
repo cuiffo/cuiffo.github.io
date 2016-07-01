@@ -2,6 +2,7 @@
   --greyBgColor: #f1f1f1;
   --cornerRadius: 3px;
   --themeColor: #6c859a;
+  --darkerBlue: #002031;
 }
 
 body, html {
@@ -715,17 +716,17 @@ body, html {
 }
 
 .rsvp-button-button {
-  color: #014469;
+  color: var(--darkerBlue);
   font-family: 'Roboto', cursive;
   padding: 10px;
   font-size: 30px;
   border-radius: 5px;
-  border: 2px solid #014469;
+  border: 2px solid var(--darkerBlue);
   cursor: pointer;
 }
 
 .rsvp-button-button:hover {
-  background-color: #014469;
+  background-color: var(--darkerBlue);
   color: white;
   -webkit-transition: all 100ms linear;
   -moz-transition: all 100ms linear;

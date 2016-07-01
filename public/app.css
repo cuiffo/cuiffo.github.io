@@ -724,16 +724,16 @@ body, html {
 
 .rsvp-button-button {
   padding: 10px;
-  border: 2px solid #014469;
+  border: 2px solid #002031;
   border-radius: 5px;
-  color: #014469;
+  color: #002031;
   font-size: 30px;
   font-family: 'Roboto', cursive;
   cursor: pointer;
 }
 
 .rsvp-button-button:hover {
-  background-color: #014469;
+  background-color: #002031;
   color: white;
   -webkit-transition: all 100ms linear;
   transition: all 100ms linear;
