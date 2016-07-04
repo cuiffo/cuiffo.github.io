@@ -706,20 +706,33 @@ body, html {
   transform: translate(-50%, -50%);
 }
 
+.rsvp-rsvp {
+  text-align: center;
+  font-family: 'Damion', cursive;
+  width: 100%;
+  transform: translateY(-50%);
+  z-index:5;
+  position: absolute;
+  top: 40%;
+  color: var(--darkerBlue);
+  font-size: 60px;
+  display: inline;
+}
+
 .rsvp-button-wrapper {
   text-align: center;
   width: 100%;
   transform: translateY(-50%);
   z-index:5;
   position: absolute;
-  top: 40%;
+  top: 60%;
 }
 
 .rsvp-button-button {
   color: var(--darkerBlue);
   font-family: 'Roboto', cursive;
   padding: 10px;
-  font-size: 30px;
+  font-size: 25px;
   border-radius: 5px;
   border: 2px solid var(--darkerBlue);
   cursor: pointer;

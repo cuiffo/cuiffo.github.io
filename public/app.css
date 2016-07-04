@@ -712,9 +712,23 @@ body, html {
      object-fit: cover;
 }
 
-.rsvp-button-wrapper {
+.rsvp-rsvp {
   position: absolute;
   top: 40%;
+  z-index:5;
+  display: inline;
+  width: 100%;
+  color: #002031;
+  text-align: center;
+  font-size: 60px;
+  font-family: 'Damion', cursive;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.rsvp-button-wrapper {
+  position: absolute;
+  top: 60%;
   z-index:5;
   width: 100%;
   text-align: center;
@@ -728,7 +742,7 @@ body, html {
   border: 2px solid #002031;
   border-radius: 5px;
   color: #002031;
-  font-size: 30px;
+  font-size: 25px;
   font-family: 'Roboto', cursive;
   cursor: pointer;
   -webkit-user-select: none;
