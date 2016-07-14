@@ -46,14 +46,27 @@ body, html {
 }
 
 .first-page-title-container {
-  font-family: 'Damion', cursive;
-  color: white;
   position: absolute;
   display: block;
   width: 100%;
   bottom: 50px;
   text-align: center;
   z-index: 1;
+  color: white;
+}
+
+.first-page-title {
+  font-family: 'Damion', cursive;
+  text-shadow:
+     -1px -1px 0 #000,  
+     1px -1px 0 #000,
+     -1px 1px 0 #000,
+      1px 1px 0 #000;
+}
+
+.first-page-subtitle {
+  font-family: 'Roboto', cursive;
+  margin-bottom: 10px;
 }
 
 .centralize {
@@ -217,7 +230,7 @@ body, html {
 }
 
 .countdown-wrapper {
-  margin-top: 50px;
+  margin-top: 20px;
   position: relative;
   height: 110px;
 }
@@ -329,11 +342,14 @@ body, html {
 }
 
 .info-cards {
+  white-space: nowrap;
   text-align: center;
   margin-top: 30px;
+  padding-bottom: 40px;
 }
 
 .info-card {
+  white-space: normal;
   margin: 0 15px;
   vertical-align: top;
   display: inline-block;
@@ -344,7 +360,8 @@ body, html {
 .info-card-picture {
   height: 150px;
   width: 300px;
-  background-size: cover;
+  position: relative;
+  overflow: hidden;
   border-top-right-radius: var(--cornerRadius);
   border-top-left-radius: var(--cornerRadius);
 }
@@ -365,6 +382,10 @@ body, html {
   text-align: left;
   font-family: 'Roboto', sans-serif;
   position: relative;
+  padding-bottom: 25px;
+}
+
+.gift-card-content {
   padding-bottom: 25px;
 }
 
@@ -390,11 +411,47 @@ body, html {
   cursor: pointer;
 }
 
+.info-card-links {
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.info-card-link-color {
+  font-weight: 300;
+  color: #014469;
+  font-size: 1em;
+  cursor: pointer;
+}
+
 /* Large desktop */
 @media (min-width: 1200px) {}
 
 /* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) {}
+@media (max-width: 1080px) {
+.info-card {
+  margin: 0 8px;
+}
+.info-card-content {
+  width: 250px;
+}
+.info-card-picture {
+  width: 250px;
+}
+}
+@media (max-width: 850px) {
+.info-card {
+  margin: 0 5px;
+}
+.info-card-content {
+  width: 230px;
+}
+.info-card-picture {
+  width: 230px;
+}
+}
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
@@ -469,10 +526,10 @@ body, html {
 .bridal-party {
   width: 100%;
   background-color: #f1f1f1;
-  padding-bottom: 40px;
 }
 
 .bridal-party-title {
+  margin-top: 20px;
   text-align: center;
   color: #5d5d5d;
   font-family: 'Roboto', sans-serif;
@@ -481,22 +538,25 @@ body, html {
 
 .bridal-party-group {
   font-family: 'Roboto', sans-serif;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .bridal-party-member {
   text-align: center;
   margin-top: 20px;
+  display: inline-block;
+  width: 150px;
 }
 
 .bridal-party-member-picture {
   vertical-align: top;
-  display: inline-block;
-  width: 80px;
-  height: 80px;
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
   background-size: cover;
-  border-radius: 40px;
   box-shadow: 3px 3px 6px #ccc;
-  margin-right: 15px;
+  margin: 0 auto;
 }
 
 .eric-pic {
@@ -543,14 +603,16 @@ body, html {
   text-align: left;
   vertical-align: top;
   display: inline-block;
-  width: 500px;
+  text-align: center;
 }
 
 .bridal-party-member-name {
   font-size: 1.2em;
+  font-weight: 300;
 }
 
 .bridal-party-member-description {
+  display: none;
   font-weight: 300;
   font-size: 1em;
 }
@@ -560,27 +622,32 @@ body, html {
 
 /* Portrait tablet to landscape and desktop */
 @media (max-width: 979px) {
+.bridal-party-member {
+  width: 130px;
+}
 
   .bridal-party-member-text {
-    width: 450px;
+ //   width: 450px;
   }
 }
 /* Portrait tablet to landscape and desktop */
 @media (max-width: 750px) {
+.bridal-party-member {
+  width: 110px;
+}
 
   .bridal-party-member-text {
-    width: 400px;
+//    width: 400px;
   }
 }
 
 /* Landscape phone to portrait tablet */
-@media (max-width: 600px) {
-  .bridal-party-member-picture {
-    width: 120px;
-    height: 120px;
-    border-radius: 60px;
-    margin: 0;
-  }
+@media (max-width: 700px) {
+.bridal-party-member {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
   .bridal-party-member-text {
     display: block;
     padding: 10px 0;
@@ -786,6 +853,52 @@ body, html {
 }
 
 .fade-thing {
-  opacity: .5
+  opacity: .8;
 }
 
+.our-story {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 30px;
+  background-color: #f1f1f1;
+}
+
+.story-text {
+  margin: auto;
+  width: 750px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 1em;
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 979px) {
+
+  .story-text {
+    width: 650px;
+  }
+}
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 750px) {
+
+  .story-text {
+    width: 550px;
+  }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 600px) {
+  .story-text {
+    padding: 10px 30px;
+    width: auto;
+    font-weight: 300;
+    font-size: 13px;
+  }
+}
+
+.sunset-image {
+  height: 400px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}

@@ -13,7 +13,11 @@ var handleResize = function() {
   var splashTextEl = document.getElementsByClassName('first-page-title')[0];
   // Set size of the first page text.
   splashTextEl.style.fontSize = Dom.fitTextToScreen(
-      splashTextEl.textContent.trim(), 'Damion', 600, 20);
+      splashTextEl.textContent.trim(), 'Damion', 500, 20);
+  splashTextEl = document.getElementsByClassName('first-page-subtitle')[0];
+  // Set size of the first page text.
+  splashTextEl.style.fontSize = Dom.fitTextToScreen(
+      splashTextEl.textContent.trim(), 'Damion', 250, 100);
 
   var titleElements = document.getElementsByClassName('section-title-text');
   for (let i = 0; i < titleElements.length; i++) {
@@ -76,5 +80,29 @@ var init = function() {
 jQuery(document).ready(function($){
   'use strict';
   $.Scrollax();
+
+
+  $.fn.coverImage = function(contain) {
+    this.each(function() {
+      var $this = $(this),
+        src = $this.get(0).src,
+        $wrapper = $this.parent();
+
+      if (contain) {
+        $wrapper.css({
+          'background': 'url(' + src + ') 50% 50%/contain no-repeat'
+        });
+      } else {
+        $wrapper.css({
+          'background': 'url(' + src + ') 50% 50%/cover no-repeat'
+        });
+      }
+
+      $this.remove();
+    });
+
+    return this;
+  };
+  $('.cover-image').coverImage();
 });
 document.addEventListener('DOMContentLoaded', () => {init();});

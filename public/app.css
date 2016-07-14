@@ -47,7 +47,20 @@ body, html {
   width: 100%;
   color: white;
   text-align: center;
+}
+
+.first-page-title {
+  text-shadow:
+     -1px -1px 0 #000,  
+     1px -1px 0 #000,
+     -1px 1px 0 #000,
+      1px 1px 0 #000;
   font-family: 'Damion', cursive;
+}
+
+.first-page-subtitle {
+  margin-bottom: 10px;
+  font-family: 'Roboto', cursive;
 }
 
 .centralize {
@@ -231,7 +244,7 @@ body, html {
 
 .countdown-wrapper {
   position: relative;
-  margin-top: 50px;
+  margin-top: 20px;
   height: 110px;
 }
 
@@ -335,7 +348,9 @@ body, html {
 
 .info-cards {
   margin-top: 30px;
+  padding-bottom: 40px;
   text-align: center;
+  white-space: nowrap;
 }
 
 .info-card {
@@ -344,14 +359,16 @@ body, html {
   border-radius: 3px;
   box-shadow: 3px 3px 6px #ccc;
   vertical-align: top;
+  white-space: normal;
 }
 
 .info-card-picture {
+  position: relative;
+  overflow: hidden;
   width: 300px;
   height: 150px;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
-  background-size: cover;
 }
 
 .venue-card-picture {
@@ -371,6 +388,10 @@ body, html {
   background-color: white;
   text-align: left;
   font-family: 'Roboto', sans-serif;
+}
+
+.gift-card-content {
+  padding-bottom: 25px;
 }
 
 .info-card-title {
@@ -395,11 +416,47 @@ body, html {
   cursor: pointer;
 }
 
+.info-card-links {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.info-card-link-color {
+  color: #014469;
+  font-weight: 300;
+  font-size: 1em;
+  cursor: pointer;
+}
+
 /* Large desktop */
 @media (min-width: 1200px) {}
 
 /* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) {}
+@media (max-width: 1080px) {
+.info-card {
+  margin: 0 8px;
+}
+.info-card-content {
+  width: 250px;
+}
+.info-card-picture {
+  width: 250px;
+}
+}
+@media (max-width: 850px) {
+.info-card {
+  margin: 0 5px;
+}
+.info-card-content {
+  width: 230px;
+}
+.info-card-picture {
+  width: 230px;
+}
+}
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
@@ -472,12 +529,12 @@ body, html {
 }
 
 .bridal-party {
-  padding-bottom: 40px;
   width: 100%;
   background-color: #f1f1f1;
 }
 
 .bridal-party-title {
+  margin-top: 20px;
   color: #5d5d5d;
   text-align: center;
   font-size: 2em;
@@ -485,20 +542,23 @@ body, html {
 }
 
 .bridal-party-group {
+  margin: 0 auto;
+  text-align: center;
   font-family: 'Roboto', sans-serif;
 }
 
 .bridal-party-member {
+  display: inline-block;
   margin-top: 20px;
+  width: 150px;
   text-align: center;
 }
 
 .bridal-party-member-picture {
-  display: inline-block;
-  margin-right: 15px;
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
+  margin: 0 auto;
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
   background-size: cover;
   box-shadow: 3px 3px 6px #ccc;
   vertical-align: top;
@@ -546,16 +606,18 @@ body, html {
 
 .bridal-party-member-text {
   display: inline-block;
-  width: 500px;
   vertical-align: top;
   text-align: left;
+  text-align: center;
 }
 
 .bridal-party-member-name {
+  font-weight: 300;
   font-size: 1.2em;
 }
 
 .bridal-party-member-description {
+  display: none;
   font-weight: 300;
   font-size: 1em;
 }
@@ -565,25 +627,30 @@ body, html {
 
 /* Portrait tablet to landscape and desktop */
 @media (max-width: 979px) {
+.bridal-party-member {
+  width: 130px;
+}
   .bridal-party-member-text {
-    width: 450px;
+ //   width: 450px;
   }
 }
 /* Portrait tablet to landscape and desktop */
 @media (max-width: 750px) {
+.bridal-party-member {
+  width: 110px;
+}
   .bridal-party-member-text {
-    width: 400px;
+//    width: 400px;
   }
 }
 
 /* Landscape phone to portrait tablet */
-@media (max-width: 600px) {
-  .bridal-party-member-picture {
-    margin: 0;
-    width: 120px;
-    height: 120px;
-    border-radius: 60px;
-  }
+@media (max-width: 700px) {
+.bridal-party-member {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
   .bridal-party-member-text {
     display: block;
     padding: 10px 0;
@@ -795,9 +862,53 @@ body, html {
 }
 
 .fade-thing {
-  opacity: .5
+  opacity: .8;
 }
 
+.our-story {
+  padding-bottom: 30px;
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+}
+
+.story-text {
+  margin: auto;
+  width: 750px;
+  font-weight: 300;
+  font-size: 1em;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 979px) {
+  .story-text {
+    width: 650px;
+  }
+}
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 750px) {
+  .story-text {
+    width: 550px;
+  }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 600px) {
+  .story-text {
+    padding: 10px 30px;
+    width: auto;
+    font-weight: 300;
+    font-size: 13px;
+  }
+}
+
+.sunset-image {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 400px;
+}
 
 
 /*# sourceMappingURL=app.css.map*/
