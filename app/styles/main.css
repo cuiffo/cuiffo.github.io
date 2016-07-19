@@ -3,6 +3,11 @@
   --cornerRadius: 3px;
   --themeColor: #6c859a;
   --darkerBlue: #002031;
+  --outlineThing:
+      -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
 }
 
 body, html {
@@ -57,14 +62,20 @@ body, html {
 
 .first-page-title {
   font-family: 'Damion', cursive;
-  text-shadow:
-     -1px -1px 0 #000,  
-     1px -1px 0 #000,
-     -1px 1px 0 #000,
-      1px 1px 0 #000;
+  text-shadow: var(--outlineThing);
 }
 
 .first-page-subtitle {
+  //text-shadow:
+  //    -1px -1px 0 #4c4c4c,  
+  //    1px -1px 0 #4c4c4c,
+  //    -1px 1px 0 #4c4c4c,
+  //    1px 1px 0 #4c4c4c;
+  text-shadow:
+      -.75px -.75px 0 #000,  
+      .75px -.75px 0 #000,
+      -.75px .75px 0 #000,
+      .75px .75px 0 #000;
   font-family: 'Roboto', cursive;
   margin-bottom: 10px;
 }
@@ -72,7 +83,6 @@ body, html {
 .centralize {
   position: absolute;
   top: 50%;
-
   margin-left: auto;
   margin-right: auto;
   -webkit-transform: translateY(-50%);
@@ -691,6 +701,7 @@ body, html {
 }
 
 .story-text {
+  text-align: justify;
   white-space: normal;
 }
 
@@ -774,16 +785,19 @@ body, html {
 }
 
 .rsvp-rsvp {
-  text-align: center;
   font-family: 'Damion', cursive;
+  font-size: 60px;
+  display: inline;
+}
+
+.rsvp-rsvp-container {
   width: 100%;
   transform: translateY(-50%);
   z-index:5;
   position: absolute;
   top: 40%;
   color: var(--darkerBlue);
-  font-size: 60px;
-  display: inline;
+  text-align: center;
 }
 
 .rsvp-button-wrapper {
@@ -853,7 +867,8 @@ body, html {
 }
 
 .fade-thing {
-  opacity: .8;
+  background-color: white;
+  opacity: .3;
 }
 
 .our-story {
@@ -901,4 +916,9 @@ body, html {
   width: 100%;
   overflow: hidden;
   position: relative;
+}
+
+.rsvp-subtitle {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
 }

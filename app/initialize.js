@@ -58,6 +58,12 @@ var init = function() {
   let frontPage = document.getElementsByClassName('first-page')[0];
   frontPage.style.height = Dom.getWindowHeight() + 'px';
 
+  $("span[src]").each(function(i, element) {
+    Dom.addEventListener(
+        element,
+        'click',
+        openUrl(element.getAttribute('src')));
+  });
   $("div[src]").each(function(i, element) {
     Dom.addEventListener(
         element,
