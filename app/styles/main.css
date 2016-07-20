@@ -799,7 +799,7 @@ body, html {
   transform: translateY(-50%);
   z-index:5;
   position: absolute;
-  top: 40%;
+  top: 35%;
   color: var(--darkerBlue);
   text-align: center;
 }
