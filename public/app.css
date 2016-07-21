@@ -5,6 +5,10 @@ body, html {
   height: 100%;
 }
 
+body {
+  overflow: hidden;
+}
+
 .page {
   position: relative;
   overflow: hidden;
@@ -65,11 +69,6 @@ body, html {
       -.75px .75px 0 #000,
       .75px .75px 0 #000;
   font-family: 'Roboto', cursive;
-  //text-shadow:
-  //    -1px -1px 0 #4c4c4c,  
-  //    1px -1px 0 #4c4c4c,
-  //    -1px 1px 0 #4c4c4c,
-  //    1px 1px 0 #4c4c4c;
 }
 
 .centralize {
@@ -78,7 +77,7 @@ body, html {
   margin-right: auto;
   margin-left: auto;
   -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 
 .page-one-background-image {
@@ -236,6 +235,7 @@ body, html {
   text-align: center;
   font-family: 'Damion', cursive;
 }
+
 @media (max-width: 600px) {
   .section-title {
     padding-top: 80px;
@@ -329,6 +329,7 @@ body, html {
     line-height: 70px;
   }
 }
+
 /* Portrait tablet to landscape and desktop */
 @media (max-width: 400px) {
   .countdown-wrapper {
@@ -445,26 +446,27 @@ body, html {
 
 /* Portrait tablet to landscape and desktop */
 @media (max-width: 1080px) {
-.info-card {
-  margin: 0 8px;
+  .info-card {
+    margin: 0 8px;
+  }
+  .info-card-content {
+    width: 250px;
+  }
+  .info-card-picture {
+    width: 250px;
+  }
 }
-.info-card-content {
-  width: 250px;
-}
-.info-card-picture {
-  width: 250px;
-}
-}
+
 @media (max-width: 850px) {
-.info-card {
-  margin: 0 5px;
-}
-.info-card-content {
-  width: 230px;
-}
-.info-card-picture {
-  width: 230px;
-}
+  .info-card {
+    margin: 0 5px;
+  }
+  .info-card-content {
+    width: 230px;
+  }
+  .info-card-picture {
+    width: 230px;
+  }
 }
 
 /* Landscape phone to portrait tablet */
@@ -569,9 +571,9 @@ body, html {
 
 .bridal-party-member-picture {
   margin: 0 auto;
-    width: 120px;
-    height: 120px;
-    border-radius: 60px;
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
   background-size: cover;
   box-shadow: 3px 3px 6px #ccc;
   vertical-align: top;
@@ -629,51 +631,30 @@ body, html {
   font-size: 1.2em;
 }
 
-.bridal-party-member-description {
-  display: none;
-  font-weight: 300;
-  font-size: 1em;
-}
-
-/* Large desktop */
-@media (min-width: 1200px) {}
-
 /* Portrait tablet to landscape and desktop */
 @media (max-width: 979px) {
-.bridal-party-member {
-  width: 130px;
-}
-  .bridal-party-member-text {
- //   width: 450px;
+  .bridal-party-member {
+    width: 130px;
   }
 }
 /* Portrait tablet to landscape and desktop */
 @media (max-width: 750px) {
-.bridal-party-member {
-  width: 110px;
-}
-  .bridal-party-member-text {
-//    width: 400px;
+  .bridal-party-member {
+    width: 110px;
   }
 }
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 700px) {
-.bridal-party-member {
-  display: block;
-  width: 100%;
-  text-align: center;
-}
+  .bridal-party-member {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
   .bridal-party-member-text {
     display: block;
     padding: 10px 0;
     width: auto;
-  }
-  .bridal-party-member-description {
-    padding: 10px 30px;
-    width: auto;
-    font-weight: 300;
-    font-size: 13px;
   }
   .bridal-party-member-name {
     text-align: center;
@@ -683,93 +664,13 @@ body, html {
   }
 }
 
-.story-section {
-  background-color: white;
-}
-
-.story-title {
-  width: 100%;
-  background-color: #6c859a;
-}
-
-
-.story-title .section-title {
-  padding-top: 0;
-}
-.story-title .section-title-text {
-  padding: 100px;
-  color: black;
-}
-
-.story-row {
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.story-text {
-  text-align: justify;
-  white-space: normal;
-}
-
-.story-cell {
-  display: inline-block;
-  min-height: 400px;
-  width: 50%;
-  vertical-align: middle;
-}
-
 .story-text {
   position: relative;
+  text-align: justify;
+  white-space: normal;
   font-weight: 300;
   font-size: 1em;
   font-family: 'Roboto', sans-serif;
-}
-
-.story-text-inner {
-  position: absolute;
-  top: 50%;
-  padding: 25px;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-}
-
-.story-stairs {
-  background-image: url("images/stairs.jpg");
-}
-
-.story-lounge {
-  background-image: url("images/lounge.jpg");
-}
-
-.story-sunset {
-  background-image: url("images/sunset.jpg");
-}
-
-.story-image {
-  background-color: black;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* Portrait tablet to landscape and desktop */
-@media (max-width: 750px) {
-  .story-cell {
-    display: block;
-    min-height: 400px;
-    width: 100%;
-    vertical-align: middle;
-  }
-}
-
-.rsvp-content {
-  position: absolute;
-  left: 50%;
-  margin-top: 80px;
-  vertical-align: center;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  //top: 50%;
-  //transform: translate(-50%,-50%);
 }
 
 .rsvp-section {
@@ -780,26 +681,13 @@ body, html {
   color: black;
 }
 
-.rsvp-section img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: block;
-  width: 100%;
-  height: 100%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
 .rsvp-rsvp {
   display: inline;
   font-size: 60px;
   font-family: 'Damion', cursive;
 }
 
-.rsvp-rsvp-container {
+.rsvp-container {
   position: absolute;
   top: 35%;
   z-index:5;
@@ -842,31 +730,6 @@ body, html {
   transition: all 100ms linear;
 }
 
-.rsvp-title-container {
-  position: absolute;
-  top: 50%;
-  left: 20px;
-  z-index: 1;
-  display: block;
-  color: #6c859a;
-  font-size: 60px;
-  font-family: 'Damion', cursive;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-}
-
-.rsvp-title {
-  width: 100%;
-  color: white;
-  text-align: center;
-  font-size: 40px;
-  font-family: 'Damion', cursive;
-}
-
-.rsvp-button-wrapper {
-  //margin-top: 50px;
-}
-
 .rsvp-button {
   padding: 20px;
   width: 100%;
@@ -895,6 +758,7 @@ body, html {
   width: 750px;
   font-weight: 300;
   font-size: 1em;
+  font-size: 1.2em;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -904,6 +768,7 @@ body, html {
     width: 650px;
   }
 }
+
 /* Portrait tablet to landscape and desktop */
 @media (max-width: 750px) {
   .story-text {
@@ -916,8 +781,6 @@ body, html {
   .story-text {
     padding: 10px 30px;
     width: auto;
-    font-weight: 300;
-    font-size: 13px;
   }
 }
 
@@ -931,6 +794,82 @@ body, html {
 .rsvp-subtitle {
   font-weight: 400;
   font-family: 'Roboto', sans-serif;
+}
+
+.image-container {
+  width: 100%;
+  height: 100%;
+}
+
+.loading-container {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background-color: #34373c;
+}
+
+@-webkit-keyframes uil-ring-anim {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes uil-ring-anim {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes uil-ring-anim {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes uil-ring-anim {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.uil-ring-css {
+  position: relative;
+  top: 50%;
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+  background: none;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.uil-ring-css > div {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: block;
+  width: 160px;
+  height: 160px;
+  border-radius: 80px;
+  box-shadow: 0 6px 0 0 white;
+  -webkit-animation: uil-ring-anim 1s linear infinite;
+  animation: uil-ring-anim 1s linear infinite;
 }
 
 

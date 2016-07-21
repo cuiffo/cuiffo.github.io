@@ -748,7 +748,52 @@ module.exports = {
 };
 });
 
-require.register("infoCards.js", function(exports, require, module) {
+require.register("imageLoader.js", function(exports, require, module) {
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ImageLoader = function () {
+  function ImageLoader() {
+    _classCallCheck(this, ImageLoader);
+  }
+
+  _createClass(ImageLoader, [{
+    key: 'init',
+    value: function init() {
+      var spinner = $('.uil-ring-css');
+      spinner.css('margin-left', spinner.offset().left + 'px');
+      var fakeSrcs = $('img[src]');
+      var numSrcs = fakeSrcs.length;
+      var srcsLoaded = 0;
+      fakeSrcs.each(function (i, element) {
+        var fakeImage = new Image();
+        fakeImage.onload = function () {
+          srcsLoaded++;
+          if (srcsLoaded >= numSrcs) {
+            $('.loading-container').fadeOut(500);
+            document.body.style.overflow = 'auto';
+          }
+        };
+        fakeImage.src = element.src;
+      });
+    }
+  }]);
+
+  return ImageLoader;
+}();
+
+var __instance__ = new ImageLoader();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
+});
+
+;require.register("infoCards.js", function(exports, require, module) {
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -807,7 +852,7 @@ var Countdown = require('countdown');
 var Dom = require('dom');
 var Header = require('header');
 var InfoCards = require('infoCards');
-var TitleAnimation = require('titleAnimation');
+var ImageLoader = require('imageLoader');
 
 var positionInPage;
 
@@ -829,8 +874,6 @@ var handleResize = function handleResize() {
 };
 
 var handleScroll = function handleScroll(e) {
-  //TitleAnimation.getInstance().handleScroll();
-
   var positionInPage = Dom.getScrollPosition();
   var headerEl = document.getElementsByClassName('header')[0];
   var hasScrolledCss = headerEl.classList.contains('header-scrolled');
@@ -848,6 +891,8 @@ var openUrl = function openUrl(url) {
 };
 
 var init = function init() {
+  ImageLoader.getInstance().init();
+
   Dom.addEventListener(window, 'resize', handleResize);
   Dom.addEventListener(window, 'scroll', handleScroll);
 
@@ -873,10 +918,10 @@ var init = function init() {
 };
 
 jQuery(document).ready(function ($) {
-  'use strict';
+  init();
 
+  // Init the scroller library.
   $.Scrollax();
-
   $.fn.coverImage = function (contain) {
     this.each(function () {
       var $this = $(this),
@@ -899,9 +944,6 @@ jQuery(document).ready(function ($) {
     return this;
   };
   $('.cover-image').coverImage();
-});
-document.addEventListener('DOMContentLoaded', function () {
-  init();
 });
 });
 
@@ -998,7 +1040,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Animator = require('animator');
 var Dom = require('dom');
 var Maths = require('maths');
-var TitleAnimation = require('titleAnimation');
 
 var PageAnimation = function () {
   function PageAnimation() {
@@ -1035,7 +1076,6 @@ var PageAnimation = function () {
       var isComplete = false;
       if (currentTime > this.easeScrollEndTime) {
         this.lastStartScroll = this.easeScrollPositionEnd;
-        TitleAnimation.getInstance().handleScroll();
         isComplete = true;
         this.isAnimating = false;
       } else {
@@ -1052,130 +1092,6 @@ var PageAnimation = function () {
 }();
 
 var __instance__ = new PageAnimation();
-module.exports = {
-  getInstance: function getInstance() {
-    return __instance__;
-  }
-};
-});
-
-require.register("pages.js", function(exports, require, module) {
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Dom = require('dom');
-var PageAnimation = require('pageAnimation');
-
-var Pages = function () {
-  function Pages() {
-    _classCallCheck(this, Pages);
-
-    this.elements = Array.from(document.getElementsByClassName('cuiffo-page'));
-    this.numPages = this.elements.length;
-    this.currentPage = 0;
-    this.xDown = null;
-    this.yDown = null;
-    this.activePage = -1;
-    this.headingToPage = null;
-
-    var handleTouchStart = this.handleTouchStart.bind(this);
-    var handleTouchMove = this.handleTouchMove.bind(this);
-    Dom.addEventListener(document, 'touchstart', handleTouchStart, false);
-    Dom.addEventListener(document, 'touchmove', handleTouchMove, false);
-
-    this.createPageDots();
-  }
-
-  _createClass(Pages, [{
-    key: 'resizePages',
-    value: function resizePages() {
-      this.elements.forEach(function (pageEl) {
-        pageEl.style.height = Dom.getWindowHeight() + 'px';
-      });
-    }
-  }, {
-    key: 'createPageDots',
-    value: function createPageDots() {
-      var pageDotsContainer = document.getElementsByClassName('cuiffo-page-selector')[0];
-      for (var i = 0; i < this.numPages; i++) {
-        var dotEl = document.createElement('div');
-        dotEl.className += ' cuiffo-page-dot';
-        pageDotsContainer.appendChild(dotEl);
-        var pageEl = this.elements[i];
-        Dom.addEventListener(dotEl, 'click', this.handleDotClick(pageEl));
-      }
-    }
-  }, {
-    key: 'handleDotClick',
-    value: function handleDotClick(element) {
-      return function () {
-        new PageAnimation().scrollToElement(element);
-      };
-    }
-  }, {
-    key: 'handleTouchStart',
-    value: function handleTouchStart(e) {
-      this.xDown = e.touches[0].clientX;
-      this.yDown = e.touches[0].clientY;
-      e.preventDefault();
-    }
-  }, {
-    key: 'handleTouchMove',
-    value: function handleTouchMove(e) {
-      e.preventDefault();
-      if (!this.xDown || !this.yDown) {
-        return false;
-      }
-
-      var xUp = e.touches[0].clientX;
-      var yUp = e.touches[0].clientY;
-      var xDiff = this.xDown - xUp;
-      var yDiff = this.yDown - yUp;
-
-      if (Math.abs(xDiff) < Math.abs(yDiff)) {
-        if (yDiff > 10) {
-          var nextPage = Math.min(this.activePage + 1, this.numPages - 1);
-          this.scrollToPage(nextPage);
-        } else if (yDiff < -10) {
-          var nextPage = Math.max(this.activePage - 1, 0);
-          this.scrollToPage(nextPage);
-        }
-      }
-
-      return false;
-    }
-  }, {
-    key: 'scrollToPage',
-    value: function scrollToPage(page) {
-      new PageAnimation().scrollToElement(this.elements[page]);
-      this.updateActivePage();
-      this.xDown = null;
-      this.yDown = null;
-      this.headingToPage = page;
-    }
-  }, {
-    key: 'updateActivePage',
-    value: function updateActivePage() {
-      var dotElements = document.getElementsByClassName('cuiffo-page-dot');
-      var positionInPage = Dom.getScrollPosition();
-      var percentThroughPage = positionInPage / Dom.getWindowHeight();
-      this.activePage = Math.min(Math.round(percentThroughPage), this.numPages - 1);
-      dotElements[this.activePage].classList.add('cuiffo-page-dot-active');
-      for (var i = 0; i < this.numPages; i++) {
-        if (this.activePage !== i) {
-          dotElements[i].classList.remove('cuiffo-page-dot-active');
-        }
-      }
-    }
-  }]);
-
-  return Pages;
-}();
-
-var __instance__ = new Pages();
 module.exports = {
   getInstance: function getInstance() {
     return __instance__;
@@ -1466,77 +1382,7 @@ if (Object.defineProperty && Object.getOwnPropertyDescriptor && Object.getOwnPro
 }
 });
 
-;require.register("titleAnimation.js", function(exports, require, module) {
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Animator = require('animator');
-var Dom = require('dom');
-var Maths = require('maths');
-
-var TitleAnimation = function () {
-  function TitleAnimation() {
-    _classCallCheck(this, TitleAnimation);
-
-    this.HASH = 'titleAnimationHash';
-    this.TEXT_ANIM_DURATION = 200;
-    this.textAnimEndTime = 0;
-    this.easeStartPosition = 0;
-    this.easeEndPosition = 0;
-    this.lastStartPosition = 0;
-  }
-
-  _createClass(TitleAnimation, [{
-    key: 'handleScroll',
-    value: function handleScroll() {
-      //  var animator = Animator.getInstance();
-      //  animator.cancelAnimation(this.HASH);
-      //  this.easeStartPosition = this.lastStartPosition;
-      //  this.textAnimEndTime = new Date().getTime() + this.TEXT_ANIM_DURATION;
-      //  var splashTextEl = document.getElementsByClassName('page-title-container')[0];
-      //  var range = splashTextEl.clientHeight + 30;
-      //  var positionInPage = Dom.getScrollPosition();
-      //   this.easeEndPosition = (positionInPage / Dom.getWindowHeight()) * range;
-      //    var boundFn = this.textAnimationFn.bind(this);
-      //    animator.startAnimation(boundFn, this.HASH);
-    }
-  }, {
-    key: 'textAnimationFn',
-    value: function textAnimationFn(currentTime) {
-      var isComplete = false;
-      if (currentTime > this.textAnimEndTime) {
-        this.lastStartPosition = this.easeEndPosition;
-        isComplete = true;
-      } else {
-        var startTime = this.textAnimEndTime - this.TEXT_ANIM_DURATION;
-        // The text should always be moving, boost the current time if it's low.
-        var timeDiff = Math.max(currentTime - startTime, 20);
-        var calc = Maths.easeOutQuad(timeDiff, this.easeStartPosition, this.easeEndPosition - this.easeStartPosition, this.TEXT_ANIM_DURATION);
-        this.lastStartPosition = calc;
-      }
-      var splashTextEl = document.getElementsByClassName('page-title-container')[0];
-      var opacity = 1 - this.lastStartPosition / (splashTextEl.clientHeight + 30);
-      splashTextEl.style.opacity = Math.max(opacity, 0);
-      Dom.setCssTransform(splashTextEl, 'translateY(' + this.lastStartPosition + 'px)');
-      return isComplete;
-    }
-  }]);
-
-  return TitleAnimation;
-}();
-
-var __instance__ = new TitleAnimation();
-module.exports = {
-  getInstance: function getInstance() {
-    return __instance__;
-  }
-};
-});
-
-require.register("trimpolyfill.js", function(exports, require, module) {
+;require.register("trimpolyfill.js", function(exports, require, module) {
 'use strict';
 
 if (!String.prototype.trim) {

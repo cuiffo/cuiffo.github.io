@@ -2,7 +2,7 @@ var Countdown = require('countdown');
 var Dom = require('dom');
 var Header = require('header');
 var InfoCards = require('infoCards');
-var TitleAnimation = require('titleAnimation');
+var ImageLoader = require('imageLoader');
 
 
 var positionInPage;
@@ -30,9 +30,6 @@ var handleResize = function() {
 
 
 var handleScroll = function(e) {
-  //TitleAnimation.getInstance().handleScroll();
-
-
   var positionInPage = Dom.getScrollPosition();
   var headerEl = document.getElementsByClassName('header')[0];
   var hasScrolledCss = headerEl.classList.contains('header-scrolled');
@@ -52,6 +49,8 @@ var openUrl = function(url) {
 
 
 var init = function() {
+  ImageLoader.getInstance().init();
+
   Dom.addEventListener(window, 'resize', handleResize);
   Dom.addEventListener(window, 'scroll', handleScroll);
 
@@ -84,10 +83,10 @@ var init = function() {
 
 
 jQuery(document).ready(function($){
-  'use strict';
+  init();
+  
+  // Init the scroller library.
   $.Scrollax();
-
-
   $.fn.coverImage = function(contain) {
     this.each(function() {
       var $this = $(this),
@@ -111,4 +110,3 @@ jQuery(document).ready(function($){
   };
   $('.cover-image').coverImage();
 });
-document.addEventListener('DOMContentLoaded', () => {init();});
