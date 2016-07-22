@@ -10,7 +10,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400' rel='stylesheet' type='text/css'>
     <link href="app.css" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+      <link href="ie.css" rel="stylesheet" type="text/css">
+    <![endif]-->
   </head>
+  <!--[if lt IE 9]>
+    <body>
+      Sorry, your browser is not supported. You can still RSVP <a href="http://lawcuiffo.app.rsvpify.com/">here</a>!
+    </body>
+  <![endif]-->
+  <!--[if gte IE 9]><!-->    
   <body>
     <div class="loading-container">
       <div class='uil-ring-css'><div></div></div>
@@ -264,4 +273,5 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqrE8Ak3eMHlu--MtvD7m27-7iVvT8JgE&callback=initMap" async defer></script> 
   </body>
+  <!--<![endif]-->
 </html>
