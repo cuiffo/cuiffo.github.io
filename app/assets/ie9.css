@@ -1,0 +1,8 @@
+.image-container {
+  background: url('images/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.cover-image {
+  display: none;
+}
