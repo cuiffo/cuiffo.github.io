@@ -1,1 +1,1396 @@
-!function(){"use strict";var e="undefined"==typeof window?global:window;if("function"!=typeof e.require){var t={},n={},r={},i={}.hasOwnProperty,o=/^\.\.?(\/|$)/,a=function(e,t){for(var n,r=[],i=(o.test(t)?e+"/"+t:t).split("/"),a=0,s=i.length;s>a;a++)n=i[a],".."===n?r.pop():"."!==n&&""!==n&&r.push(n);return r.join("/")},s=function(e){return e.split("/").slice(0,-1).join("/")},c=function(t){return function(n){var r=a(s(t),n);return e.require(r,t)}},u=function(e,t){var r={id:e,exports:{}};return n[e]=r,t(r.exports,c(e),r),r.exports},l=function(e){return r[e]?l(r[e]):e},f=function(e,r){null==r&&(r="/");var o=l(e);if(i.call(n,o))return n[o].exports;if(i.call(t,o))return u(o,t[o]);throw new Error("Cannot find module '"+e+"' from '"+r+"'")};f.alias=function(e,t){r[t]=e},f.reset=function(){t={},n={},r={}};var d=/\.[^.\/]+$/,h=/\/index(\.[^\/]+)?$/,m=function(e){if(d.test(e)){var t=e.replace(d,"");i.call(r,t)&&r[t].replace(d,"")!==t+"/index"||(r[t]=e)}if(h.test(e)){var n=e.replace(h,"");i.call(r,n)||(r[n]=e)}};f.register=f.define=function(e,r){if("object"==typeof e)for(var o in e)i.call(e,o)&&f.register(o,e[o]);else t[e]=r,delete n[e],m(e)},f.list=function(){var e=[];for(var n in t)i.call(t,n)&&e.push(n);return e},f.brunch=!0,f._cache=n,e.require=f}}(),require.register("animator.js",function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var i=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),o=function(){function e(){r(this,e),this.callbacks={},this.isTicking=!1}return i(e,[{key:"startAnimation",value:function(e,t){this.callbacks[t]=e,this.isTicking||(this.isTicking=!0,window.requestAnimationFrame(this.tick.bind(this)))}},{key:"cancelAnimation",value:function(e){delete this.callbacks[e]}},{key:"tick",value:function(){var e=(new Date).getTime(),t=!0,n=!1,r=void 0;try{for(var i,o=Object.keys(this.callbacks)[Symbol.iterator]();!(t=(i=o.next()).done);t=!0){var a=i.value,s=this.callbacks[a],c=s(e);c&&this.cancelAnimation(a)}}catch(u){n=!0,r=u}finally{try{!t&&o["return"]&&o["return"]()}finally{if(n)throw r}}Object.keys(this.callbacks).length?window.requestAnimationFrame(this.tick.bind(this)):this.isTicking=!1}}]),e}(),a=new o;n.exports={getInstance:function(){return a}}}),require.register("arraypolyfill.js",function(e,t,n){"use strict";Array.prototype.forEach||(Array.prototype.forEach=function(e,t){var n,r;if(null==this)throw new TypeError(" this is null or not defined");var i=Object(this),o=i.length>>>0;if("function"!=typeof e)throw new TypeError(e+" is not a function");for(arguments.length>1&&(n=t),r=0;o>r;){var a;r in i&&(a=i[r],e.call(n,a,r,i)),r++}}),Array.from||(Array.from=function(){var e=Object.prototype.toString,t=function(t){return"function"==typeof t||"[object Function]"===e.call(t)},n=function(e){var t=Number(e);return isNaN(t)?0:0!==t&&isFinite(t)?(t>0?1:-1)*Math.floor(Math.abs(t)):t},r=Math.pow(2,53)-1,i=function(e){var t=n(e);return Math.min(Math.max(t,0),r)};return function(e){var n=this,r=Object(e);if(null==e)throw new TypeError("Array.from requires an array-like object - not null or undefined");var o,a=arguments.length>1?arguments[1]:void 0;if("undefined"!=typeof a){if(!t(a))throw new TypeError("Array.from: when provided, the second argument must be a function");arguments.length>2&&(o=arguments[2])}for(var s,c=i(r.length),u=t(n)?Object(new n(c)):new Array(c),l=0;c>l;)s=r[l],a?u[l]="undefined"==typeof o?a(s,l):a.call(o,s,l):u[l]=s,l+=1;return u.length=c,u}}())}),require.register("buttons.js",function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var i=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),o=t("dom"),a=function(){function e(){r(this,e),this.buttons=[]}return i(e,[{key:"addButton",value:function(e,t){var n=this.handleTouchStart.bind(this,e),r=this.handleTouchMove.bind(this,e),i=this.handleTouchEnd.bind(this,e,t),a=this.handleClick.bind(this,t);o.addEventListener(e,"touchstart",n,!1),o.addEventListener(e,"touchmove",r,!1),o.addEventListener(e,"touchend",i,!1),o.addEventListener(e,"click",a,!1)}},{key:"handleTouchStart",value:function(e){this.touched=e}},{key:"handleTouchMove",value:function(e){this.touched=null}},{key:"handleTouchEnd",value:function(e,t){this.touched==e&&t()}},{key:"handleClick",value:function(e){e()}}]),e}(),s=new a;n.exports={getInstance:function(){return s}}}),require.register("classlistPolyfill.js",function(e,t,n){"use strict";"document"in self&&("classList"in document.createElement("_")?!function(){var e=document.createElement("_");if(e.classList.add("c1","c2"),!e.classList.contains("c2")){var t=function(e){var t=DOMTokenList.prototype[e];DOMTokenList.prototype[e]=function(e){var n,r=arguments.length;for(n=0;r>n;n++)e=arguments[n],t.call(this,e)}};t("add"),t("remove")}if(e.classList.toggle("c3",!1),e.classList.contains("c3")){var n=DOMTokenList.prototype.toggle;DOMTokenList.prototype.toggle=function(e,t){return 1 in arguments&&!this.contains(e)==!t?t:n.call(this,e)}}e=null}():!function(e){if("Element"in e){var t="classList",n="prototype",r=e.Element[n],i=Object,o=String[n].trim||function(){return this.replace(/^\s+|\s+$/g,"")},a=Array[n].indexOf||function(e){for(var t=0,n=this.length;n>t;t++)if(t in this&&this[t]===e)return t;return-1},s=function(e,t){this.name=e,this.code=DOMException[e],this.message=t},c=function(e,t){if(""===t)throw new s("SYNTAX_ERR","An invalid or illegal string was specified");if(/\s/.test(t))throw new s("INVALID_CHARACTER_ERR","String contains an invalid character");return a.call(e,t)},u=function(e){for(var t=o.call(e.getAttribute("class")||""),n=t?t.split(/\s+/):[],r=0,i=n.length;i>r;r++)this.push(n[r]);this._updateClassName=function(){e.setAttribute("class",this.toString())}},l=u[n]=[],f=function(){return new u(this)};if(s[n]=Error[n],l.item=function(e){return this[e]||null},l.contains=function(e){return e+="",-1!==c(this,e)},l.add=function(){var e,t=arguments,n=0,r=t.length,i=!1;do e=t[n]+"",-1===c(this,e)&&(this.push(e),i=!0);while(++n<r);i&&this._updateClassName()},l.remove=function(){var e,t,n=arguments,r=0,i=n.length,o=!1;do for(e=n[r]+"",t=c(this,e);-1!==t;)this.splice(t,1),o=!0,t=c(this,e);while(++r<i);o&&this._updateClassName()},l.toggle=function(e,t){e+="";var n=this.contains(e),r=n?t!==!0&&"remove":t!==!1&&"add";return r&&this[r](e),t===!0||t===!1?t:!n},l.toString=function(){return this.join(" ")},i.defineProperty){var d={get:f,enumerable:!0,configurable:!0};try{i.defineProperty(r,t,d)}catch(h){-2146823252===h.number&&(d.enumerable=!1,i.defineProperty(r,t,d))}}else i[n].__defineGetter__&&r.__defineGetter__(t,f)}}(self))}),require.register("countdown.js",function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var i=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),o=function(){function e(){r(this,e)}return i(e,[{key:"start",value:function(){if(this.started)return void console.log("started already");this.started=!0;var e=new Date(2016,9,16,17),t=document.getElementsByClassName("seconds-count")[0],n=document.getElementsByClassName("minutes-count")[0],r=document.getElementsByClassName("hours-count")[0],i=document.getElementsByClassName("days-count")[0],o=parseInt(t.innerText),a=parseInt(n.innerText),s=parseInt(r.innerText),c=parseInt(i.innerText),u=1e3,l=60*u,f=60*l,d=24*f;window.setInterval(function(){var h=new Date;if(e.getTime()>h.getTime()){var m=e.getTime()-h.getTime(),y=Math.floor(m/d);m-=y*d;var g=Math.floor(m/f);m-=g*f;var v=Math.floor(m/l);m-=v*l;var p=Math.floor(m/u);c!==y&&(c=y,i.innerText=y),s!==g&&(s=g,r.innerText=g),a!==v&&(a=v,n.innerText=v),o!==p&&(o=p,t.innerText=p)}},250)}}]),e}(),a=new o;n.exports={getInstance:function(){return a}}}),require.register("dom.js",function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var i=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),o=function(){function e(){r(this,e)}return i(e,null,[{key:"getScrollPosition",value:function(){return document.documentElement.scrollTop||document.body.scrollTop}},{key:"getWindowHeight",value:function(){return window.innerHeight}},{key:"getWindowWidth",value:function(){return window.innerWidth}},{key:"getSize",value:function(e){return e&&e.getBoundingClientRect()}},{key:"setCssTransform",value:function(e,t){e.style.webkitTransform=t,e.style.MozTransform=t,e.style.msTransform=t,e.style.OTransform=t,e.style.transform=t}},{key:"addEventListener",value:function(e,t,n,r){var i="on"+t;e.addEventListener?e.addEventListener(t,n,r):e.attachEvent(i,n)}},{key:"fitTextToScreen",value:function(e,t,n,r){var i=this.getWindowWidth(),o=i>n?n:i;return o-=r,this.getFontHeightForWidth(e,t,o)}},{key:"getFontHeightForWidth",value:function(e,t,n){var r=document.body.getElementsByClassName("text-fitter")[0],i=r.getContext("2d");i.font="16px "+t;var o=i.measureText(e).width,a=16,s=a/o;return s*n+"px"}}]),e}();n.exports=o}),require.register("header.js",function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var i=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),o=t("dom"),a=t("pageAnimation"),s=function(){function e(){r(this,e)}return i(e,[{key:"init",value:function(){if(!this.isInit){this.isInit=!0;for(var e=document.getElementsByClassName("header-button"),t=document.getElementsByClassName("header")[0],n=function(n){var r=e[n],i=r.getAttribute("scrollto"),s=document.getElementsByClassName(i)[0];o.addEventListener(r,"click",function(){t.classList.remove("header-maximized"),a.getInstance().scrollToElement(s)})},r=0;r<e.length;r++)n(r);var i=document.getElementsByClassName("hamburger-icon")[0];o.addEventListener(i,"click",function(){t.classList.toggle("header-maximized")})}}}]),e}(),c=new s;n.exports={getInstance:function(){return c}}}),require.register("imageLoader.js",function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var i=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),o=function(){function e(){r(this,e)}return i(e,[{key:"init",value:function(){var e=$(".uil-ring-css");e.css("margin-left",e.offset().left+"px");var t=$("img[src]"),n=t.length,r=0;t.each(function(e,t){var i=new Image;i.onload=function(){r++,r>=n&&($(".loading-container").fadeOut(500),document.body.style.overflow="auto")},i.src=t.src})}}]),e}(),a=new o;n.exports={getInstance:function(){return a}}}),require.register("infoCards.js",function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var i=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),o=t("dom"),a=function(){function e(){r(this,e)}return i(e,[{key:"init",value:function(){this.isInit||(this.isInit=!0,this.resize())}},{key:"resize",value:function(){for(var e=document.getElementsByClassName("info-card-content"),t=0,n=0;n<e.length;n++){e[n].style.height="auto";var r=o.getSize(e[n]).height;r>t&&(t=r)}for(var i=0;i<e.length;i++)e[i].style.height=t-10+"px"}}]),e}(),s=new a;n.exports={getInstance:function(){return s}}}),require.register("initialize.js",function(e,t,n){"use strict";var r=t("countdown"),i=t("dom"),o=t("header"),a=t("infoCards"),s=t("imageLoader"),c=function(){a.getInstance().resize();var e=document.getElementsByClassName("first-page-title")[0];e.style.fontSize=i.fitTextToScreen(e.textContent.trim(),"Damion",500,20),e=document.getElementsByClassName("first-page-subtitle")[0],e.style.fontSize=i.fitTextToScreen(e.textContent.trim(),"Damion",250,100);for(var t=document.getElementsByClassName("section-title-text"),n=0;n<t.length;n++){var r=t[n];r.style.fontSize=i.fitTextToScreen(r.textContent.trim(),"Damion",550,70)}},u=function(e){var t=i.getScrollPosition(),n=document.getElementsByClassName("header")[0],r=n.classList.contains("header-scrolled");t>i.getWindowHeight()-40&&!r?n.classList.add("header-scrolled"):t<i.getWindowHeight()-40&&r&&n.classList.remove("header-scrolled")},l=function(e){return function(){window.open(e,"_blank")}},f=function(){s.getInstance().init(),i.addEventListener(window,"resize",c),i.addEventListener(window,"scroll",u);var e=document.getElementsByClassName("first-page")[0];e.style.height=i.getWindowHeight()+"px",$("span[src]").each(function(e,t){i.addEventListener(t,"click",l(t.getAttribute("src")))}),$("div[src]").each(function(e,t){i.addEventListener(t,"click",l(t.getAttribute("src")))}),r.getInstance().start(),o.getInstance().init(),a.getInstance().init(),c(),u(),window.sr=ScrollReveal(),sr.reveal(".bridal-party-member",{duration:400}),sr.reveal(".info-card",{duration:400})};jQuery(document).ready(function(e){f(),e.Scrollax(),e.fn.coverImage=function(t){return this.each(function(){var n=e(this),r=n.get(0).src,i=n.parent();t?i.css({background:"url("+r+") 50% 50%/contain no-repeat"}):i.css({background:"url("+r+") 50% 50%/cover no-repeat"}),n.remove()}),this},e(".cover-image").coverImage()})}),require.register("maths.js",function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var i=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),o=function(){function e(){r(this,e)}return i(e,null,[{key:"easeOutQuad",value:function(e,t,n,r){return e/=r,-n*e*(e-2)+t}},{key:"easeInOutQuad",value:function(e,t,n,r){return e/=r/2,1>e?n/2*e*e+t:(e--,-n/2*(e*(e-2)-1)+t)}},{key:"Rect",value:function(e,t){this.height=e,this.width=t}}]),e}();n.exports=o}),require.register("objectpolyfill.js",function(e,t,n){"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol?"symbol":typeof e};Object.keys||(Object.keys=function(){var e=Object.prototype.hasOwnProperty,t=!{toString:null}.propertyIsEnumerable("toString"),n=["toString","toLocaleString","valueOf","hasOwnProperty","isPrototypeOf","propertyIsEnumerable","constructor"],i=n.length;return function(o){if("object"!==("undefined"==typeof o?"undefined":r(o))&&("function"!=typeof o||null===o))throw new TypeError("Object.keys called on non-object");var a,s,c=[];for(a in o)e.call(o,a)&&c.push(a);if(t)for(s=0;i>s;s++)e.call(o,n[s])&&c.push(n[s]);return c}}())}),require.register("pageAnimation.js",function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var i=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),o=t("animator"),a=t("dom"),s=t("maths"),c=function(){function e(){r(this,e),this.HASH="pageAnimationHash",this.SCROLL_ANIM_DURATION=500,this.easeScrollEndTime=0,this.easeScrollPositionStart=0,this.easeScrollPositionEnd=0,this.lastStartScroll=0,this.isAnimating=!1,this.animatorHash=-1}return i(e,[{key:"scrollToElement",value:function(e){var t=o.getInstance();t.cancelAnimation(this.HASH);var n=e.offsetTop;this.easeScrollPositionEnd=n,this.easeScrollEndTime=(new Date).getTime()+this.SCROLL_ANIM_DURATION;var r=a.getScrollPosition();this.easeScrollPositionStart=r,this.lastStartScroll=r;var i=this.pageAnimationFn.bind(this);t.startAnimation(i,this.HASH),this.isAnimating=!0}},{key:"pageAnimationFn",value:function(e){var t=!1;if(e>this.easeScrollEndTime)this.lastStartScroll=this.easeScrollPositionEnd,t=!0,this.isAnimating=!1;else{var n=this.easeScrollEndTime-this.SCROLL_ANIM_DURATION,r=s.easeInOutQuad(e-n,this.easeScrollPositionStart,this.easeScrollPositionEnd-this.easeScrollPositionStart,this.SCROLL_ANIM_DURATION);this.lastStartScroll=r}return window.scrollTo(0,this.lastStartScroll),t}}]),e}(),u=new c;n.exports={getInstance:function(){return u}}}),require.register("readyPolyfill.js",function(e,t,n){"use strict";(function(){function e(){if(!o.isReady){try{document.documentElement.doScroll("left")}catch(t){return void setTimeout(e,1)}o.ready()}}function t(e){o.bindReady();o.type(e);n.done(e)}var n,r,i={};i["[object Boolean]"]="boolean",i["[object Number]"]="number",i["[object String]"]="string",i["[object Function]"]="function",i["[object Array]"]="array",i["[object Date]"]="date",i["[object RegExp]"]="regexp",i["[object Object]"]="object";var o={isReady:!1,readyWait:1,holdReady:function(e){e?o.readyWait++:o.ready(!0)},ready:function(e){if(e===!0&&!--o.readyWait||e!==!0&&!o.isReady){if(!document.body)return setTimeout(o.ready,1);if(o.isReady=!0,e!==!0&&--o.readyWait>0)return;n.resolveWith(document,[o])}},bindReady:function(){if(!n){if(n=o._Deferred(),"complete"===document.readyState)return setTimeout(o.ready,1);if(document.addEventListener)document.addEventListener("DOMContentLoaded",r,!1),window.addEventListener("load",o.ready,!1);else if(document.attachEvent){document.attachEvent("onreadystatechange",r),window.attachEvent("onload",o.ready);var t=!1;try{t=null==window.frameElement}catch(i){}document.documentElement.doScroll&&t&&e()}}},_Deferred:function(){var e,t,n,r=[],i={done:function(){if(!n){var t,a,s,c,u,l=arguments;for(e&&(u=e,e=0),t=0,a=l.length;a>t;t++)s=l[t],c=o.type(s),"array"===c?i.done.apply(i,s):"function"===c&&r.push(s);u&&i.resolveWith(u[0],u[1])}return this},resolveWith:function(i,o){if(!n&&!e&&!t){o=o||[],t=1;try{for(;r[0];)r.shift().apply(i,o)}finally{e=[i,o],t=0}}return this},resolve:function(){return i.resolveWith(this,arguments),this},isResolved:function(){return!(!t&&!e)},cancel:function(){return n=1,r=[],this}};return i},type:function(e){return null==e?String(e):i[Object.prototype.toString.call(e)]||"object"}};return document.addEventListener?r=function(){document.removeEventListener("DOMContentLoaded",r,!1),o.ready()}:document.attachEvent&&(r=function(){"complete"===document.readyState&&(document.detachEvent("onreadystatechange",r),o.ready())}),t})()}),require.register("requestAnimationFrame.js",function(e,t,n){"use strict";!function(){for(var e=0,t=["ms","moz","webkit","o"],n=0;n<t.length&&!window.requestAnimationFrame;++n)window.requestAnimationFrame=window[t[n]+"RequestAnimationFrame"],window.cancelAnimationFrame=window[t[n]+"CancelAnimationFrame"]||window[t[n]+"CancelRequestAnimationFrame"];window.requestAnimationFrame||(window.requestAnimationFrame=function(t,n){var r=(new Date).getTime(),i=Math.max(0,16-(r-e)),o=window.setTimeout(function(){t(r+i)},i);return e=r+i,o}),window.cancelAnimationFrame||(window.cancelAnimationFrame=function(e){clearTimeout(e)})}()}),require.register("textcontentpolyfill.js",function(e,t,n){"use strict";Object.defineProperty&&Object.getOwnPropertyDescriptor&&Object.getOwnPropertyDescriptor(Element.prototype,"textContent")&&!Object.getOwnPropertyDescriptor(Element.prototype,"textContent").get&&!function(){var e=Object.getOwnPropertyDescriptor(Element.prototype,"innerText");Object.defineProperty(Element.prototype,"textContent",{get:function(){return e.get.call(this)},set:function(t){return e.set.call(this,t)}})}()}),require.register("trimpolyfill.js",function(e,t,n){"use strict";String.prototype.trim||(String.prototype.trim=function(){return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,"")})});
+(function() {
+  'use strict';
+
+  var globals = typeof window === 'undefined' ? global : window;
+  if (typeof globals.require === 'function') return;
+
+  var modules = {};
+  var cache = {};
+  var aliases = {};
+  var has = ({}).hasOwnProperty;
+
+  var expRe = /^\.\.?(\/|$)/;
+  var expand = function(root, name) {
+    var results = [], part;
+    var parts = (expRe.test(name) ? root + '/' + name : name).split('/');
+    for (var i = 0, length = parts.length; i < length; i++) {
+      part = parts[i];
+      if (part === '..') {
+        results.pop();
+      } else if (part !== '.' && part !== '') {
+        results.push(part);
+      }
+    }
+    return results.join('/');
+  };
+
+  var dirname = function(path) {
+    return path.split('/').slice(0, -1).join('/');
+  };
+
+  var localRequire = function(path) {
+    return function expanded(name) {
+      var absolute = expand(dirname(path), name);
+      return globals.require(absolute, path);
+    };
+  };
+
+  var initModule = function(name, definition) {
+    var module = {id: name, exports: {}};
+    cache[name] = module;
+    definition(module.exports, localRequire(name), module);
+    return module.exports;
+  };
+
+  var expandAlias = function(name) {
+    return aliases[name] ? expandAlias(aliases[name]) : name;
+  };
+
+  var require = function(name, loaderPath) {
+    if (loaderPath == null) loaderPath = '/';
+    var path = expandAlias(name);
+
+    if (has.call(cache, path)) return cache[path].exports;
+    if (has.call(modules, path)) return initModule(path, modules[path]);
+
+    throw new Error("Cannot find module '" + name + "' from '" + loaderPath + "'");
+  };
+
+  require.alias = function(from, to) {
+    aliases[to] = from;
+  };
+
+  require.reset = function() {
+    modules = {};
+    cache = {};
+    aliases = {};
+  };
+
+  var extRe = /\.[^.\/]+$/;
+  var indexRe = /\/index(\.[^\/]+)?$/;
+  var addExtensions = function(bundle) {
+    if (extRe.test(bundle)) {
+      var alias = bundle.replace(extRe, '');
+      if (!has.call(aliases, alias) || aliases[alias].replace(extRe, '') === alias + '/index') {
+        aliases[alias] = bundle;
+      }
+    }
+
+    if (indexRe.test(bundle)) {
+      var iAlias = bundle.replace(indexRe, '');
+      if (!has.call(aliases, iAlias)) {
+        aliases[iAlias] = bundle;
+      }
+    }
+  };
+
+  require.register = require.define = function(bundle, fn) {
+    if (typeof bundle === 'object') {
+      for (var key in bundle) {
+        if (has.call(bundle, key)) {
+          require.register(key, bundle[key]);
+        }
+      }
+    } else {
+      modules[bundle] = fn;
+      delete cache[bundle];
+      addExtensions(bundle);
+    }
+  };
+
+  require.list = function() {
+    var result = [];
+    for (var item in modules) {
+      if (has.call(modules, item)) {
+        result.push(item);
+      }
+    }
+    return result;
+  };
+
+  require.brunch = true;
+  require._cache = cache;
+  globals.require = require;
+})();
+require.register("animator.js", function(exports, require, module) {
+"use strict";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Animator = function () {
+  function Animator() {
+    _classCallCheck(this, Animator);
+
+    this.callbacks = {};
+    this.isTicking = false;
+  }
+
+  _createClass(Animator, [{
+    key: "startAnimation",
+    value: function startAnimation(callback, hash) {
+      this.callbacks[hash] = callback;
+
+      if (!this.isTicking) {
+        this.isTicking = true;
+        window.requestAnimationFrame(this.tick.bind(this));
+      }
+    }
+  }, {
+    key: "cancelAnimation",
+    value: function cancelAnimation(hash) {
+      delete this.callbacks[hash];
+    }
+  }, {
+    key: "tick",
+    value: function tick() {
+      var currentTime = new Date().getTime();
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = Object.keys(this.callbacks)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var hash = _step.value;
+
+          var callback = this.callbacks[hash];
+          var isComplete = callback(currentTime);
+          if (isComplete) {
+            this.cancelAnimation(hash);
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      if (Object.keys(this.callbacks).length) {
+        window.requestAnimationFrame(this.tick.bind(this));
+      } else {
+        this.isTicking = false;
+      }
+    }
+  }]);
+
+  return Animator;
+}();
+
+var __instance__ = new Animator();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
+});
+
+require.register("arraypolyfill.js", function(exports, require, module) {
+'use strict';
+
+// Production steps of ECMA-262, Edition 5, 15.4.4.18
+// Reference: http://es5.github.io/#x15.4.4.18
+if (!Array.prototype.forEach) {
+
+  Array.prototype.forEach = function (callback, thisArg) {
+
+    var T, k;
+
+    if (this == null) {
+      throw new TypeError(' this is null or not defined');
+    }
+
+    // 1. Let O be the result of calling ToObject passing the |this| value as the argument.
+    var O = Object(this);
+
+    // 2. Let lenValue be the result of calling the Get internal method of O with the argument "length".
+    // 3. Let len be ToUint32(lenValue).
+    var len = O.length >>> 0;
+
+    // 4. If IsCallable(callback) is false, throw a TypeError exception.
+    // See: http://es5.github.com/#x9.11
+    if (typeof callback !== "function") {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    // 5. If thisArg was supplied, let T be thisArg; else let T be undefined.
+    if (arguments.length > 1) {
+      T = thisArg;
+    }
+
+    // 6. Let k be 0
+    k = 0;
+
+    // 7. Repeat, while k < len
+    while (k < len) {
+
+      var kValue;
+
+      // a. Let Pk be ToString(k).
+      //   This is implicit for LHS operands of the in operator
+      // b. Let kPresent be the result of calling the HasProperty internal method of O with argument Pk.
+      //   This step can be combined with c
+      // c. If kPresent is true, then
+      if (k in O) {
+
+        // i. Let kValue be the result of calling the Get internal method of O with argument Pk.
+        kValue = O[k];
+
+        // ii. Call the Call internal method of callback with T as the this value and
+        // argument list containing kValue, k, and O.
+        callback.call(T, kValue, k, O);
+      }
+      // d. Increase k by 1.
+      k++;
+    }
+    // 8. return undefined
+  };
+}
+
+// Production steps of ECMA-262, Edition 6, 22.1.2.1
+// Reference: https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.from
+if (!Array.from) {
+  Array.from = function () {
+    var toStr = Object.prototype.toString;
+    var isCallable = function isCallable(fn) {
+      return typeof fn === 'function' || toStr.call(fn) === '[object Function]';
+    };
+    var toInteger = function toInteger(value) {
+      var number = Number(value);
+      if (isNaN(number)) {
+        return 0;
+      }
+      if (number === 0 || !isFinite(number)) {
+        return number;
+      }
+      return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
+    };
+    var maxSafeInteger = Math.pow(2, 53) - 1;
+    var toLength = function toLength(value) {
+      var len = toInteger(value);
+      return Math.min(Math.max(len, 0), maxSafeInteger);
+    };
+
+    // The length property of the from method is 1.
+    return function from(arrayLike /*, mapFn, thisArg */) {
+      // 1. Let C be the this value.
+      var C = this;
+
+      // 2. Let items be ToObject(arrayLike).
+      var items = Object(arrayLike);
+
+      // 3. ReturnIfAbrupt(items).
+      if (arrayLike == null) {
+        throw new TypeError("Array.from requires an array-like object - not null or undefined");
+      }
+
+      // 4. If mapfn is undefined, then let mapping be false.
+      var mapFn = arguments.length > 1 ? arguments[1] : void undefined;
+      var T;
+      if (typeof mapFn !== 'undefined') {
+        // 5. else     
+        // 5. a If IsCallable(mapfn) is false, throw a TypeError exception.
+        if (!isCallable(mapFn)) {
+          throw new TypeError('Array.from: when provided, the second argument must be a function');
+        }
+
+        // 5. b. If thisArg was supplied, let T be thisArg; else let T be undefined.
+        if (arguments.length > 2) {
+          T = arguments[2];
+        }
+      }
+
+      // 10. Let lenValue be Get(items, "length").
+      // 11. Let len be ToLength(lenValue).
+      var len = toLength(items.length);
+
+      // 13. If IsConstructor(C) is true, then
+      // 13. a. Let A be the result of calling the [[Construct]] internal method of C with an argument list containing the single item len.
+      // 14. a. Else, Let A be ArrayCreate(len).
+      var A = isCallable(C) ? Object(new C(len)) : new Array(len);
+
+      // 16. Let k be 0.
+      var k = 0;
+      // 17. Repeat, while k < len… (also steps a - h)
+      var kValue;
+      while (k < len) {
+        kValue = items[k];
+        if (mapFn) {
+          A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
+        } else {
+          A[k] = kValue;
+        }
+        k += 1;
+      }
+      // 18. Let putStatus be Put(A, "length", len, true).
+      A.length = len;
+      // 20. Return A.
+      return A;
+    };
+  }();
+}
+});
+
+;require.register("buttons.js", function(exports, require, module) {
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Dom = require('dom');
+
+var Buttons = function () {
+  function Buttons() {
+    _classCallCheck(this, Buttons);
+
+    this.buttons = [];
+  }
+
+  _createClass(Buttons, [{
+    key: 'addButton',
+    value: function addButton(element, callback) {
+      var handleTouchStart = this.handleTouchStart.bind(this, element);
+      var handleTouchMove = this.handleTouchMove.bind(this, element);
+      var handleTouchEnd = this.handleTouchEnd.bind(this, element, callback);
+      var handleClick = this.handleClick.bind(this, callback);
+      Dom.addEventListener(element, 'touchstart', handleTouchStart, false);
+      Dom.addEventListener(element, 'touchmove', handleTouchMove, false);
+      Dom.addEventListener(element, 'touchend', handleTouchEnd, false);
+      Dom.addEventListener(element, 'click', handleClick, false);
+    }
+  }, {
+    key: 'handleTouchStart',
+    value: function handleTouchStart(element) {
+      this.touched = element;
+    }
+  }, {
+    key: 'handleTouchMove',
+    value: function handleTouchMove(element) {
+      this.touched = null;
+    }
+  }, {
+    key: 'handleTouchEnd',
+    value: function handleTouchEnd(element, callback) {
+      if (this.touched == element) {
+        callback();
+      }
+    }
+  }, {
+    key: 'handleClick',
+    value: function handleClick(callback) {
+      callback();
+    }
+  }]);
+
+  return Buttons;
+}();
+
+var __instance__ = new Buttons();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
+});
+
+require.register("classlistPolyfill.js", function(exports, require, module) {
+"use strict";
+
+/*! @source http://purl.eligrey.com/github/classList.js/blob/master/classList.js */
+if ("document" in self) {
+  if (!("classList" in document.createElement("_"))) {
+    (function (j) {
+      "use strict";
+      if (!("Element" in j)) {
+        return;
+      }var a = "classList",
+          f = "prototype",
+          m = j.Element[f],
+          b = Object,
+          k = String[f].trim || function () {
+        return this.replace(/^\s+|\s+$/g, "");
+      },
+          c = Array[f].indexOf || function (q) {
+        var p = 0,
+            o = this.length;for (; p < o; p++) {
+          if (p in this && this[p] === q) {
+            return p;
+          }
+        }return -1;
+      },
+          n = function n(o, p) {
+        this.name = o;this.code = DOMException[o];this.message = p;
+      },
+          g = function g(p, o) {
+        if (o === "") {
+          throw new n("SYNTAX_ERR", "An invalid or illegal string was specified");
+        }if (/\s/.test(o)) {
+          throw new n("INVALID_CHARACTER_ERR", "String contains an invalid character");
+        }return c.call(p, o);
+      },
+          d = function d(s) {
+        var r = k.call(s.getAttribute("class") || ""),
+            q = r ? r.split(/\s+/) : [],
+            p = 0,
+            o = q.length;for (; p < o; p++) {
+          this.push(q[p]);
+        }this._updateClassName = function () {
+          s.setAttribute("class", this.toString());
+        };
+      },
+          e = d[f] = [],
+          i = function i() {
+        return new d(this);
+      };n[f] = Error[f];e.item = function (o) {
+        return this[o] || null;
+      };e.contains = function (o) {
+        o += "";return g(this, o) !== -1;
+      };e.add = function () {
+        var s = arguments,
+            r = 0,
+            p = s.length,
+            q,
+            o = false;do {
+          q = s[r] + "";if (g(this, q) === -1) {
+            this.push(q);o = true;
+          }
+        } while (++r < p);if (o) {
+          this._updateClassName();
+        }
+      };e.remove = function () {
+        var t = arguments,
+            s = 0,
+            p = t.length,
+            r,
+            o = false,
+            q;do {
+          r = t[s] + "";q = g(this, r);while (q !== -1) {
+            this.splice(q, 1);o = true;q = g(this, r);
+          }
+        } while (++s < p);if (o) {
+          this._updateClassName();
+        }
+      };e.toggle = function (p, q) {
+        p += "";var o = this.contains(p),
+            r = o ? q !== true && "remove" : q !== false && "add";if (r) {
+          this[r](p);
+        }if (q === true || q === false) {
+          return q;
+        } else {
+          return !o;
+        }
+      };e.toString = function () {
+        return this.join(" ");
+      };if (b.defineProperty) {
+        var l = { get: i, enumerable: true, configurable: true };try {
+          b.defineProperty(m, a, l);
+        } catch (h) {
+          if (h.number === -2146823252) {
+            l.enumerable = false;b.defineProperty(m, a, l);
+          }
+        }
+      } else {
+        if (b[f].__defineGetter__) {
+          m.__defineGetter__(a, i);
+        }
+      }
+    })(self);
+  } else {
+    (function () {
+      var b = document.createElement("_");b.classList.add("c1", "c2");if (!b.classList.contains("c2")) {
+        var c = function c(e) {
+          var d = DOMTokenList.prototype[e];DOMTokenList.prototype[e] = function (h) {
+            var g,
+                f = arguments.length;for (g = 0; g < f; g++) {
+              h = arguments[g];d.call(this, h);
+            }
+          };
+        };c("add");c("remove");
+      }b.classList.toggle("c3", false);if (b.classList.contains("c3")) {
+        var a = DOMTokenList.prototype.toggle;DOMTokenList.prototype.toggle = function (d, e) {
+          if (1 in arguments && !this.contains(d) === !e) {
+            return e;
+          } else {
+            return a.call(this, d);
+          }
+        };
+      }b = null;
+    })();
+  }
+};
+});
+
+require.register("countdown.js", function(exports, require, module) {
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Countdown = function () {
+  function Countdown() {
+    _classCallCheck(this, Countdown);
+  }
+
+  _createClass(Countdown, [{
+    key: 'start',
+    value: function start() {
+      if (this.started) {
+        console.log('started already');
+        return;
+      }
+      this.started = true;
+      var endDate = new Date(2016, 9, 16, 17);
+
+      var secondsEl = document.getElementsByClassName('seconds-count')[0];
+      var minutesEl = document.getElementsByClassName('minutes-count')[0];
+      var hoursEl = document.getElementsByClassName('hours-count')[0];
+      var daysEl = document.getElementsByClassName('days-count')[0];
+
+      var currentSeconds = parseInt(secondsEl.innerText);
+      var currentMinutes = parseInt(minutesEl.innerText);
+      var currentHours = parseInt(hoursEl.innerText);
+      var currentDays = parseInt(daysEl.innerText);
+
+      var MILLISECONDS_IN_SECOND = 1000;
+      var MILLISECONDS_IN_MINUTE = MILLISECONDS_IN_SECOND * 60;
+      var MILLISECONDS_IN_HOUR = MILLISECONDS_IN_MINUTE * 60;
+      var MILLISECONDS_IN_DAY = MILLISECONDS_IN_HOUR * 24;
+      window.setInterval(function () {
+        var now = new Date();
+        if (endDate.getTime() > now.getTime()) {
+          var difference = endDate.getTime() - now.getTime();
+          var days = Math.floor(difference / MILLISECONDS_IN_DAY);
+          difference -= days * MILLISECONDS_IN_DAY;
+          var hours = Math.floor(difference / MILLISECONDS_IN_HOUR);
+          difference -= hours * MILLISECONDS_IN_HOUR;
+          var minutes = Math.floor(difference / MILLISECONDS_IN_MINUTE);
+          difference -= minutes * MILLISECONDS_IN_MINUTE;
+          var seconds = Math.floor(difference / MILLISECONDS_IN_SECOND);
+
+          if (currentDays !== days) {
+            currentDays = days;
+            daysEl.innerText = days;
+          }
+          if (currentHours !== hours) {
+            currentHours = hours;
+            hoursEl.innerText = hours;
+          }
+          if (currentMinutes !== minutes) {
+            currentMinutes = minutes;
+            minutesEl.innerText = minutes;
+          }
+          if (currentSeconds !== seconds) {
+            currentSeconds = seconds;
+            secondsEl.innerText = seconds;
+          }
+        }
+
+        // TODO: Handle case when difference is negative. set everything to 0.
+      }, 250);
+    }
+  }]);
+
+  return Countdown;
+}();
+
+var __instance__ = new Countdown();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
+});
+
+require.register("dom.js", function(exports, require, module) {
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Dom = function () {
+  function Dom() {
+    _classCallCheck(this, Dom);
+  }
+
+  _createClass(Dom, null, [{
+    key: 'getScrollPosition',
+    value: function getScrollPosition() {
+      return document.documentElement.scrollTop || document.body.scrollTop;
+    }
+  }, {
+    key: 'getWindowHeight',
+    value: function getWindowHeight() {
+      return window.innerHeight;
+    }
+  }, {
+    key: 'getWindowWidth',
+    value: function getWindowWidth() {
+      return window.innerWidth;
+    }
+  }, {
+    key: 'getSize',
+    value: function getSize(element) {
+      return element && element.getBoundingClientRect();
+    }
+  }, {
+    key: 'setCssTransform',
+    value: function setCssTransform(element, value) {
+      element.style.webkitTransform = value;
+      element.style.MozTransform = value;
+      element.style.msTransform = value;
+      element.style.OTransform = value;
+      element.style.transform = value;
+    }
+  }, {
+    key: 'addEventListener',
+    value: function addEventListener(element, type, callback, opt_isCapturing) {
+      var ieType = 'on' + type;
+      if (element.addEventListener) {
+        element.addEventListener(type, callback, opt_isCapturing);
+      } else {
+        element.attachEvent(ieType, callback);
+      }
+    }
+  }, {
+    key: 'fitTextToScreen',
+    value: function fitTextToScreen(text, fontName, maxWidth, padding) {
+      var screenWidth = this.getWindowWidth();
+      var desiredTextWidth = screenWidth > maxWidth ? maxWidth : screenWidth;
+      desiredTextWidth -= padding;
+      return this.getFontHeightForWidth(text, fontName, desiredTextWidth);
+    }
+  }, {
+    key: 'getFontHeightForWidth',
+    value: function getFontHeightForWidth(text, fontName, desiredWidth) {
+      var canvas = document.body.getElementsByClassName('text-fitter')[0];
+      var context = canvas.getContext('2d');
+      context.font = '16px ' + fontName;
+      var width = context.measureText(text).width;
+      var height = 16;
+      var idealRatio = height / width;
+
+      return idealRatio * desiredWidth + 'px';
+    }
+  }]);
+
+  return Dom;
+}();
+
+module.exports = Dom;
+});
+
+require.register("header.js", function(exports, require, module) {
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Dom = require('dom');
+var PageAnimation = require('pageAnimation');
+
+var Header = function () {
+  function Header() {
+    _classCallCheck(this, Header);
+  }
+
+  _createClass(Header, [{
+    key: 'init',
+    value: function init() {
+      if (this.isInit) {
+        return;
+      }
+      this.isInit = true;
+      var headerButtons = document.getElementsByClassName('header-button');
+      var headerElement = document.getElementsByClassName('header')[0];
+
+      var _loop = function _loop(i) {
+        var headerButton = headerButtons[i];
+        var scrollToClass = headerButton.getAttribute('scrollto');
+        var scrollToElement = document.getElementsByClassName(scrollToClass)[0];
+        Dom.addEventListener(headerButton, 'click', function () {
+          headerElement.classList.remove('header-maximized');
+          PageAnimation.getInstance().scrollToElement(scrollToElement);
+        });
+      };
+
+      for (var i = 0; i < headerButtons.length; i++) {
+        _loop(i);
+      }
+
+      var hamburgerButton = document.getElementsByClassName('hamburger-icon')[0];
+      Dom.addEventListener(hamburgerButton, 'click', function () {
+        headerElement.classList.toggle('header-maximized');
+      });
+    }
+  }]);
+
+  return Header;
+}();
+
+var __instance__ = new Header();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
+});
+
+require.register("imageLoader.js", function(exports, require, module) {
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ImageLoader = function () {
+  function ImageLoader() {
+    _classCallCheck(this, ImageLoader);
+  }
+
+  _createClass(ImageLoader, [{
+    key: 'init',
+    value: function init() {
+      var spinner = $('.uil-ring-css');
+      spinner.css('margin-left', spinner.offset().left + 'px');
+      var fakeSrcs = $('img[src]');
+      var numSrcs = fakeSrcs.length;
+      var srcsLoaded = 0;
+      fakeSrcs.each(function (i, element) {
+        var fakeImage = new Image();
+        fakeImage.onload = function () {
+          srcsLoaded++;
+          if (srcsLoaded >= numSrcs) {
+            $('.loading-container').fadeOut(500);
+            document.body.style.overflow = 'auto';
+          }
+        };
+        fakeImage.src = element.src;
+      });
+    }
+  }]);
+
+  return ImageLoader;
+}();
+
+var __instance__ = new ImageLoader();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
+});
+
+;require.register("infoCards.js", function(exports, require, module) {
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Dom = require('dom');
+
+var InfoCards = function () {
+  function InfoCards() {
+    _classCallCheck(this, InfoCards);
+  }
+
+  _createClass(InfoCards, [{
+    key: 'init',
+    value: function init() {
+      if (this.isInit) {
+        return;
+      }
+      this.isInit = true;
+      this.resize();
+    }
+  }, {
+    key: 'resize',
+    value: function resize() {
+      var cards = document.getElementsByClassName('info-card-content');
+      var requiredSize = 0;
+      for (var i = 0; i < cards.length; i++) {
+        cards[i].style.height = 'auto';
+        var cardHeight = Dom.getSize(cards[i]).height;
+        if (cardHeight > requiredSize) {
+          requiredSize = cardHeight;
+        }
+      }
+      for (var _i = 0; _i < cards.length; _i++) {
+        cards[_i].style.height = requiredSize - 10 + 'px';
+      }
+    }
+  }]);
+
+  return InfoCards;
+}();
+
+var __instance__ = new InfoCards();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
+});
+
+require.register("initialize.js", function(exports, require, module) {
+'use strict';
+
+var Countdown = require('countdown');
+var Dom = require('dom');
+var Header = require('header');
+var InfoCards = require('infoCards');
+var ImageLoader = require('imageLoader');
+
+var positionInPage;
+
+var handleResize = function handleResize() {
+  InfoCards.getInstance().resize();
+
+  var splashTextEl = document.getElementsByClassName('first-page-title')[0];
+  // Set size of the first page text.
+  splashTextEl.style.fontSize = Dom.fitTextToScreen(splashTextEl.textContent.trim(), 'Damion', 500, 20);
+  splashTextEl = document.getElementsByClassName('first-page-subtitle')[0];
+  // Set size of the first page text.
+  splashTextEl.style.fontSize = Dom.fitTextToScreen(splashTextEl.textContent.trim(), 'Damion', 250, 100);
+
+  var titleElements = document.getElementsByClassName('section-title-text');
+  for (var i = 0; i < titleElements.length; i++) {
+    var titleEl = titleElements[i];
+    titleEl.style.fontSize = Dom.fitTextToScreen(titleEl.textContent.trim(), 'Damion', 550, 70);
+  }
+};
+
+var handleScroll = function handleScroll(e) {
+  var positionInPage = Dom.getScrollPosition();
+  var headerEl = document.getElementsByClassName('header')[0];
+  var hasScrolledCss = headerEl.classList.contains('header-scrolled');
+  if (positionInPage > Dom.getWindowHeight() - 40 && !hasScrolledCss) {
+    headerEl.classList.add('header-scrolled');
+  } else if (positionInPage < Dom.getWindowHeight() - 40 && hasScrolledCss) {
+    headerEl.classList.remove('header-scrolled');
+  }
+};
+
+var openUrl = function openUrl(url) {
+  return function () {
+    var win = window.open(url, '_blank');
+  };
+};
+
+var init = function init() {
+  ImageLoader.getInstance().init();
+
+  Dom.addEventListener(window, 'resize', handleResize);
+  Dom.addEventListener(window, 'scroll', handleScroll);
+
+  var frontPage = document.getElementsByClassName('first-page')[0];
+  frontPage.style.height = Dom.getWindowHeight() + 'px';
+
+  $("span[src]").each(function (i, element) {
+    Dom.addEventListener(element, 'click', openUrl(element.getAttribute('src')));
+  });
+  $("div[src]").each(function (i, element) {
+    Dom.addEventListener(element, 'click', openUrl(element.getAttribute('src')));
+  });
+
+  Countdown.getInstance().start();
+  Header.getInstance().init();
+  InfoCards.getInstance().init();
+  handleResize();
+  handleScroll();
+
+  window.sr = ScrollReveal();
+  sr.reveal('.bridal-party-member', { duration: 400 });
+  sr.reveal('.info-card', { duration: 400 });
+};
+
+jQuery(document).ready(function ($) {
+  init();
+
+  // Init the scroller library.
+  $.Scrollax();
+  $.fn.coverImage = function (contain) {
+    this.each(function () {
+      var $this = $(this),
+          src = $this.get(0).src,
+          $wrapper = $this.parent();
+
+      if (contain) {
+        $wrapper.css({
+          'background': 'url(' + src + ') 50% 50%/contain no-repeat'
+        });
+      } else {
+        $wrapper.css({
+          'background': 'url(' + src + ') 50% 50%/cover no-repeat'
+        });
+      }
+
+      $this.remove();
+    });
+
+    return this;
+  };
+  $('.cover-image').coverImage();
+});
+});
+
+require.register("maths.js", function(exports, require, module) {
+"use strict";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Maths = function () {
+  function Maths() {
+    _classCallCheck(this, Maths);
+  }
+
+  _createClass(Maths, null, [{
+    key: "easeOutQuad",
+    value: function easeOutQuad(t, b, c, d) {
+      t /= d;
+      return -c * t * (t - 2) + b;
+    }
+  }, {
+    key: "easeInOutQuad",
+    value: function easeInOutQuad(t, b, c, d) {
+      t /= d / 2;
+      if (t < 1) return c / 2 * t * t + b;
+      t--;
+      return -c / 2 * (t * (t - 2) - 1) + b;
+    }
+  }, {
+    key: "Rect",
+    value: function Rect(height, width) {
+      this.height = height;
+      this.width = width;
+    }
+  }]);
+
+  return Maths;
+}();
+
+module.exports = Maths;
+});
+
+require.register("objectpolyfill.js", function(exports, require, module) {
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+if (!Object.keys) {
+  Object.keys = function () {
+    'use strict';
+
+    var hasOwnProperty = Object.prototype.hasOwnProperty,
+        hasDontEnumBug = !{ toString: null }.propertyIsEnumerable('toString'),
+        dontEnums = ['toString', 'toLocaleString', 'valueOf', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable', 'constructor'],
+        dontEnumsLength = dontEnums.length;
+
+    return function (obj) {
+      if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) !== 'object' && (typeof obj !== 'function' || obj === null)) {
+        throw new TypeError('Object.keys called on non-object');
+      }
+
+      var result = [],
+          prop,
+          i;
+
+      for (prop in obj) {
+        if (hasOwnProperty.call(obj, prop)) {
+          result.push(prop);
+        }
+      }
+
+      if (hasDontEnumBug) {
+        for (i = 0; i < dontEnumsLength; i++) {
+          if (hasOwnProperty.call(obj, dontEnums[i])) {
+            result.push(dontEnums[i]);
+          }
+        }
+      }
+      return result;
+    };
+  }();
+}
+});
+
+;require.register("pageAnimation.js", function(exports, require, module) {
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Animator = require('animator');
+var Dom = require('dom');
+var Maths = require('maths');
+
+var PageAnimation = function () {
+  function PageAnimation() {
+    _classCallCheck(this, PageAnimation);
+
+    this.HASH = 'pageAnimationHash';
+    this.SCROLL_ANIM_DURATION = 500;
+    this.easeScrollEndTime = 0;
+    this.easeScrollPositionStart = 0;
+    this.easeScrollPositionEnd = 0;
+    this.lastStartScroll = 0;
+    this.isAnimating = false;
+    this.animatorHash = -1;
+  }
+
+  _createClass(PageAnimation, [{
+    key: 'scrollToElement',
+    value: function scrollToElement(element) {
+      var animator = Animator.getInstance();
+      animator.cancelAnimation(this.HASH);
+      var scrollTo = element.offsetTop;
+      this.easeScrollPositionEnd = scrollTo;
+      this.easeScrollEndTime = new Date().getTime() + this.SCROLL_ANIM_DURATION;
+      var top = Dom.getScrollPosition();
+      this.easeScrollPositionStart = top;
+      this.lastStartScroll = top;
+      var boundFn = this.pageAnimationFn.bind(this);
+      animator.startAnimation(boundFn, this.HASH);
+      this.isAnimating = true;
+    }
+  }, {
+    key: 'pageAnimationFn',
+    value: function pageAnimationFn(currentTime) {
+      var isComplete = false;
+      if (currentTime > this.easeScrollEndTime) {
+        this.lastStartScroll = this.easeScrollPositionEnd;
+        isComplete = true;
+        this.isAnimating = false;
+      } else {
+        var startTime = this.easeScrollEndTime - this.SCROLL_ANIM_DURATION;
+        var calc = Maths.easeInOutQuad(currentTime - startTime, this.easeScrollPositionStart, this.easeScrollPositionEnd - this.easeScrollPositionStart, this.SCROLL_ANIM_DURATION);
+        this.lastStartScroll = calc;
+      }
+      window.scrollTo(0, this.lastStartScroll);
+      return isComplete;
+    }
+  }]);
+
+  return PageAnimation;
+}();
+
+var __instance__ = new PageAnimation();
+module.exports = {
+  getInstance: function getInstance() {
+    return __instance__;
+  }
+};
+});
+
+require.register("readyPolyfill.js", function(exports, require, module) {
+"use strict";
+
+var ready = function () {
+
+    var readyList,
+        _DOMContentLoaded2,
+        class2type = {};
+    class2type["[object Boolean]"] = "boolean";
+    class2type["[object Number]"] = "number";
+    class2type["[object String]"] = "string";
+    class2type["[object Function]"] = "function";
+    class2type["[object Array]"] = "array";
+    class2type["[object Date]"] = "date";
+    class2type["[object RegExp]"] = "regexp";
+    class2type["[object Object]"] = "object";
+
+    var ReadyObj = {
+        // Is the DOM ready to be used? Set to true once it occurs.
+        isReady: false,
+        // A counter to track how many items to wait for before
+        // the ready event fires. See #6781
+        readyWait: 1,
+        // Hold (or release) the ready event
+        holdReady: function holdReady(hold) {
+            if (hold) {
+                ReadyObj.readyWait++;
+            } else {
+                ReadyObj.ready(true);
+            }
+        },
+        // Handle when the DOM is ready
+        ready: function ready(wait) {
+            // Either a released hold or an DOMready/load event and not yet ready
+            if (wait === true && ! --ReadyObj.readyWait || wait !== true && !ReadyObj.isReady) {
+                // Make sure body exists, at least, in case IE gets a little overzealous (ticket #5443).
+                if (!document.body) {
+                    return setTimeout(ReadyObj.ready, 1);
+                }
+
+                // Remember that the DOM is ready
+                ReadyObj.isReady = true;
+                // If a normal DOM Ready event fired, decrement, and wait if need be
+                if (wait !== true && --ReadyObj.readyWait > 0) {
+                    return;
+                }
+                // If there are functions bound, to execute
+                readyList.resolveWith(document, [ReadyObj]);
+
+                // Trigger any bound ready events
+                //if ( ReadyObj.fn.trigger ) {
+                //  ReadyObj( document ).trigger( "ready" ).unbind( "ready" );
+                //}
+            }
+        },
+        bindReady: function bindReady() {
+            if (readyList) {
+                return;
+            }
+            readyList = ReadyObj._Deferred();
+
+            // Catch cases where $(document).ready() is called after the
+            // browser event has already occurred.
+            if (document.readyState === "complete") {
+                // Handle it asynchronously to allow scripts the opportunity to delay ready
+                return setTimeout(ReadyObj.ready, 1);
+            }
+
+            // Mozilla, Opera and webkit nightlies currently support this event
+            if (document.addEventListener) {
+                // Use the handy event callback
+                document.addEventListener("DOMContentLoaded", _DOMContentLoaded2, false);
+                // A fallback to window.onload, that will always work
+                window.addEventListener("load", ReadyObj.ready, false);
+
+                // If IE event model is used
+            } else if (document.attachEvent) {
+                    // ensure firing before onload,
+                    // maybe late but safe also for iframes
+                    document.attachEvent("onreadystatechange", _DOMContentLoaded2);
+
+                    // A fallback to window.onload, that will always work
+                    window.attachEvent("onload", ReadyObj.ready);
+
+                    // If IE and not a frame
+                    // continually check to see if the document is ready
+                    var toplevel = false;
+
+                    try {
+                        toplevel = window.frameElement == null;
+                    } catch (e) {}
+
+                    if (document.documentElement.doScroll && toplevel) {
+                        doScrollCheck();
+                    }
+                }
+        },
+        _Deferred: function _Deferred() {
+            var // callbacks list
+            callbacks = [],
+
+            // stored [ context , args ]
+            fired,
+
+            // to avoid firing when already doing so
+            firing,
+
+            // flag to know if the deferred has been cancelled
+            cancelled,
+
+            // the deferred itself
+            deferred = {
+
+                // done( f1, f2, ...)
+                done: function done() {
+                    if (!cancelled) {
+                        var args = arguments,
+                            i,
+                            length,
+                            elem,
+                            type,
+                            _fired;
+                        if (fired) {
+                            _fired = fired;
+                            fired = 0;
+                        }
+                        for (i = 0, length = args.length; i < length; i++) {
+                            elem = args[i];
+                            type = ReadyObj.type(elem);
+                            if (type === "array") {
+                                deferred.done.apply(deferred, elem);
+                            } else if (type === "function") {
+                                callbacks.push(elem);
+                            }
+                        }
+                        if (_fired) {
+                            deferred.resolveWith(_fired[0], _fired[1]);
+                        }
+                    }
+                    return this;
+                },
+
+                // resolve with given context and args
+                resolveWith: function resolveWith(context, args) {
+                    if (!cancelled && !fired && !firing) {
+                        // make sure args are available (#8421)
+                        args = args || [];
+                        firing = 1;
+                        try {
+                            while (callbacks[0]) {
+                                callbacks.shift().apply(context, args); //shifts a callback, and applies it to document
+                            }
+                        } finally {
+                            fired = [context, args];
+                            firing = 0;
+                        }
+                    }
+                    return this;
+                },
+
+                // resolve with this as context and given arguments
+                resolve: function resolve() {
+                    deferred.resolveWith(this, arguments);
+                    return this;
+                },
+
+                // Has this deferred been resolved?
+                isResolved: function isResolved() {
+                    return !!(firing || fired);
+                },
+
+                // Cancel
+                cancel: function cancel() {
+                    cancelled = 1;
+                    callbacks = [];
+                    return this;
+                }
+            };
+
+            return deferred;
+        },
+        type: function type(obj) {
+            return obj == null ? String(obj) : class2type[Object.prototype.toString.call(obj)] || "object";
+        }
+    };
+    // The DOM ready check for Internet Explorer
+    function doScrollCheck() {
+        if (ReadyObj.isReady) {
+            return;
+        }
+
+        try {
+            // If IE is used, use the trick by Diego Perini
+            // http://javascript.nwbox.com/IEContentLoaded/
+            document.documentElement.doScroll("left");
+        } catch (e) {
+            setTimeout(doScrollCheck, 1);
+            return;
+        }
+
+        // and execute any waiting functions
+        ReadyObj.ready();
+    }
+    // Cleanup functions for the document ready method
+    if (document.addEventListener) {
+        _DOMContentLoaded2 = function DOMContentLoaded() {
+            document.removeEventListener("DOMContentLoaded", _DOMContentLoaded2, false);
+            ReadyObj.ready();
+        };
+    } else if (document.attachEvent) {
+        _DOMContentLoaded2 = function _DOMContentLoaded() {
+            // Make sure body exists, at least, in case IE gets a little overzealous (ticket #5443).
+            if (document.readyState === "complete") {
+                document.detachEvent("onreadystatechange", _DOMContentLoaded2);
+                ReadyObj.ready();
+            }
+        };
+    }
+    function ready(fn) {
+        // Attach the listeners
+        ReadyObj.bindReady();
+
+        var type = ReadyObj.type(fn);
+
+        // Add the callback
+        readyList.done(fn); //readyList is result of _Deferred()
+    }
+    return ready;
+}();
+});
+
+require.register("requestAnimationFrame.js", function(exports, require, module) {
+'use strict';
+
+// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+
+// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
+
+// MIT license
+
+(function () {
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+    }
+
+    if (!window.requestAnimationFrame) window.requestAnimationFrame = function (callback, element) {
+        var currTime = new Date().getTime();
+        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+        var id = window.setTimeout(function () {
+            callback(currTime + timeToCall);
+        }, timeToCall);
+        lastTime = currTime + timeToCall;
+        return id;
+    };
+
+    if (!window.cancelAnimationFrame) window.cancelAnimationFrame = function (id) {
+        clearTimeout(id);
+    };
+})();
+});
+
+require.register("textcontentpolyfill.js", function(exports, require, module) {
+"use strict";
+
+if (Object.defineProperty && Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor(Element.prototype, "textContent") && !Object.getOwnPropertyDescriptor(Element.prototype, "textContent").get) {
+  (function () {
+    var innerText = Object.getOwnPropertyDescriptor(Element.prototype, "innerText");
+    Object.defineProperty(Element.prototype, "textContent", {
+      get: function get() {
+        return innerText.get.call(this);
+      },
+      set: function set(s) {
+        return innerText.set.call(this, s);
+      }
+    });
+  })();
+}
+});
+
+;require.register("trimpolyfill.js", function(exports, require, module) {
+'use strict';
+
+if (!String.prototype.trim) {
+  String.prototype.trim = function () {
+    return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+  };
+}
+});
+
+;
+//# sourceMappingURL=app.js.map

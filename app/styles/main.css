@@ -686,7 +686,7 @@ body {
   transform: translateY(-50%);
   z-index:5;
   position: absolute;
-  top: 35%;
+  top: 40%;
   color: var(--darkerBlue);
   text-align: center;
 }
